@@ -23,6 +23,7 @@
     <ProjectGuid>{C6A1A874-BB57-4BCF-A9CE-91788D470CC8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CppCodeProvider</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -74,6 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>E:\boost\boost_1_67_0;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -103,11 +105,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +160,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CppCodeProvider.cpp" />
+    <ClCompile Include="features\expressions\binary_expressions.cpp" />
+    <ClCompile Include="features\expressions\common.cpp" />
+    <ClCompile Include="features\expressions\expression_type.cpp" />
+    <ClCompile Include="features\expressions\unary_expressions.cpp" />
+    <ClCompile Include="tests\features\expressions\binary_expression_tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="exceptions.h" />
+    <ClInclude Include="features\expressions.h" />
+    <ClInclude Include="features\expressions\binary_expressions.h" />
+    <ClInclude Include="features\expressions\common.h" />
+    <ClInclude Include="features\expressions\expression_types.h" />
+    <ClInclude Include="features\expressions\unary_expressions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
