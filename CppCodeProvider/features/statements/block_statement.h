@@ -12,10 +12,11 @@ namespace cpp::codeprovider::statements
 	{
 		std::vector<std::unique_ptr<statement>> collection;
 	public:
-		std::vector<std::unique_ptr<statement>>& statements();
-		std::vector<std::unique_ptr<statement>>& statements() const;
 		block_statement();
 		block_statement(const block_statement&);
+
+		std::vector<std::unique_ptr<statement>>& statements();
+		std::vector<std::unique_ptr<statement>>& statements() const;
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

@@ -18,20 +18,23 @@ namespace cpp::codeprovider::statements
 	void jump_statement::write(ostream& os) const
 	{
 		auto indent = formatter_settings::settings.get_indent_string();
+		if (comment.size() > 0)
+			os << indent << "//" << comment << endl;
 
+		os << indent;
 		switch (j_type)
 		{
 		case jump_type::continue_jump:
-			os << indent << "continue;" << endl;
+			os << "continue;" << endl;
 			break;
 		case jump_type::break_jump:
-			os << indent << "break;" << endl;
+			os << "break;" << endl;
 			break;
 		case jump_type::goto_jump:
-			os << indent << "goto " << *e1 << endl;
+			os << "goto " << *e1 << endl;
 			break;
 		case jump_type::return_jump:
-			os << indent << "return ";
+			os << "return ";
 			if (e1)
 				os << *e1;
 			os << ";" << endl;

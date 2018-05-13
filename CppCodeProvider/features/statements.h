@@ -7,5 +7,6 @@
 #include "statements\for_loop.h"
 #include "statements\while_loop.h"
 #include "statements\jump_statements.h"
+#include "statements\switch_statement.h"
 
 #endif

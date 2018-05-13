@@ -25,7 +25,10 @@ namespace cpp::codeprovider::statements
 	void while_loop::write(ostream& os) const
 	{
 		auto indent = formatter_settings::settings.get_indent_string();
+		if (comment.size() > 0)
+			os << indent << "//" << comment << endl;
 
+		os << indent;
 		if (loop_style == while_loop_style::while_loop)
 			os << "while( " << *condition_exp << " )" << endl;
 		else
@@ -33,7 +36,7 @@ namespace cpp::codeprovider::statements
 		if (body)
 			os << *body;
 		if (loop_style == while_loop_style::do_while_loop)
-			os << "while(" << *condition_exp << ");" << endl;
+			os << indent << "while(" << *condition_exp << ");" << endl;
 	}
 
 	const expression& while_loop::condition() const

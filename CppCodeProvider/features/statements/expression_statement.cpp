@@ -4,6 +4,7 @@ namespace cpp::codeprovider::statements
 {
 	using namespace std;
 	using namespace expressions;
+	using namespace formatting;
 
 	expression_statement::expression_statement(unique_ptr<expression> e)
 		: e1(move(e))
@@ -17,7 +18,10 @@ namespace cpp::codeprovider::statements
 
 	void expression_statement::write(ostream& os) const
 	{
-		os << *e1 << ";" << endl;
+		auto indent = formatter_settings::settings.get_indent_string();
+		if (comment.size() > 0)
+			os << indent << "//" << comment << endl;
+		os << indent << *e1 << ";" << endl;
 	}
 
 	unique_ptr<statement> expression_statement::clone() const

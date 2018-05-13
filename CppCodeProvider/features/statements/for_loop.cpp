@@ -12,7 +12,7 @@ namespace cpp::codeprovider::statements
 	}
 
 	for_loop::for_loop(const for_loop& other)
-		: //body(other.body->clone()), 
+		: body(make_unique<block_statement>(*other.body)), 
 		init(other.init->clone()),
 		condition_exp(other.condition_exp->clone()),
 		loop_exp(other.loop_exp->clone())
@@ -28,6 +28,8 @@ namespace cpp::codeprovider::statements
 	{
 		auto indent = formatter_settings::settings.get_indent_string();
 
+		if (comment.size() > 0)
+			os << indent << "//" << comment << endl;
 		os << "for( ";
 		if (init)
 			os << *init;
