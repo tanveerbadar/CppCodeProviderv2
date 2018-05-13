@@ -4,7 +4,6 @@
 #pragma once
 
 #include <iostream>
-#include <mediaerr.h>
 
 namespace cpp::codeprovider::statements
 {
@@ -14,6 +13,8 @@ namespace cpp::codeprovider::statements
 		virtual std::unique_ptr<statement> clone() const = 0;
 		virtual ~statement() = 0;
 	};
+
+	std::ostream& operator <<(std::ostream& os, const statement& expr);
 }
 
 #endif // !COMMON_STATEMENT_HEADER

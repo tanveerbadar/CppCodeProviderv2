@@ -3,16 +3,19 @@
 
 #pragma once
 #include "common.h"
+#include "..\expressions\common.h"
 
 namespace cpp::codeprovider::statements
 {
-	class expression;
-
-	class expression_statement
+	class expression_statement : public statement
 	{
-		std::unique_ptr<expression> e1;
+		std::unique_ptr<primitives::expression> e1;
 	public:
-		expression_statement(std::unique_ptr<expression>);
+		expression_statement(std::unique_ptr<primitives::expression>);
+		expression_statement(const expression_statement&);
+
+		std::unique_ptr<statement> clone() const override;
+		void write(std::ostream&) const override;
 	};
 }
 
