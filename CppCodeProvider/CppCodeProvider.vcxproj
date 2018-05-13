@@ -163,6 +163,7 @@
     <ClCompile Include="features\expressions\binary_expressions.cpp" />
     <ClCompile Include="features\expressions\expression_common.cpp" />
     <ClCompile Include="features\expressions\expression_type.cpp" />
+    <ClCompile Include="features\expressions\ternary_expression.cpp" />
     <ClCompile Include="features\expressions\unary_expressions.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="features\expressions\binary_expressions.h" />
     <ClInclude Include="features\expressions\common.h" />
     <ClInclude Include="features\expressions\expression_types.h" />
+    <ClInclude Include="features\expressions\ternary_expression.h" />
     <ClInclude Include="features\expressions\unary_expressions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
