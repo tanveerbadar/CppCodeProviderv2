@@ -6,7 +6,7 @@
 #include "expression_types.h"
 #include "common.h"
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	class binary_expression : public expression
 	{

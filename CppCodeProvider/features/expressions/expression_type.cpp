@@ -1,7 +1,7 @@
 #include <iostream>
 #include "expression_types.h"
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	using namespace std;
 

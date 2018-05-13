@@ -3,7 +3,7 @@
 #include "..\..\..\features\expressions.h"
 
 using namespace std;
-using namespace cpp::codeprovider::primitives;
+using namespace cpp::codeprovider::expressions;
 
 BOOST_AUTO_TEST_CASE(construction_test)
 {

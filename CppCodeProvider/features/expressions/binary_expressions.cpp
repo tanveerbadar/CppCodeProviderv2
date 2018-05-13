@@ -1,7 +1,7 @@
 #include "binary_expressions.h"
 #include "..\..\exceptions.h"
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	using namespace std;
 
