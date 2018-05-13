@@ -3,7 +3,7 @@
 namespace cpp::codeprovider::statements
 {
 	using namespace std;
-	using namespace primitives;
+	using namespace expressions;
 
 	expression_statement::expression_statement(unique_ptr<expression> e)
 		: e1(move(e))

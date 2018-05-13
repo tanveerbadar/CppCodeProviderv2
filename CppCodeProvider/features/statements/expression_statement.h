@@ -9,9 +9,9 @@ namespace cpp::codeprovider::statements
 {
 	class expression_statement : public statement
 	{
-		std::unique_ptr<primitives::expression> e1;
+		std::unique_ptr<expressions::expression> e1;
 	public:
-		expression_statement(std::unique_ptr<primitives::expression>);
+		expression_statement(std::unique_ptr<expressions::expression>);
 		expression_statement(const expression_statement&);
 
 		std::unique_ptr<statement> clone() const override;
