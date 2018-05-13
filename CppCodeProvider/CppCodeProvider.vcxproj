@@ -164,8 +164,12 @@
     <ClCompile Include="features\expressions\expression_common.cpp" />
     <ClCompile Include="features\expressions\expression_type.cpp" />
     <ClCompile Include="features\expressions\unary_expressions.cpp" />
+    <ClCompile Include="features\statements\block_statement.cpp" />
+    <ClCompile Include="features\statements\for_loop.cpp" />
+    <ClCompile Include="features\statements\jump_statements.cpp" />
     <ClCompile Include="features\statements\statement_common.cpp" />
     <ClCompile Include="features\statements\expression_statement.cpp" />
+    <ClCompile Include="features\statements\while_loop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.h" />
@@ -174,9 +178,14 @@
     <ClInclude Include="features\expressions\common.h" />
     <ClInclude Include="features\expressions\expression_types.h" />
     <ClInclude Include="features\expressions\unary_expressions.h" />
+    <ClInclude Include="features\statements\for_loop.h" />
+    <ClInclude Include="features\statements\jump_statements.h" />
+    <ClInclude Include="features\statements\while_loop.h" />
+    <ClInclude Include="formatters\formatter_settings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="features\statements.h" />
+    <ClInclude Include="features\statements\block_statement.h" />
     <ClInclude Include="features\statements\common.h" />
     <ClInclude Include="features\statements\expression_statement.h" />
   </ItemGroup>
