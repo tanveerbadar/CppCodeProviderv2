@@ -1,6 +1,6 @@
 #include "common.h"
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	using namespace std;
 

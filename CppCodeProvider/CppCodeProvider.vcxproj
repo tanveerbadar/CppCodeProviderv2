@@ -161,10 +161,9 @@
   <ItemGroup>
     <ClCompile Include="CppCodeProvider.cpp" />
     <ClCompile Include="features\expressions\binary_expressions.cpp" />
-    <ClCompile Include="features\expressions\common.cpp" />
+    <ClCompile Include="features\expressions\expression_common.cpp" />
     <ClCompile Include="features\expressions\expression_type.cpp" />
     <ClCompile Include="features\expressions\unary_expressions.cpp" />
-    <ClCompile Include="tests\features\expressions\binary_expression_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.h" />

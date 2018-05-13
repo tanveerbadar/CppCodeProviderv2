@@ -7,7 +7,7 @@
 #include "expression_types.h"
 #include "common.h"
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	class unary_expression : public expression
 	{

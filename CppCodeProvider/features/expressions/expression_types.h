@@ -2,7 +2,7 @@
 #define BINARY_EXPRESSION_TYPE
 #pragma once
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	enum class expression_type
 	{
@@ -210,7 +210,7 @@ namespace cpp::codeprovider::primitives
 		decltype_exp,
 	};
 
-	std::ostream& operator <<(std::ostream& os, primitives::expression_type type);
+	std::ostream& operator <<(std::ostream& os, expressions::expression_type type);
 }
 
 #endif

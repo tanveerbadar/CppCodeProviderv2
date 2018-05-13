@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-namespace cpp::codeprovider::primitives
+namespace cpp::codeprovider::expressions
 {
 	struct expression
 	{
