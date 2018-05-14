@@ -167,6 +167,7 @@
     <ClCompile Include="features\expressions\unary_expressions.cpp" />
     <ClCompile Include="features\statements\block_statement.cpp" />
     <ClCompile Include="features\statements\for_loop.cpp" />
+    <ClCompile Include="features\statements\if_statment.cpp" />
     <ClCompile Include="features\statements\jump_statements.cpp" />
     <ClCompile Include="features\statements\statement_common.cpp" />
     <ClCompile Include="features\statements\expression_statement.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="features\expressions\ternary_expression.h" />
     <ClInclude Include="features\expressions\unary_expressions.h" />
     <ClInclude Include="features\statements\for_loop.h" />
+    <ClInclude Include="features\statements\if_statement.h" />
     <ClInclude Include="features\statements\jump_statements.h" />
     <ClInclude Include="features\statements\switch_statement.h" />
     <ClInclude Include="features\statements\while_loop.h" />

@@ -1,4 +1,5 @@
 #include "switch_statement.h"
+#include "..\expressions\unary_expressions.h"
 
 namespace cpp::codeprovider::statements
 {
@@ -17,7 +18,7 @@ namespace cpp::codeprovider::statements
 	}
 
 	case_statement::case_statement(const case_statement& other)
-		: e(other.e->clone()), statements(make_unique<block_statement>(*other.statements))
+		: e(other.e ? other.e->clone() : make_unique<primitive_expression>("")), statements(make_unique<block_statement>(*other.statements))
 	{
 	}
 
@@ -33,7 +34,8 @@ namespace cpp::codeprovider::statements
 
 	bool case_statement::has_label() const
 	{
-		return !!e;
+		auto ptr = dynamic_cast<primitive_expression*>(e.get());
+		return ptr && ptr->expr().size() > 0;
 	}
 
 	ostream& operator<<(ostream& os, const case_statement& c)

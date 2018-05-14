@@ -8,5 +8,6 @@
 #include "statements\while_loop.h"
 #include "statements\jump_statements.h"
 #include "statements\switch_statement.h"
+#include "statements\if_statement.h"
 
 #endif
