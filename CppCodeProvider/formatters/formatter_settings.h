@@ -11,8 +11,8 @@ namespace cpp::codeprovider::formatting
 	{
 		static formatter_settings settings;
 
-		int indent_level;
-		char indent_char;
+		int indent_level = { 4 };
+		char indent_char = { ' ' };
 
 		std::string get_indent_string() const
 		{

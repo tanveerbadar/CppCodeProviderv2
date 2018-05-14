@@ -12,7 +12,7 @@ namespace cpp::codeprovider::statements
 	}
 
 	while_loop::while_loop(const while_loop& other)
-		: //body(other.body->clone()), 
+		: body(make_unique<block_statement>(*other.body)),
 		condition_exp(other.condition_exp->clone())
 	{
 	}
