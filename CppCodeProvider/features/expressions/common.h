@@ -6,8 +6,9 @@
 
 namespace cpp::codeprovider::expressions
 {
-	struct expression
+	class expression
 	{
+	public:
 		virtual void write(std::ostream&) const = 0;
 		virtual std::unique_ptr<expression> clone() const = 0;
 		virtual ~expression() = 0;
