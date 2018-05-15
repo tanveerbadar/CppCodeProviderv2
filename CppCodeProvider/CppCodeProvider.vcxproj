@@ -172,6 +172,7 @@
     <ClCompile Include="features\statements\statement_common.cpp" />
     <ClCompile Include="features\statements\expression_statement.cpp" />
     <ClCompile Include="features\statements\switch_statement.cpp" />
+    <ClCompile Include="features\statements\try_statement.cpp" />
     <ClCompile Include="features\statements\while_loop.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="features\statements\if_statement.h" />
     <ClInclude Include="features\statements\jump_statements.h" />
     <ClInclude Include="features\statements\switch_statement.h" />
+    <ClInclude Include="features\statements\try_statement.h" />
     <ClInclude Include="features\statements\while_loop.h" />
     <ClInclude Include="formatters\formatter_settings.h" />
   </ItemGroup>
