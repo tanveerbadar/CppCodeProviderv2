@@ -7,34 +7,6 @@ namespace cpp::codeprovider::expressions
 
 	namespace
 	{
-		bool is_valid_expression(expression_type type)
-		{
-			switch (type)
-			{
-			case expression_type::address_of:
-			case expression_type::complement:
-			case expression_type::not_exp:
-			case expression_type::negate:
-			case expression_type::parenthesis:
-			case expression_type::plus:
-			case expression_type::postfix_decrement:
-			case expression_type::postfix_increment:
-			case expression_type::prefix_decrement:
-			case expression_type::prefix_increment:
-			case expression_type::throw_exp:
-			case expression_type::size_of:
-			case expression_type::decltype_exp:
-				//case expression_type::static_cast_exp:
-			//case expression_type::const_cast_exp:
-			//case expression_type::reinterpret_cast_exp:
-			//case expression_type::dynamic_cast_exp:
-			//case expression_type::c_cast_exp:
-				return true;
-			default:
-				return false;
-			}
-		}
-
 		bool is_postfix_operator(expression_type type)
 		{
 			return type == expression_type::postfix_decrement || type == expression_type::postfix_increment;
@@ -42,7 +14,7 @@ namespace cpp::codeprovider::expressions
 	}
 
 	unary_expression::unary_expression(expression_type t, unique_ptr<expression> expr)
-		: e_type(is_valid_expression(t) ? t : throw exceptions::invalid_expression_type("unary expression does not expect type.")), e1(move(expr))
+		: e_type(t), e1(move(expr))
 	{
 	}
 
