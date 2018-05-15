@@ -15,10 +15,10 @@ namespace cpp::codeprovider::statements
 {
 	class for_loop : public statement
 	{
-		std::unique_ptr<block_statement> body;
+		block_statement body;
 		std::unique_ptr<expressions::expression> init, loop_exp, condition_exp;
 	public:
-		for_loop();
+		for_loop() = default;
 		for_loop(const for_loop&);
 
 		const expressions::expression& initializer() const;
@@ -27,7 +27,7 @@ namespace cpp::codeprovider::statements
 		for_loop& condition(std::unique_ptr<expressions::expression>);
 		const expressions::expression& loop() const;
 		for_loop& loop(std::unique_ptr<expressions::expression>);
-		block_statement& loop_body() const;
+		block_statement& loop_body();
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

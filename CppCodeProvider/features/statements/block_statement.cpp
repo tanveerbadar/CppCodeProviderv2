@@ -44,4 +44,9 @@ namespace cpp::codeprovider::statements
 	{
 		return collection;
 	}
+
+	const vector<unique_ptr<statement>>& block_statement::statements() const
+	{
+		return collection;
+	}
 }

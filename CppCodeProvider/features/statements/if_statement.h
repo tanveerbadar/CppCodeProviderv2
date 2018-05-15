@@ -15,15 +15,13 @@ namespace cpp::codeprovider::statements
 {
 	class if_statement : public statement
 	{
-		std::unique_ptr<block_statement> if_collection, else_collection;
+		block_statement if_collection, else_collection;
 		std::unique_ptr<expressions::expression> condition_exp;
 	public:
 		if_statement(std::unique_ptr<expressions::expression>);
-		if_statement(std::unique_ptr<expressions::expression>, std::unique_ptr<block_statement>);
-		if_statement(std::unique_ptr<expressions::expression>, std::unique_ptr<block_statement>, std::unique_ptr<block_statement>);
 
-		block_statement & if_block() const;
-		block_statement* else_block() const;
+		block_statement & if_block();
+		block_statement& else_block();
 		const expressions::expression& condition() const;
 		if_statement& condition(std::unique_ptr<expressions::expression>);
 
