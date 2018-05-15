@@ -8,7 +8,7 @@
 
 namespace cpp::codeprovider::statements
 {
-	class block_statement : public statement
+	class block_statement final : public statement
 	{
 		std::vector<std::unique_ptr<statement>> collection;
 	public:
@@ -16,7 +16,7 @@ namespace cpp::codeprovider::statements
 		block_statement(const block_statement&);
 
 		std::vector<std::unique_ptr<statement>>& statements();
-		std::vector<std::unique_ptr<statement>>& statements() const;
+		const std::vector<std::unique_ptr<statement>>& statements() const;
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

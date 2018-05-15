@@ -8,14 +8,8 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
-	for_loop::for_loop()
-		:body(make_unique<block_statement>())
-	{
-	}
-
 	for_loop::for_loop(const for_loop& other)
-		: body(make_unique<block_statement>(*other.body)), 
-		init(other.init->clone()),
+		: init(other.init->clone()),
 		condition_exp(other.condition_exp->clone()),
 		loop_exp(other.loop_exp->clone())
 	{
@@ -32,7 +26,7 @@ namespace cpp::codeprovider::statements
 
 		if (comment.size() > 0)
 			os << indent << "//" << comment << endl;
-		os << "for( ";
+		os << indent << "for( ";
 		if (init)
 			os << *init;
 		os << "; ";
@@ -42,10 +36,7 @@ namespace cpp::codeprovider::statements
 		if (loop_exp)
 			os << *loop_exp;
 		os << " )" << endl;
-		if (body)
-			os << *body;
-		else
-			os << ";";
+		os << body;
 	}
 
 	const expression& for_loop::initializer() const
@@ -81,8 +72,8 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	block_statement& for_loop::loop_body() const
+	block_statement& for_loop::loop_body()
 	{
-		return *body;
+		return body;
 	}
 }

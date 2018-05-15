@@ -47,9 +47,7 @@ namespace cpp::codeprovider::statements
 		else
 			os << "default" << ":" << endl;
 
-		++formatter_settings::settings.indent_level;
 		os << c.body();
-		--formatter_settings::settings.indent_level;
 
 		return os;
 	}

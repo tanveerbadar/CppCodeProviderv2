@@ -27,7 +27,7 @@ namespace cpp::codeprovider::statements
 		auto indent = formatter_settings::settings.get_indent_string();
 
 		os << indent << "{" << endl;
-		++formatter_settings::settings.indent_level;
+		++formatter_settings::settings.indent_amount;
 
 		auto indent2 = formatter_settings::settings.get_indent_string();
 		for (auto& stmt : collection)
@@ -35,12 +35,17 @@ namespace cpp::codeprovider::statements
 			os << indent2 << *stmt;
 		}
 
-		--formatter_settings::settings.indent_level;
+		--formatter_settings::settings.indent_amount;
 
 		os << indent << "}" << endl;
 	}
 
 	vector<unique_ptr<statement>>& block_statement::statements()
+	{
+		return collection;
+	}
+
+	const vector<unique_ptr<statement>>& block_statement::statements() const
 	{
 		return collection;
 	}

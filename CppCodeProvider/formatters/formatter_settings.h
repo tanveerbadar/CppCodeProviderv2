@@ -11,12 +11,13 @@ namespace cpp::codeprovider::formatting
 	{
 		static formatter_settings settings;
 
-		int indent_level = { 4 };
-		char indent_char = { ' ' };
+		int indent_amount = 4;
+		int indent_level = 1;
+		char indent_char = ' ';
 
 		std::string get_indent_string() const
 		{
-			return std::string(indent_level, indent_char);
+			return std::string(indent_level * indent_amount, indent_char);
 		}
 	};
 }
