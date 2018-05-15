@@ -7,22 +7,28 @@ namespace cpp::codeprovider::statements
 	using namespace std;
 	using namespace formatting;
 
-	block_statement::block_statement()
-	{
-	}
-
 	block_statement::block_statement(const block_statement & other)
 	{
 		for (auto& stmt : other.collection)
 			collection.emplace_back(stmt->clone());
 	}
 
-	unique_ptr<statement> block_statement::clone() const
+	block_statement& block_statement::operator=(const block_statement& other)
 	{
-		return make_unique<block_statement>(*this);
+		if (this != &other)
+		{
+			vector<unique_ptr<statement>> temp;
+
+			for (auto& stmt : other.collection)
+				temp.emplace_back(stmt->clone());
+
+			collection = move(temp);
+		}
+
+		return *this;
 	}
 
-	void block_statement::write(ostream& os) const
+	ostream& operator<<(ostream& os, const block_statement& block)
 	{
 		auto indent = formatter_settings::settings.get_indent_string();
 
@@ -30,7 +36,7 @@ namespace cpp::codeprovider::statements
 		++formatter_settings::settings.indent_level;
 
 		auto indent2 = formatter_settings::settings.get_indent_string();
-		for (auto& stmt : collection)
+		for (auto& stmt : block.statements())
 		{
 			os << indent2 << *stmt;
 		}
@@ -38,6 +44,8 @@ namespace cpp::codeprovider::statements
 		--formatter_settings::settings.indent_level;
 
 		os << indent << "}" << endl;
+
+		return os;
 	}
 
 	vector<unique_ptr<statement>>& block_statement::statements()

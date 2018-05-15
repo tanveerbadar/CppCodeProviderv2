@@ -16,14 +16,15 @@ namespace cpp::codeprovider::statements
 	class case_statement
 	{
 		std::unique_ptr<expressions::expression> e;
-		std::unique_ptr<block_statement> statements;
+		block_statement statements;
 	public:
 		case_statement(bool);
 		case_statement(std::unique_ptr<expressions::expression>);
 		case_statement(const case_statement&);
 
 		expressions::expression& label() const;
-		block_statement& body() const;
+		block_statement& body();
+		const block_statement& body() const;
 		bool has_label() const;
 	};
 

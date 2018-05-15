@@ -8,19 +8,20 @@
 
 namespace cpp::codeprovider::statements
 {
-	class block_statement final : public statement
+	class block_statement
 	{
 		std::vector<std::unique_ptr<statement>> collection;
 	public:
-		block_statement();
+		block_statement() = default;
 		block_statement(const block_statement&);
+
+		block_statement& operator=(const block_statement&);
 
 		std::vector<std::unique_ptr<statement>>& statements();
 		const std::vector<std::unique_ptr<statement>>& statements() const;
-
-		std::unique_ptr<statement> clone() const override;
-		void write(std::ostream&) const override;
 	};
+
+	std::ostream& operator<<(std::ostream&, const block_statement&);
 }
 
 #endif // !BLOCK_STATEMENT_HEADER
