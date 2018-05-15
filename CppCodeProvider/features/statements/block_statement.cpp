@@ -1,10 +1,11 @@
-#include "block_statement.h"
 #include <algorithm>
+#include "block_statement.h"
+#include "..\..\formatters\formatter_settings.h"
 
 namespace cpp::codeprovider::statements
 {
 	using namespace std;
-	using namespace codeprovider::formatting;
+	using namespace formatting;
 
 	block_statement::block_statement()
 	{

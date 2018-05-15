@@ -1,11 +1,15 @@
-#ifndef FOR_LOOP_HEADER
-#define FOR_LOOP_HEADER
+#ifndef WHILE_LOOP_HEADER
+#define WHILE_LOOP_HEADER
 
 #pragma once
 
 #include "common.h"
 #include "block_statement.h"
-#include "..\expressions\common.h"
+
+namespace cpp::codeprovider::expressions
+{
+	class expression;
+}
 
 namespace cpp::codeprovider::statements
 {

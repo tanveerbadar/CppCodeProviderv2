@@ -3,7 +3,11 @@
 
 #pragma once
 #include "common.h"
-#include "..\expressions\common.h"
+
+namespace cpp::codeprovider::expressions
+{
+	class expression;
+}
 
 namespace cpp::codeprovider::statements
 {

@@ -1,10 +1,12 @@
 #include "for_loop.h"
+#include "..\expressions\common.h"
+#include "..\..\formatters\formatter_settings.h"
 
 namespace cpp::codeprovider::statements
 {
 	using namespace std;
 	using namespace expressions;
-	using namespace codeprovider::formatting;
+	using namespace formatting;
 
 	for_loop::for_loop()
 		:body(make_unique<block_statement>())

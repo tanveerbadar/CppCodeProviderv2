@@ -5,12 +5,7 @@
 
 #include <iostream>
 #include <vector>
-#include "..\..\formatters\formatter_settings.h"
-
-namespace cpp::codeprovider::formatting
-{
-	struct formatter_settings;
-}
+#include <memory>
 
 namespace cpp::codeprovider::statements
 {

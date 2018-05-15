@@ -5,7 +5,11 @@
 
 #include "common.h"
 #include "block_statement.h"
-#include "..\expressions\common.h"
+
+namespace cpp::codeprovider::expressions
+{
+	class expression;
+}
 
 namespace cpp::codeprovider::statements
 {

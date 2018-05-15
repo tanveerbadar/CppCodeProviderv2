@@ -1,4 +1,5 @@
 #include "switch_statement.h"
+#include "..\..\formatters\formatter_settings.h"
 #include "..\expressions\unary_expressions.h"
 
 namespace cpp::codeprovider::statements
