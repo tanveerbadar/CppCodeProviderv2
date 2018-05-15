@@ -21,7 +21,7 @@ namespace cpp::codeprovider::statements
 
 	class while_loop : public statement
 	{
-		std::unique_ptr<block_statement> body;
+		block_statement body;
 		std::unique_ptr<expressions::expression> condition_exp;
 		while_loop_style loop_style;
 	public:
@@ -32,7 +32,7 @@ namespace cpp::codeprovider::statements
 		while_loop& condition(std::unique_ptr<expressions::expression>);
 		while_loop_style style() const;
 		while_loop& style(while_loop_style);
-		block_statement& loop_body() const;
+		block_statement& loop_body();
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

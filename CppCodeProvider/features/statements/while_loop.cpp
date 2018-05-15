@@ -9,13 +9,12 @@ namespace cpp::codeprovider::statements
 	using namespace formatting;
 
 	while_loop::while_loop()
-		:body(make_unique<block_statement>())
+		:body()
 	{
 	}
 
 	while_loop::while_loop(const while_loop& other)
-		: body(make_unique<block_statement>(*other.body)),
-		condition_exp(other.condition_exp->clone())
+		: body(other.body), condition_exp(other.condition_exp->clone())
 	{
 	}
 
@@ -35,8 +34,7 @@ namespace cpp::codeprovider::statements
 			os << "while( " << *condition_exp << " )" << endl;
 		else
 			os << "do" << endl;
-		if (body)
-			os << *body;
+		os << body;
 		if (loop_style == while_loop_style::do_while_loop)
 			os << indent << "while(" << *condition_exp << ");" << endl;
 	}
@@ -52,8 +50,8 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	block_statement& while_loop::loop_body() const
+	block_statement& while_loop::loop_body()
 	{
-		return *body;
+		return body;
 	}
 }
