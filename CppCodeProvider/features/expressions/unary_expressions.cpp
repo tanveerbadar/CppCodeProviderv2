@@ -75,6 +75,11 @@ namespace cpp::codeprovider::expressions
 	{
 	}
 
+	const string& primitive_expression::expr() const
+	{
+		return e1;
+	}
+
 	unique_ptr<expression> primitive_expression::clone() const
 	{
 		return make_unique<primitive_expression>(*this);
