@@ -27,7 +27,7 @@ namespace cpp::codeprovider::declarations
 
 	ostream& operator<<(ostream& os, const variable_declaration& var)
 	{
-		os << var.specifier() << " " << var.declarator();
+		os << var.specifier() << var.declarator();
 		return os;
 	}
 }
