@@ -9,13 +9,7 @@
 
 namespace cpp::codeprovider::declarations
 {
-	class variable_declaration
-	{
-	public:
-		std::string name;
-	};
-
-	std::ostream& operator<<(std::ostream&, const variable_declaration&);
+	class variable_declaration;
 }
 
 namespace cpp::codeprovider::statements
