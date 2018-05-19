@@ -20,6 +20,11 @@ namespace cpp::codeprovider::declarations
 		return var_decl;
 	}
 
+	void variable_declaration::write(ostream& os)
+	{
+		os << *this;
+	}
+
 	const declarator& variable_declaration::declarator() const
 	{
 		return var_decl;

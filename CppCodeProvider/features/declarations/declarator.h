@@ -23,11 +23,11 @@ namespace cpp::codeprovider::declarations
 		declarator(const declarator&);
 
 		std::string name;
-		bool	is_constant,
-					is_volatile,
-					is_lvalue_ref,
-					is_rvalue_ref;
-		int pointer_level;
+		bool	is_constant = false,
+					is_volatile = false,
+					is_lvalue_ref = false,
+					is_rvalue_ref = false;
+		int pointer_level = 0;
 		std::vector<int> array_dimensions;
 
 		friend std::ostream& operator <<(std::ostream& os, const declarator&);
