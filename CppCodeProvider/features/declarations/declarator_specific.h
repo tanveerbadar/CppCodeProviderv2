@@ -4,15 +4,7 @@
 
 #include <iostream>
 #include <string>
-
-namespace cpp::codeprovider::types
-{
-	class type_declaration
-	{
-	public:
-		std::string name;
-	};
-}
+#include "..\forward_declarations.h"
 
 namespace cpp::codeprovider::declarations
 {

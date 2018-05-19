@@ -7,11 +7,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
-
-namespace cpp::codeprovider::expressions
-{
-	class expression;
-}
+#include "..\forward_declarations.h"
 
 namespace cpp::codeprovider::declarations
 {

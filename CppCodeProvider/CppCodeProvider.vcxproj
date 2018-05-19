@@ -194,6 +194,7 @@
     <ClInclude Include="features\expressions\expression_types.h" />
     <ClInclude Include="features\expressions\ternary_expression.h" />
     <ClInclude Include="features\expressions\unary_expressions.h" />
+    <ClInclude Include="features\forward_declarations.h" />
     <ClInclude Include="features\statements\for_loop.h" />
     <ClInclude Include="features\statements\if_statement.h" />
     <ClInclude Include="features\statements\jump_statements.h" />

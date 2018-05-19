@@ -3,11 +3,7 @@
 
 #pragma once
 #include "common.h"
-
-namespace cpp::codeprovider::expressions
-{
-	class expression;
-}
+#include "..\forward_declarations.h"
 
 namespace cpp::codeprovider::statements
 {

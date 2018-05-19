@@ -5,11 +5,7 @@
 
 #include "common.h"
 #include "block_statement.h"
-
-namespace cpp::codeprovider::expressions
-{
-	class expression;
-}
+#include "..\forward_declarations.h"
 
 namespace cpp::codeprovider::statements
 {

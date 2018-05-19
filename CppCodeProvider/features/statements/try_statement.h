@@ -3,14 +3,10 @@
 
 #pragma once
 
+#include <string>
 #include "common.h"
 #include "block_statement.h"
-#include <string>
-
-namespace cpp::codeprovider::declarations
-{
-	class variable_declaration;
-}
+#include "..\forward_declarations.h"
 
 namespace cpp::codeprovider::statements
 {
