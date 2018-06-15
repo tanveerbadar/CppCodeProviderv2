@@ -19,6 +19,8 @@ namespace cpp::codeprovider::statements
 		do_while_loop,
 	};
 
+	std::ostream& operator<<(std::ostream& os, while_loop_style);
+
 	class while_loop : public statement
 	{
 		block_statement body;
