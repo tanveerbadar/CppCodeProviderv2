@@ -62,8 +62,25 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
+	while_loop_style while_loop::style() const
+	{
+		return loop_style;
+	}
+
+	while_loop& while_loop::style(while_loop_style wls)
+	{
+		loop_style = wls;
+		return *this;
+	}
+
 	vector<unique_ptr<statement>>& while_loop::statements()
 	{
 		return body.statements();
+	}
+
+	ostream& operator<<(ostream& os, while_loop_style wls)
+	{
+		os << (wls == while_loop_style::do_while_loop ? "do-while" : "while");
+		return os;
 	}
 }
