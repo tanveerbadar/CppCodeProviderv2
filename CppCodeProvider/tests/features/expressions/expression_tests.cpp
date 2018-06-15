@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(binary_expression_test)
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
 
-//		copy = *e;
+		copy = *e;
 
 		BOOST_TEST(e->type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(unary_expression_test)
 		BOOST_TEST(copy.type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.expr()).expr() == "1");
 
-//		copy = *e;
+		copy = *e;
 
 		BOOST_TEST(e->type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
@@ -143,20 +143,20 @@ BOOST_AUTO_TEST_CASE(ternary_expression_test)
 	ternary_expression copy(*e);
 
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "3");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "3");
 
-//	copy = *e;
+	copy = *e;
 
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "3");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "3");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

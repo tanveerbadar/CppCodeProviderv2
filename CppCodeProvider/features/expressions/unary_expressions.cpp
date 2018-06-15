@@ -22,6 +22,16 @@ namespace cpp::codeprovider::expressions
 	{
 	}
 
+	unary_expression& unary_expression::operator=(const unary_expression& other)
+	{
+		if (this != &other)
+		{
+			e1 = other.e1->clone();
+			e_type = other.e_type;
+		}
+		return *this;
+	}
+
 	unique_ptr<expression> unary_expression::clone() const
 	{
 		return make_unique<unary_expression>(*this);
@@ -60,6 +70,11 @@ namespace cpp::codeprovider::expressions
 	const string& primitive_expression::expr() const
 	{
 		return e1;
+	}
+
+	expression_type primitive_expression::type() const
+	{
+		return expression_type::primitive;
 	}
 
 	unique_ptr<expression> primitive_expression::clone() const

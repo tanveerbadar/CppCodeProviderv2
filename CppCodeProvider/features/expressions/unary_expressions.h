@@ -16,6 +16,7 @@ namespace cpp::codeprovider::expressions
 	public:
 		unary_expression(expression_type, std::unique_ptr<expression>);
 		unary_expression(const unary_expression&);
+		unary_expression& operator=(const unary_expression&);
 
 		const expression& expr() const;
 		expression_type type() const;
