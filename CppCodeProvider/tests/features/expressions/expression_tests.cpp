@@ -75,3 +75,12 @@ BOOST_AUTO_TEST_CASE(unary_expression_test)
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
 	}
 }
+
+BOOST_AUTO_TEST_CASE(ternary_expression_test)
+{
+	auto e = make_unique<ternary_expression>(make_unique<primitive_expression>("1"), make_unique<primitive_expression>("3"), make_unique<primitive_expression>("2"));
+	BOOST_TEST(e->type() == expression_type::conditional);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "3");
+}
