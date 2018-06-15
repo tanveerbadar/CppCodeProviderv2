@@ -1,7 +1,9 @@
-#define BOOST_TEST_MODULE expression_tests
-#include <boost/test/included/unit_test.hpp>
-#include <boost/test/output_test_stream.hpp>
+#define BOOST_TEST_MODULE cpp_code_provider_tests
+
+#include <boost/test/unit_test.hpp>
 #include "..\..\..\features\expressions.h"
+
+BOOST_AUTO_TEST_SUITE(expression_tests)
 
 using namespace std;
 using namespace cpp::codeprovider::expressions;
@@ -78,9 +80,11 @@ BOOST_AUTO_TEST_CASE(unary_expression_test)
 
 BOOST_AUTO_TEST_CASE(ternary_expression_test)
 {
-	auto e = make_unique<ternary_expression>(make_unique<primitive_expression>("1"), make_unique<primitive_expression>("3"), make_unique<primitive_expression>("2"));
+	auto e = make_unique<ternary_expression>(make_unique<primitive_expression>("1"), make_unique<primitive_expression>("2"), make_unique<primitive_expression>("3"));
 	BOOST_TEST(e->type() == expression_type::conditional);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "2");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "3");
 }
+
+BOOST_AUTO_TEST_SUITE_END()
