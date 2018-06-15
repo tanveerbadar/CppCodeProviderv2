@@ -50,8 +50,8 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	block_statement& while_loop::loop_body()
+	vector<unique_ptr<statement>>& while_loop::statements()
 	{
-		return body;
+		return body.statements();
 	}
 }

@@ -29,18 +29,18 @@ namespace cpp::codeprovider::statements
 		catch_clause(const catch_clause&);
 
 		const declarations::variable_declaration& variable() const;
-		block_statement& body();
-		const block_statement& body() const;
-	};
+		std::vector<std::unique_ptr<statement>>& statements();
+		const std::vector<std::unique_ptr<statement>>& statements() const;
 
-	std::ostream& operator<<(std::ostream&, const catch_clause&);
+		friend std::ostream& operator<<(std::ostream&, const catch_clause&);
+	};
 
 	class try_statement : public statement
 	{
 		block_statement try_block;
 		std::vector<catch_clause> catch_blocks;
 	public:
-		block_statement& try_statements();
+		std::vector<std::unique_ptr<statement>>& statements();
 		std::vector<catch_clause>& catch_clauses();
 
 		std::unique_ptr<statement> clone() const override;
