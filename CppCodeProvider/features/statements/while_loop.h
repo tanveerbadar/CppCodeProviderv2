@@ -27,7 +27,7 @@ namespace cpp::codeprovider::statements
 		std::unique_ptr<expressions::expression> condition_exp;
 		while_loop_style loop_style;
 	public:
-		while_loop();
+		while_loop(std::unique_ptr<expressions::expression>);
 		while_loop(const while_loop&);
 		while_loop& operator=(const while_loop&);
 
