@@ -27,6 +27,7 @@ namespace cpp::codeprovider::statements
 	public:
 		while_loop();
 		while_loop(const while_loop&);
+		while_loop& operator=(const while_loop&);
 
 		const expressions::expression& condition() const;
 		while_loop& condition(std::unique_ptr<expressions::expression>);
@@ -38,4 +39,4 @@ namespace cpp::codeprovider::statements
 		void write(std::ostream&) const override;
 	};
 }
-#endif // !FOR_LOOP_HEADER
+#endif // !WHILE_LOOP_HEADER
