@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 
 BOOST_AUTO_TEST_CASE(while_loop_tests)
 {
-	auto stmt = make_unique<while_loop>();
+	auto stmt = make_unique<while_loop>(make_unique<primitive_expression>("1"));
 
 	auto copy1(*stmt);
 	const auto& body1 = stmt->statements();
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 
 	BOOST_TEST(stmt->statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "1");
 	BOOST_TEST(stmt->style() == while_loop_style::while_loop);
 
 	stmt->condition(make_unique<primitive_expression>("2"));
