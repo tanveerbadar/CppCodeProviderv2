@@ -31,6 +31,8 @@ BOOST_AUTO_TEST_CASE(block_statement_tests)
 {
 	block_statement block;
 
+	auto copy1(block);
+
 	const auto& body1 = block.statements();
 	auto& body2 = block.statements();
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
@@ -38,14 +40,14 @@ BOOST_AUTO_TEST_CASE(block_statement_tests)
 
 	BOOST_TEST(block.statements().size() == 2);
 
-	block_statement copy(block);
+	auto copy2(block);
 
-	BOOST_TEST(copy.statements().size() == 2);
+	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
 
-	copy = block;
+	copy2 = block;
 
-	BOOST_TEST(copy.statements().size() == 2);
+	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
 
 	boost::test_tools::output_test_stream output;
@@ -57,6 +59,7 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 {
 	auto stmt = make_unique<for_loop>();
 
+	auto copy1(*stmt);
 	const auto& body1 = stmt->statements();
 	auto& body2 = stmt->statements();
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
@@ -86,17 +89,17 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	stream << *other;
 	other->write(stream);
 
-	for_loop copy(*stmt);
-	BOOST_TEST(copy.statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.initializer()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "2");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.loop()).expr() == "3");
+	auto copy2(*stmt);
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.loop()).expr() == "3");
 
 //	copy = *stmt;
-	BOOST_TEST(copy.statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.initializer()).expr() == "1");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "2");
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.loop()).expr() == "3");
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.loop()).expr() == "3");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
