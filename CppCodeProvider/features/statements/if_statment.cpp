@@ -23,6 +23,17 @@ namespace cpp::codeprovider::statements
 		return else_collection;
 	}
 
+	const expression& if_statement::condition() const
+	{
+		return *condition_exp;
+	}
+
+	if_statement& if_statement::condition(unique_ptr<expression> e)
+	{
+		condition_exp = move(e);
+		return *this;
+	}
+
 	unique_ptr<statement> if_statement::clone() const
 	{
 		return make_unique<if_statement>(condition_exp->clone());
