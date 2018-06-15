@@ -8,7 +8,7 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
-	expression_statement::expression_statement(unique_ptr<expression> e)
+	expression_statement::expression_statement(unique_ptr<expressions::expression> e)
 		: e1(move(e))
 	{
 	}
@@ -16,6 +16,11 @@ namespace cpp::codeprovider::statements
 	expression_statement::expression_statement(const expression_statement& other)
 		: expression_statement(other.e1->clone())
 	{
+	}
+
+	const expressions::expression & expression_statement::expression() const
+	{
+		return *e1;
 	}
 
 	void expression_statement::write(ostream& os) const
