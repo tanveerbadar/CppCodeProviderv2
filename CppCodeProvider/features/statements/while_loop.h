@@ -28,7 +28,7 @@ namespace cpp::codeprovider::statements
 		while_loop& condition(std::unique_ptr<expressions::expression>);
 		while_loop_style style() const;
 		while_loop& style(while_loop_style);
-		block_statement& loop_body();
+		std::vector<std::unique_ptr<statement>>& statements();
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

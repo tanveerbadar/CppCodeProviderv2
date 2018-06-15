@@ -18,14 +18,14 @@ namespace cpp::codeprovider::statements
 		return *catch_var;
 	}
 
-	block_statement& catch_clause::body()
+	vector<unique_ptr<statement>>& catch_clause::statements()
 	{
-		return catch_body;
+		return catch_body.statements();
 	}
 
-	const block_statement& catch_clause::body() const
+	const vector<unique_ptr<statement>>& catch_clause::statements() const
 	{
-		return catch_body;
+		return catch_body.statements();
 	}
 
 	std::ostream& operator<<(std::ostream& os, const catch_clause& c)
@@ -36,13 +36,13 @@ namespace cpp::codeprovider::statements
 		else
 			os << "...";
 		os << ")" << endl;
-		os << c.body();
+		os << c.catch_body;
 		return os;
 	}
 
-	block_statement& try_statement::try_statements()
+	vector<unique_ptr<statement>>& try_statement::statements()
 	{
-		return try_block;
+		return try_block.statements();
 	}
 
 	vector<catch_clause>& try_statement::catch_clauses()
