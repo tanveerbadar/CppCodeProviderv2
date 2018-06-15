@@ -16,6 +16,7 @@ namespace cpp::codeprovider::statements
 	public:
 		for_loop() = default;
 		for_loop(const for_loop&);
+		for_loop& operator=(const for_loop&);
 
 		const expressions::expression& initializer() const;
 		for_loop& initializer(std::unique_ptr<expressions::expression>);

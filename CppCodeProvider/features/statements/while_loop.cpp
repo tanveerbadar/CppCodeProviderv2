@@ -18,6 +18,18 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
+	while_loop& while_loop::operator=(const while_loop& other)
+	{
+		if (this != &other)
+		{
+			auto temp1 = other.condition_exp->clone();
+			body = other.body;
+			condition_exp = move(temp1);
+			loop_style = other.loop_style;
+		}
+		return *this;
+	}
+
 	unique_ptr<statement> while_loop::clone() const
 	{
 		return make_unique<while_loop>(*this);
