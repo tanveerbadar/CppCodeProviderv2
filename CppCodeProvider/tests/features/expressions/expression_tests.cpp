@@ -1,11 +1,12 @@
-#define BOOST_TEST_MODULE binary_expression_tests
+#define BOOST_TEST_MODULE expression_tests
 #include <boost/test/included/unit_test.hpp>
+#include <boost/test/output_test_stream.hpp>
 #include "..\..\..\features\expressions.h"
 
 using namespace std;
 using namespace cpp::codeprovider::expressions;
 
-BOOST_AUTO_TEST_CASE(construction_test)
+BOOST_AUTO_TEST_CASE(binary_expression_test)
 {
 	expression_type binary_expressions[] = {
 				expression_type::addition,
@@ -46,5 +47,31 @@ BOOST_AUTO_TEST_CASE(construction_test)
 	{
 		auto e = make_unique<binary_expression>(expr, make_unique<primitive_expression>("1"), make_unique<primitive_expression>("2"));
 		BOOST_TEST(e->type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+	}
+}
+
+BOOST_AUTO_TEST_CASE(unary_expression_test)
+{
+	expression_type unary_expressions[] = {
+		expression_type::address_of,
+		expression_type::complement,
+		expression_type::decltype_exp,
+		expression_type::delete_exp,
+		expression_type::dereference,
+		expression_type::method_ref,
+		expression_type::postfix_decrement,
+		expression_type::postfix_increment,
+		expression_type::prefix_decrement,
+		expression_type::prefix_increment,
+		expression_type::throw_exp,
+	};
+
+	for (auto expr : unary_expressions)
+	{
+		auto e = make_unique<unary_expression>(expr, make_unique<primitive_expression>("1"));
+		BOOST_TEST(e->type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
 	}
 }
