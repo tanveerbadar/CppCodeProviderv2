@@ -94,12 +94,20 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	other->write(stream);
 
 	auto copy2(*stmt);
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->loop()).expr() == "3");
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.loop()).expr() == "3");
 
 	copy2 = *stmt;
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->loop()).expr() == "3");
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
@@ -138,11 +146,17 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 	other->write(stream);
 
 	auto copy2(*stmt);
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "2");
+	BOOST_TEST(stmt->style() == while_loop_style::do_while_loop);
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
 	BOOST_TEST(copy2.style() == while_loop_style::do_while_loop);
 
 	copy2 = *stmt;
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "2");
+	BOOST_TEST(stmt->style() == while_loop_style::do_while_loop);
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
 	BOOST_TEST(copy2.style() == while_loop_style::do_while_loop);
@@ -183,11 +197,17 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	other->write(stream);
 
 	auto copy2(*stmt);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "2");
+	BOOST_TEST(stmt->if_block().statements().size() == 2);
+	BOOST_TEST(stmt->else_block().statements().size() == 2);
 	BOOST_TEST(copy2.if_block().statements().size() == 2);
 	BOOST_TEST(copy2.else_block().statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
 
 //	copy2 = *stmt;
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "2");
+	BOOST_TEST(stmt->if_block().statements().size() == 2);
+	BOOST_TEST(stmt->else_block().statements().size() == 2);
 	BOOST_TEST(copy2.if_block().statements().size() == 2);
 	BOOST_TEST(copy2.else_block().statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
