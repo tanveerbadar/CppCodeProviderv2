@@ -19,6 +19,26 @@ namespace cpp::codeprovider::expressions
 		return make_unique<ternary_expression>(*this);
 	}
 
+	const expression& ternary_expression::condition() const
+	{
+		return *e1;
+	}
+
+	const expression& ternary_expression::left() const
+	{
+		return *e2;
+	}
+
+	const expression& ternary_expression::right() const
+	{
+		return *e3;
+	}
+
+	expression_type ternary_expression::type() const
+	{
+		return expression_type::conditional;
+	}
+
 	void ternary_expression::write(ostream& os)const
 	{
 		os << *e1 << " ? " << *e2 << " : " << *e3;
