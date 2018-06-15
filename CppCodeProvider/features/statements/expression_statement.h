@@ -14,6 +14,8 @@ namespace cpp::codeprovider::statements
 		expression_statement(std::unique_ptr<expressions::expression>);
 		expression_statement(const expression_statement&);
 
+		const expressions::expression& expression() const;
+
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;
 	};
