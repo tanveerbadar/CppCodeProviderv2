@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(expression_statement_tests)
 
 	expression_statement copy(*stmt);
 
-//	copy = *stmt;
+	copy = *stmt;
 }
 
 BOOST_AUTO_TEST_CASE(block_statement_tests)
