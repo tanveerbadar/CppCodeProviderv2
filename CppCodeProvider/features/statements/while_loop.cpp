@@ -8,8 +8,8 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
-	while_loop::while_loop()
-		:body()
+	while_loop::while_loop(unique_ptr<expression> expr)
+		:body(), condition_exp(move(expr))
 	{
 	}
 
