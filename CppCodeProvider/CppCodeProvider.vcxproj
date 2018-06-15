@@ -170,6 +170,9 @@
     <ClCompile Include="features\expressions\expression_type.cpp" />
     <ClCompile Include="features\expressions\ternary_expression.cpp" />
     <ClCompile Include="features\expressions\unary_expressions.cpp" />
+    <ClCompile Include="features\functions\callable.cpp" />
+    <ClCompile Include="features\functions\function.cpp" />
+    <ClCompile Include="features\functions\member_function.cpp" />
     <ClCompile Include="features\statements\block_statement.cpp" />
     <ClCompile Include="features\statements\for_loop.cpp" />
     <ClCompile Include="features\statements\if_statment.cpp" />
@@ -195,8 +198,10 @@
     <ClInclude Include="features\expressions\ternary_expression.h" />
     <ClInclude Include="features\expressions\unary_expressions.h" />
     <ClInclude Include="features\forward_declarations.h" />
+    <ClInclude Include="features\functions.h" />
     <ClInclude Include="features\functions\callable.h" />
     <ClInclude Include="features\functions\function.h" />
+    <ClInclude Include="features\functions\member_function.h" />
     <ClInclude Include="features\statements\for_loop.h" />
     <ClInclude Include="features\statements\if_statement.h" />
     <ClInclude Include="features\statements\jump_statements.h" />

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "..\forward_declarations.h"
+#include <string>
 #include "..\statements\block_statement.h"
 
 namespace cpp::codeprovider
@@ -11,16 +11,16 @@ namespace cpp::codeprovider
 	namespace types
 	{
 		class type_declaration;
+
+		namespace templates
+		{
+			class template_parameter;
+		}
 	}
 
 	namespace declarations
 	{
 		class variable_declaration;
-	}
-
-	namespace templates
-	{
-		class template_parameter;
 	}
 
 	namespace statements
@@ -36,8 +36,10 @@ namespace cpp::codeprovider
 			std::unique_ptr<types::type_declaration> return_type;
 			std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
 			std::string name;
-			std::vector<std::unique_ptr<templates::template_parameter>> template_parameter_list;
-			bool is_inline;
+			std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
+			bool is_inline = false;
+
+			callable(const std::string&, std::unique_ptr<types::type_declaration>);
 		};
 	}
 }
