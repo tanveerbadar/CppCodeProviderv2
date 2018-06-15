@@ -14,7 +14,7 @@ namespace cpp::codeprovider::statements
 	}
 
 	while_loop::while_loop(const while_loop& other)
-		: body(other.body), condition_exp(other.condition_exp->clone())
+		: body(other.body), condition_exp(other.condition_exp->clone()), loop_style(other.loop_style)
 	{
 	}
 
