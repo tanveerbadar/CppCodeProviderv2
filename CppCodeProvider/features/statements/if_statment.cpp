@@ -13,6 +13,11 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
+	if_statement::if_statement(const if_statement& other)
+		:if_collection(other.if_collection), else_collection(other.else_collection), condition_exp(other.condition_exp->clone())
+	{
+	}
+
 	block_statement& if_statement::if_block()
 	{
 		return if_collection;
