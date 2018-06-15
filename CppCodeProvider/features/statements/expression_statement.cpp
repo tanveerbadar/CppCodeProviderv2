@@ -18,6 +18,15 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
+	expression_statement& expression_statement::operator=(const expression_statement& other)
+	{
+		if (this != &other)
+		{
+			e1 = other.e1->clone();
+		}
+		return *this;
+	}
+
 	const expressions::expression & expression_statement::expression() const
 	{
 		return *e1;

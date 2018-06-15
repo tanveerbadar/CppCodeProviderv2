@@ -17,6 +17,7 @@ namespace cpp::codeprovider::statements
 	public:
 		expression_statement(std::unique_ptr<expressions::expression>);
 		expression_statement(const expression_statement&);
+		expression_statement& operator=(const expression_statement&);
 
 		const expressions::expression& expression() const;
 
