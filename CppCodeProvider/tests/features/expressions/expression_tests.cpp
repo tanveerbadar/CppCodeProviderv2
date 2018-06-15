@@ -1,6 +1,7 @@
 #define BOOST_TEST_MODULE cpp_code_provider_tests
 
 #include <boost/test/unit_test.hpp>
+#include <boost/test/output_test_stream.hpp>
 #include "..\..\..\features\expressions.h"
 
 BOOST_AUTO_TEST_SUITE(expression_tests)
@@ -51,6 +52,31 @@ BOOST_AUTO_TEST_CASE(binary_expression_test)
 		BOOST_TEST(e->type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+
+		auto other = e->clone();
+
+		boost::test_tools::output_test_stream stream;
+
+		stream << *other;
+		other->write(stream);
+
+		binary_expression copy(*e);
+
+		BOOST_TEST(e->type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+		BOOST_TEST(copy.type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
+
+//		copy = *e;
+
+		BOOST_TEST(e->type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+		BOOST_TEST(copy.type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
 	}
 }
 
@@ -75,6 +101,27 @@ BOOST_AUTO_TEST_CASE(unary_expression_test)
 		auto e = make_unique<unary_expression>(expr, make_unique<primitive_expression>("1"));
 		BOOST_TEST(e->type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
+
+		auto other = e->clone();
+
+		boost::test_tools::output_test_stream stream;
+
+		stream << *other;
+		other->write(stream);
+
+		unary_expression copy(*e);
+
+		BOOST_TEST(e->type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
+		BOOST_TEST(copy.type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.expr()).expr() == "1");
+
+//		copy = *e;
+
+		BOOST_TEST(e->type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
+		BOOST_TEST(copy.type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.expr()).expr() == "1");
 	}
 }
 
@@ -85,6 +132,31 @@ BOOST_AUTO_TEST_CASE(ternary_expression_test)
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "2");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "3");
+
+	auto other = e->clone();
+
+	boost::test_tools::output_test_stream stream;
+
+	stream << *other;
+	other->write(stream);
+
+	ternary_expression copy(*e);
+
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
+
+//	copy = *e;
+
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->condition()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->left()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(e->right()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
