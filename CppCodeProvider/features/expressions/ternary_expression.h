@@ -15,6 +15,7 @@ namespace cpp::codeprovider::expressions
 	public:
 		ternary_expression(std::unique_ptr<expression>, std::unique_ptr<expression>, std::unique_ptr<expression>);
 		ternary_expression(const ternary_expression&);
+		ternary_expression& operator=(const ternary_expression&);
 
 		const expression& left() const;
 		const expression& right() const;
