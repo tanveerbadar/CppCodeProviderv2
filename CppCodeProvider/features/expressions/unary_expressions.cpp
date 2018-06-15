@@ -27,6 +27,17 @@ namespace cpp::codeprovider::expressions
 		return make_unique<unary_expression>(*this);
 	}
 
+
+	const expression& unary_expression::expr() const
+	{
+		return *e1;
+	}
+
+	expression_type unary_expression::type() const
+	{
+		return e_type;
+	}
+
 	void unary_expression::write(ostream& os) const
 	{
 		if (is_postfix_operator(e_type))
