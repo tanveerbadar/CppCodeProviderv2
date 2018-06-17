@@ -7,6 +7,9 @@ namespace cpp::codeprovider::types
 	class type
 	{
 	public:
+		type() = default;
+		type(const type&) = default;
+
 		std::string name;
 
 		virtual std::unique_ptr<type> clone() const
@@ -22,16 +25,26 @@ namespace cpp::codeprovider::statements
 	using namespace declarations;
 	using namespace types;
 
-	variable_declaration placeholder(declarator_specifier(type()));
+	auto placeholder = variable_declaration(declarator_specifier(make_unique<type>()));
 
 	catch_clause::catch_clause(const catch_clause& other)
 		:catch_var(make_unique<variable_declaration>(*other.catch_var)), catch_body(other.catch_body)
 	{
 	}
 
+	catch_clause& catch_clause::operator=(const catch_clause& other)
+	{
+		if (this != &other)
+		{
+			catch_body = other.catch_body;
+			catch_var = make_unique<variable_declaration>(*other.catch_var);
+		}
+		return *this;
+	}
+
 	const variable_declaration& catch_clause::variable() const
 	{
-		return *catch_var;
+		return catch_var ? *catch_var : placeholder;
 	}
 
 	vector<unique_ptr<statement>>& catch_clause::statements()
