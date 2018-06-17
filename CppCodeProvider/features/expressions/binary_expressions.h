@@ -15,6 +15,7 @@ namespace cpp::codeprovider::expressions
 	public:
 		binary_expression(expression_type, std::unique_ptr<expression>, std::unique_ptr<expression>);
 		binary_expression(const binary_expression&);
+		binary_expression& operator=(const binary_expression&);
 
 		const expression& left() const;
 		const expression& right() const;

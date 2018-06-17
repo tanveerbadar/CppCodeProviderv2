@@ -14,6 +14,20 @@ namespace cpp::codeprovider::expressions
 	{
 	}
 
+	ternary_expression& ternary_expression::operator=(const ternary_expression& other)
+	{
+		if (this != &other)
+		{
+			auto temp1 = other.e1->clone();
+			auto temp2 = other.e2->clone();
+			auto temp3 = other.e3->clone();
+			e1 = move(temp1);
+			e2 = move(temp2);
+			e3 = move(temp3);
+		}
+		return *this;
+	}
+
 	unique_ptr<expression> ternary_expression::clone() const
 	{
 		return make_unique<ternary_expression>(*this);
