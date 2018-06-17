@@ -2,18 +2,34 @@
 #include "..\expressions\common.h"
 #include "..\declarations\variable_declaration.h"
 
+namespace cpp::codeprovider::types
+{
+	class type
+	{
+	public:
+		std::string name;
+
+		virtual std::unique_ptr<type> clone() const
+		{
+			return std::make_unique<type>(*this);
+		}
+	};
+}
+
 namespace cpp::codeprovider::statements
 {
 	using namespace std;
 	using namespace declarations;
 	using namespace types;
 
+	variable_declaration placeholder(declarator_specifier(type()));
+
 	catch_clause::catch_clause(const catch_clause& other)
-		:catch_var(other.catch_var ? make_unique<variable_declaration>(*other.catch_var) : make_unique<variable_declaration>(declarator_specifier(type_declaration()))), catch_body(other.catch_body)
+		:catch_var(make_unique<variable_declaration>(*other.catch_var)), catch_body(other.catch_body)
 	{
 	}
 
-	const declarations::variable_declaration& catch_clause::variable() const
+	const variable_declaration& catch_clause::variable() const
 	{
 		return *catch_var;
 	}

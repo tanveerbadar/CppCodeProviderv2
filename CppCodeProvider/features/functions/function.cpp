@@ -1,14 +1,28 @@
 #include "function.h"
 #include "callable.h"
-#include "..\declarations\declarator_specific.h"
+#include "..\declarations\declarator_specifier.h"
 #include "..\declarations\variable_declaration.h"
 
-namespace cpp::codeprovider::types::templates
+namespace cpp::codeprovider::types
 {
-	class template_parameter
+	class type
 	{
+	public:
+		std::string name;
 
+		virtual std::unique_ptr<type> clone() const
+		{
+			return std::make_unique<type>(*this);
+		}
 	};
+
+	namespace templates
+	{
+		class template_parameter
+		{
+
+		};
+	}
 }
 
 namespace cpp::codeprovider::functions
@@ -18,7 +32,7 @@ namespace cpp::codeprovider::functions
 	using namespace statements;
 	using namespace types;
 
-	function::function(const string& n, unique_ptr<type_declaration> returns)
+	function::function(const string& n, unique_ptr<type> returns)
 		:impl(make_unique<callable>(n,move(returns)))
 	{
 	}
@@ -28,9 +42,9 @@ namespace cpp::codeprovider::functions
 		return impl->statements;
 	}
 
-	function& function::return_type(type_declaration& type)
+	function& function::return_type(unique_ptr<type> type)
 	{
-		impl->return_type.reset(new type_declaration(type));
+		impl->return_type = move(type);
 		return *this;
 	}
 

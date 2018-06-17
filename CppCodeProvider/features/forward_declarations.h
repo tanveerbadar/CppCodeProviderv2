@@ -8,11 +8,12 @@ namespace cpp::codeprovider
 {
 	namespace types
 	{
-		class type_declaration
+		class type;
+
+		namespace templates
 		{
-		public:
-			std::string name;
-		};
+			class template_parameter;
+		}
 	}
 
 	namespace expressions

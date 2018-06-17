@@ -37,4 +37,5 @@ namespace cpp::codeprovider::statements
 		void write(std::ostream&) const override;
 	};
 }
+
 #endif // !TRY_STATEMENT_BLOCK
