@@ -1,27 +1,35 @@
 #include "try_statement.h"
+#include "..\expressions\common.h"
+#include "..\declarations\variable_declaration.h"
 
-namespace cpp::codeprovider::declarations
+namespace cpp::codeprovider::types
 {
-	using namespace std;
-
-	ostream& operator<<(ostream& os, const variable_declaration& var)
+	class type
 	{
-		os << var.name;
-		return os;
-	}
+	public:
+		std::string name;
+
+		virtual std::unique_ptr<type> clone() const
+		{
+			return std::make_unique<type>(*this);
+		}
+	};
 }
 
 namespace cpp::codeprovider::statements
 {
 	using namespace std;
 	using namespace declarations;
+	using namespace types;
+
+	variable_declaration placeholder(declarator_specifier(type()));
 
 	catch_clause::catch_clause(const catch_clause& other)
-		:catch_var(other.catch_var ? make_unique<variable_declaration>(*other.catch_var) : make_unique<variable_declaration>()), catch_body(other.catch_body)
+		:catch_var(make_unique<variable_declaration>(*other.catch_var)), catch_body(other.catch_body)
 	{
 	}
 
-	const declarations::variable_declaration& catch_clause::variable() const
+	const variable_declaration& catch_clause::variable() const
 	{
 		return *catch_var;
 	}
@@ -39,7 +47,7 @@ namespace cpp::codeprovider::statements
 	std::ostream& operator<<(std::ostream& os, const catch_clause& c)
 	{
 		os << "catch(";
-		if (c.variable().name.size() > 0)
+		if (c.variable().declarator().name.size() > 0)
 			os << c.variable();
 		else
 			os << "...";
