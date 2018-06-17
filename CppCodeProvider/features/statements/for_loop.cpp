@@ -1,5 +1,5 @@
 #include "for_loop.h"
-#include "..\expressions\common.h"
+#include "..\expressions\unary_expressions.h"
 #include "..\..\formatters\formatter_settings.h"
 
 namespace cpp::codeprovider::statements
@@ -8,11 +8,26 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
+	primitive_expression placeholder("");
+
 	for_loop::for_loop(const for_loop& other)
-		: init(other.init->clone()),
-		condition_exp(other.condition_exp->clone()),
-		loop_exp(other.loop_exp->clone())
+		: init((other.init ? *other.init : placeholder).clone()), condition_exp((other.condition_exp ? *other.condition_exp : placeholder).clone()), loop_exp((other.loop_exp ? *other.loop_exp : placeholder).clone()), body(other.body)
 	{
+	}
+
+	for_loop& for_loop::operator=(const for_loop& other)
+	{
+		if (this != &other)
+		{
+			auto temp1 = other.initializer().clone();
+			auto temp2 = other.condition().clone();
+			auto temp3 = other.loop().clone();
+			body = other.body;
+			init = move(temp1);
+			condition_exp = move(temp2);
+			loop_exp = move(temp3);
+		}
+		return *this;
 	}
 
 	unique_ptr<statement> for_loop::clone() const
@@ -41,7 +56,7 @@ namespace cpp::codeprovider::statements
 
 	const expression& for_loop::initializer() const
 	{
-		return *init;
+		return init ? *init : placeholder;
 	}
 
 	for_loop& for_loop::initializer(unique_ptr<expression> i)
@@ -52,7 +67,7 @@ namespace cpp::codeprovider::statements
 
 	const expression& for_loop::condition() const
 	{
-		return *condition_exp;
+		return condition_exp ? *condition_exp : placeholder;
 	}
 
 	for_loop& for_loop::condition(unique_ptr<expression> c)
@@ -63,7 +78,7 @@ namespace cpp::codeprovider::statements
 
 	const expression& for_loop::loop() const
 	{
-		return *loop_exp;
+		return loop_exp ? *loop_exp : placeholder;
 	}
 
 	for_loop& for_loop::loop(unique_ptr<expression> l)
@@ -72,8 +87,8 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	block_statement& for_loop::loop_body()
+	vector<unique_ptr<statement>>& for_loop::statements()
 	{
-		return body;
+		return body.statements();
 	}
 }

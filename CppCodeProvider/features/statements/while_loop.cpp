@@ -8,14 +8,26 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
-	while_loop::while_loop()
-		:body()
+	while_loop::while_loop(unique_ptr<expression> expr)
+		:body(), condition_exp(move(expr))
 	{
 	}
 
 	while_loop::while_loop(const while_loop& other)
-		: body(other.body), condition_exp(other.condition_exp->clone())
+		: body(other.body), condition_exp(other.condition_exp->clone()), loop_style(other.loop_style)
 	{
+	}
+
+	while_loop& while_loop::operator=(const while_loop& other)
+	{
+		if (this != &other)
+		{
+			auto temp1 = other.condition_exp->clone();
+			body = other.body;
+			condition_exp = move(temp1);
+			loop_style = other.loop_style;
+		}
+		return *this;
 	}
 
 	unique_ptr<statement> while_loop::clone() const
@@ -50,8 +62,25 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	block_statement& while_loop::loop_body()
+	while_loop_style while_loop::style() const
 	{
-		return body;
+		return loop_style;
+	}
+
+	while_loop& while_loop::style(while_loop_style wls)
+	{
+		loop_style = wls;
+		return *this;
+	}
+
+	vector<unique_ptr<statement>>& while_loop::statements()
+	{
+		return body.statements();
+	}
+
+	ostream& operator<<(ostream& os, while_loop_style wls)
+	{
+		os << (wls == while_loop_style::do_while_loop ? "do-while" : "while");
+		return os;
 	}
 }

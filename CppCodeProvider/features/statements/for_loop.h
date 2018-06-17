@@ -16,6 +16,7 @@ namespace cpp::codeprovider::statements
 	public:
 		for_loop() = default;
 		for_loop(const for_loop&);
+		for_loop& operator=(const for_loop&);
 
 		const expressions::expression& initializer() const;
 		for_loop& initializer(std::unique_ptr<expressions::expression>);
@@ -23,7 +24,7 @@ namespace cpp::codeprovider::statements
 		for_loop& condition(std::unique_ptr<expressions::expression>);
 		const expressions::expression& loop() const;
 		for_loop& loop(std::unique_ptr<expressions::expression>);
-		block_statement& loop_body();
+		std::vector<std::unique_ptr<statement>>& statements();
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;
