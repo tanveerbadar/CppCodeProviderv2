@@ -37,7 +37,7 @@ namespace cpp::codeprovider::statements
 		if (this != &other)
 		{
 			catch_body = other.catch_body;
-			catch_var = make_unique<variable_declaration>(*other.catch_var);
+			catch_var = make_unique<variable_declaration>(other.catch_var ? *other.catch_var : placeholder);
 		}
 		return *this;
 	}
