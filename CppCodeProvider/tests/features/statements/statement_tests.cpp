@@ -34,6 +34,10 @@ BOOST_AUTO_TEST_CASE(block_statement_tests)
 
 	BOOST_TEST(block.statements().size() == 0);
 
+	boost::test_tools::output_test_stream output;
+
+	output << block;
+
 	auto copy1(block);
 
 	const auto& body1 = block.statements();
@@ -45,6 +49,8 @@ BOOST_AUTO_TEST_CASE(block_statement_tests)
 
 	auto copy2(block);
 
+	output << copy2;
+
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
 
@@ -52,10 +58,6 @@ BOOST_AUTO_TEST_CASE(block_statement_tests)
 
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
-
-	boost::test_tools::output_test_stream output;
-
-	output << block;
 }
 
 BOOST_AUTO_TEST_CASE(for_loop_tests)
@@ -63,6 +65,10 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	auto stmt = make_unique<for_loop>();
 
 	BOOST_TEST(stmt->statements().size() == 0);
+
+	boost::test_tools::output_test_stream stream;
+
+	stream << *stmt;
 
 	auto copy1(*stmt);
 	const auto& body1 = stmt->statements();
@@ -88,8 +94,6 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->loop()).expr() == "3");
 
 	auto other = stmt->clone();
-
-	boost::test_tools::output_test_stream stream;
 
 	stream << *other;
 	other->write(stream);
@@ -121,6 +125,10 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 
 	BOOST_TEST(stmt->statements().size() == 0);
 
+	boost::test_tools::output_test_stream stream;
+
+	stream << *stmt;
+
 	auto copy1(*stmt);
 	const auto& body1 = stmt->statements();
 	auto& body2 = stmt->statements();
@@ -140,8 +148,6 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 	BOOST_TEST(stmt->style() == while_loop_style::do_while_loop);
 
 	auto other = stmt->clone();
-
-	boost::test_tools::output_test_stream stream;
 
 	stream << *other;
 	other->write(stream);
@@ -220,6 +226,9 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	BOOST_TEST(block.statements().size() == 0);
 	auto& var = block.variable();
 
+	boost::test_tools::output_test_stream output;
+	output << block;
+
 	auto copy1(block);
 
 	const auto& body1 = block.statements();
@@ -239,9 +248,7 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
 
-	boost::test_tools::output_test_stream output;
-
-	output << block;
+	output << copy2;
 }
 
 BOOST_AUTO_TEST_SUITE_END()
