@@ -72,11 +72,6 @@ namespace cpp::codeprovider::expressions
 		return e1;
 	}
 
-	const string& primitive_expression::expr() const
-	{
-		return e1;
-	}
-
 	expression_type primitive_expression::type() const
 	{
 		return expression_type::primitive;
