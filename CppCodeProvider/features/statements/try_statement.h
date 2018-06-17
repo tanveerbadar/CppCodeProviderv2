@@ -21,6 +21,7 @@ namespace cpp::codeprovider::statements
 	public:
 		catch_clause() = default;
 		catch_clause(const catch_clause&);
+		catch_clause& operator=(const catch_clause&);
 
 		const declarations::variable_declaration& variable() const;
 		std::vector<std::unique_ptr<statement>>& statements();
