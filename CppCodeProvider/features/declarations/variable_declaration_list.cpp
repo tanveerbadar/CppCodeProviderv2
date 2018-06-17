@@ -2,6 +2,20 @@
 #include "..\expressions\common.h"
 #include <sstream>
 
+namespace cpp::codeprovider::types
+{
+	class type
+	{
+	public:
+		std::string name;
+
+		virtual std::unique_ptr<type> clone() const
+		{
+			return std::make_unique<type>(*this);
+		}
+	};
+}
+
 namespace cpp::codeprovider::declarations
 {
 	using namespace std;
@@ -19,6 +33,11 @@ namespace cpp::codeprovider::declarations
 	const vector<declarator>& variable_declaration_list::declarations() const
 	{
 		return var_decls;
+	}
+
+	unique_ptr<declaration> variable_declaration_list::clone() const
+	{
+		return make_unique<variable_declaration_list>(*this);
 	}
 
 	void variable_declaration_list::write(ostream& os)
