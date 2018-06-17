@@ -243,7 +243,7 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
 
-//	copy2 = block;
+	copy2 = block;
 
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
