@@ -11,7 +11,7 @@ namespace cpp::codeprovider
 {
 	namespace types
 	{
-		class type_declaration;
+		class type;
 
 		namespace templates
 		{
@@ -40,14 +40,14 @@ namespace cpp::codeprovider
 		{
 			std::unique_ptr<internals::callable> impl;
 		public:
-			function(const std::string&, std::unique_ptr<types::type_declaration>);
+			function(const std::string&, std::unique_ptr<types::type>);
 
 			std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
 			std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
 			bool is_inline() const;
 			function& is_inline(bool);
-			types::type_declaration& return_type();
-			function& return_type(types::type_declaration&);
+			types::type& return_type();
+			function& return_type(std::unique_ptr<types::type>);
 			statements::block_statement& body();
 
 			friend std::ostream& operator<<(std::ostream&, const function&);

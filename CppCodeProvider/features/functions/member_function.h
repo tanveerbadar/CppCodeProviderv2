@@ -11,7 +11,7 @@ namespace cpp::codeprovider
 {
 	namespace types
 	{
-		class type_declaration;
+		class type;
 		class user_defined_type;
 		enum class access_level : int;
 
@@ -44,7 +44,7 @@ namespace cpp::codeprovider
 			const types::user_defined_type* container;
 			types::access_level access;
 		public:
-			member_function(const std::string&, std::unique_ptr<types::type_declaration>, const types::user_defined_type&);
+			member_function(const std::string&, std::unique_ptr<types::type>, const types::user_defined_type&);
 
 			std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
 			std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
@@ -60,8 +60,8 @@ namespace cpp::codeprovider
 			member_function& is_volatile(bool);
 			types::access_level accessibility() const;
 			member_function& accessibility(types::access_level);
-			types::type_declaration& return_type();
-			member_function& return_type(types::type_declaration&);
+			types::type& return_type();
+			member_function& return_type(types::type&);
 			statements::block_statement& body();
 
 			friend std::ostream& operator<<(std::ostream&, const member_function&);
