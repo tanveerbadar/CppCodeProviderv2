@@ -213,4 +213,34 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "2");
 }
 
+BOOST_AUTO_TEST_CASE(catch_block_tests)
+{
+	catch_clause block;
+	BOOST_TEST(block.statements().size() == 0);
+	auto& var = block.variable();
+
+	auto copy1(block);
+
+	const auto& body1 = block.statements();
+	auto& body2 = block.statements();
+	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
+
+	BOOST_TEST(block.statements().size() == 2);
+
+	auto copy2(block);
+
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(block.statements().size() == 2);
+
+	copy2 = block;
+
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(block.statements().size() == 2);
+
+	boost::test_tools::output_test_stream output;
+
+	output << block;
+}
+
 BOOST_AUTO_TEST_SUITE_END()
