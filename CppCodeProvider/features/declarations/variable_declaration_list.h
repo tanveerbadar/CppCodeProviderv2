@@ -4,7 +4,7 @@
 #pragma once
 
 #include "common.h"
-#include "declarator_specific.h"
+#include "declarator_specifier.h"
 #include "declarator.h"
 
 namespace cpp::codeprovider::declarations
@@ -20,6 +20,7 @@ namespace cpp::codeprovider::declarations
 		std::vector<declarator>& declarations();
 		const std::vector<declarator>& declarations() const;
 
+		std::unique_ptr<declaration> clone() const override;
 		void write(std::ostream&) override;
 
 		friend std::ostream& operator<<(std::ostream&, const variable_declaration_list&);

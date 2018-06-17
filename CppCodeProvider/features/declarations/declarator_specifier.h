@@ -4,23 +4,21 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 namespace cpp::codeprovider::types
 {
-	class type_declaration
-	{
-	public:
-		std::string name;
-	};
+	class type;
 }
 
 namespace cpp::codeprovider::declarations
 {
 	class declarator_specifier
 	{
-		const types::type_declaration* type;
+		std::unique_ptr<types::type> type;
 	public:
-		declarator_specifier(const types::type_declaration&);
+		declarator_specifier(std::unique_ptr<types::type>);
+		declarator_specifier(const declarator_specifier&);
 
 		bool	is_static = false,
 					is_constant = false,
@@ -28,10 +26,7 @@ namespace cpp::codeprovider::declarations
 					is_auto = false,
 					is_extern = false;
 
-		const types::type_declaration& get_type() const
-		{
-			return *type;
-		}
+		const types::type& get_type() const;
 	};
 
 	std::ostream& operator<<(std::ostream&, const declarator_specifier&);
