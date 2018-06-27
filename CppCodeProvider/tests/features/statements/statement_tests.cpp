@@ -251,4 +251,50 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	output << copy2;
 }
 
+BOOST_AUTO_TEST_CASE(try_statement_tests)
+{
+	auto stmt = make_unique<try_statement>();
+	BOOST_TEST(stmt->statements().size() == 0);
+	BOOST_TEST(stmt->catch_clauses().size() == 0);
+
+	boost::test_tools::output_test_stream output;
+	output << *stmt;
+
+	auto copy1(*stmt);
+
+	BOOST_TEST(copy1.statements().size() == 0);
+	BOOST_TEST(copy1.catch_clauses().size() == 0);
+
+	const auto& body1 = stmt->statements();
+	auto& body2 = stmt->statements();
+
+	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
+
+	BOOST_TEST(stmt->statements().size() == 2);
+
+	catch_clause block;
+	auto& body3 = block.statements();
+	body3.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+	body3.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
+
+	stmt->catch_clauses().push_back(block);
+
+	auto copy2(*stmt);
+
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(copy2.catch_clauses().size() == 1);
+	BOOST_TEST(stmt->catch_clauses().size() == 1);
+
+	copy2 = *stmt;
+
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(copy2.catch_clauses().size() == 1);
+	BOOST_TEST(stmt->catch_clauses().size() == 1);
+
+	output << copy2;
+}
+
 BOOST_AUTO_TEST_SUITE_END()
