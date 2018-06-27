@@ -9,28 +9,39 @@ namespace cpp::codeprovider::statements
 	using namespace formatting;
 
 	case_statement::case_statement(bool)
-		:statements()
+		:block()
 	{
 	}
 
 	case_statement::case_statement(unique_ptr<expression> l)
-		: e(move(l)), statements()
+		: e(move(l)), block()
 	{
 	}
 
 	case_statement::case_statement(const case_statement& other)
-		: e(other.e ? other.e->clone() : make_unique<primitive_expression>("")), statements(other.statements)
+		: e(other.e ? other.e->clone() : make_unique<primitive_expression>("")), block(other.block)
 	{
 	}
 
-	const block_statement& case_statement::body() const
+	case_statement& case_statement::operator=(const case_statement& other)
 	{
-		return statements;
+		if (this != &other)
+		{
+			auto e1 = e->clone();
+			block = other.block;
+			e = move(e1);
+		}
+		return *this;
 	}
 
-	block_statement& case_statement::body()
+	const vector<unique_ptr<statement>>& case_statement::statements() const
 	{
-		return statements;
+		return block.statements();
+	}
+
+	vector<unique_ptr<statement>>& case_statement::statements()
+	{
+		return block.statements();
 	}
 
 	expression& case_statement::label() const
@@ -52,7 +63,7 @@ namespace cpp::codeprovider::statements
 		else
 			os << "default" << ":" << endl;
 
-		os << c.body();
+		os << c.block;
 
 		return os;
 	}
