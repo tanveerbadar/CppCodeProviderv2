@@ -198,28 +198,28 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 {
 	auto stmt = make_unique<if_statement>(make_unique<binary_expression>(expression_type::not_equal, make_unique<primitive_expression>("1"), make_unique<primitive_expression>("2")));
 
-	BOOST_TEST(stmt->if_block().statements().size() == 0);
+	BOOST_TEST(stmt->if_block().size() == 0);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
-	BOOST_TEST(stmt->else_block().statements().size() == 0);
+	BOOST_TEST(stmt->else_block().size() == 0);
 
 	auto& condition = stmt->condition();
 	const auto& condition2 = stmt->condition();
 	auto copy1(*stmt);
-	const auto& body1 = stmt->if_block().statements();
-	auto& body2 = stmt->if_block().statements();
+	const auto& body1 = stmt->if_block();
+	auto& body2 = stmt->if_block();
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
 	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 
-	const auto& body3 = stmt->else_block().statements();
-	auto& body4 = stmt->else_block().statements();
+	const auto& body3 = stmt->else_block();
+	auto& body4 = stmt->else_block();
 	body4.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("3")));
 	body4.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("4")));
 
 	stmt->condition(make_unique<binary_expression>(expression_type::not_equal, make_unique<primitive_expression>("1"), make_unique<primitive_expression>("2")));
 
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
-	BOOST_TEST(stmt->if_block().statements().size() == 2);
-	BOOST_TEST(stmt->else_block().statements().size() == 2);
+	BOOST_TEST(stmt->if_block().size() == 2);
+	BOOST_TEST(stmt->else_block().size() == 2);
 
 	auto other = stmt->clone();
 
@@ -230,18 +230,18 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 
 	auto copy2(*stmt);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
-	BOOST_TEST(stmt->if_block().statements().size() == 2);
-	BOOST_TEST(stmt->else_block().statements().size() == 2);
-	BOOST_TEST(copy2.if_block().statements().size() == 2);
-	BOOST_TEST(copy2.else_block().statements().size() == 2);
+	BOOST_TEST(stmt->if_block().size() == 2);
+	BOOST_TEST(stmt->else_block().size() == 2);
+	BOOST_TEST(copy2.if_block().size() == 2);
+	BOOST_TEST(copy2.else_block().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "2");
 
 	copy2 = *stmt;
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
-	BOOST_TEST(stmt->if_block().statements().size() == 2);
-	BOOST_TEST(stmt->else_block().statements().size() == 2);
-	BOOST_TEST(copy2.if_block().statements().size() == 2);
-	BOOST_TEST(copy2.else_block().statements().size() == 2);
+	BOOST_TEST(stmt->if_block().size() == 2);
+	BOOST_TEST(stmt->else_block().size() == 2);
+	BOOST_TEST(copy2.if_block().size() == 2);
+	BOOST_TEST(copy2.else_block().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "2");
 
 	const auto& c_ref = copy1;
