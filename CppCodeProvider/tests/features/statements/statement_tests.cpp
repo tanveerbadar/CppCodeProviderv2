@@ -382,4 +382,45 @@ BOOST_AUTO_TEST_CASE(case_statement_test)
 	c_ref.statements();
 }
 
+BOOST_AUTO_TEST_CASE(switch_statement_test)
+{
+	auto stmt = make_unique<switch_statement>(make_unique<primitive_expression>("5"));
+	BOOST_TEST(stmt->cases().size() == 0);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->condition()).expr() == "5");
+
+	boost::test_tools::output_test_stream output;
+	output << *stmt;
+
+	auto copy1(*stmt);
+
+	BOOST_TEST(copy1.cases().size() == 0);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy1.condition()).expr() == "5");
+
+	case_statement block(true);
+	auto& body3 = block.statements();
+	body3.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+	body3.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
+
+	stmt->cases().push_back(block);
+
+	auto copy2(*stmt);
+
+	BOOST_TEST(copy2.cases().size() == 1);
+	BOOST_TEST(stmt->cases().size() == 1);
+
+	copy2 = *stmt;
+
+	BOOST_TEST(copy2.cases().size() == 1);
+	BOOST_TEST(stmt->cases().size() == 1);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "5");
+
+	output << copy2;
+
+	const auto& c_ref = copy1;
+	c_ref.cases();
+	c_ref.condition();
+	c_ref.clone();
+	c_ref.write(output);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
