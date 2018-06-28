@@ -1,5 +1,10 @@
 namespace cpp::codeprovider
 {
+	namespace expressions
+	{
+		class expression;
+	}
+
 	namespace types
 	{
 		class type_declaration;
