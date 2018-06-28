@@ -38,10 +38,12 @@ namespace cpp::codeprovider::statements
 	public:
 		switch_statement(std::unique_ptr<expressions::expression>);
 		switch_statement(const switch_statement&);
+		switch_statement& operator=(const switch_statement&);
 
 		const expressions::expression& condition() const;
 		switch_statement& condition(std::unique_ptr<expressions::expression>);
 		std::vector<case_statement>& cases();
+		const std::vector<case_statement>& cases() const;
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;
