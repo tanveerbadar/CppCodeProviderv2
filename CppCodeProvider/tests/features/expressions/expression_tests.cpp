@@ -77,6 +77,13 @@ BOOST_AUTO_TEST_CASE(binary_expression_test)
 		BOOST_TEST(copy.type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "1");
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "2");
+
+		const auto& c_ref = copy;
+		c_ref.clone();
+		c_ref.left();
+		c_ref.right();
+		c_ref.type();
+		c_ref.write(stream);
 	}
 }
 
@@ -122,6 +129,12 @@ BOOST_AUTO_TEST_CASE(unary_expression_test)
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(e->expr()).expr() == "1");
 		BOOST_TEST(copy.type() == expr);
 		BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.expr()).expr() == "1");
+
+		const auto& c_ref = copy;
+		c_ref.clone();
+		c_ref.expr();
+		c_ref.type();
+		c_ref.write(stream);
 	}
 }
 
@@ -157,6 +170,14 @@ BOOST_AUTO_TEST_CASE(ternary_expression_test)
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.condition()).expr() == "1");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.left()).expr() == "2");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy.right()).expr() == "3");
+
+	const auto& c_ref = copy;
+	c_ref.clone();
+	c_ref.condition();
+	c_ref.left();
+	c_ref.right();
+	c_ref.type();
+	c_ref.write(stream);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -27,6 +27,11 @@ BOOST_AUTO_TEST_CASE(expression_statement_tests)
 	expression_statement copy(*stmt);
 
 	copy = *stmt;
+
+	const auto& c_ref = copy;
+	c_ref.clone();
+	c_ref.expression();
+	c_ref.write(stream);
 }
 
 BOOST_AUTO_TEST_CASE(block_statement_tests)
@@ -59,6 +64,10 @@ BOOST_AUTO_TEST_CASE(block_statement_tests)
 
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
+
+	const auto& c_ref = copy1;
+	c_ref.statements();
+	output << c_ref;
 }
 
 BOOST_AUTO_TEST_CASE(for_loop_tests)
@@ -118,6 +127,14 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.loop()).expr() == "3");
+
+	const auto& c_ref = copy1;
+	c_ref.clone();
+	c_ref.condition();
+	c_ref.initializer();
+	c_ref.loop();
+	c_ref.statements();
+	c_ref.write(stream);
 }
 
 BOOST_AUTO_TEST_CASE(while_loop_tests)
@@ -168,6 +185,13 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.condition()).expr() == "2");
 	BOOST_TEST(copy2.style() == while_loop_style::do_while_loop);
+
+	const auto& c_ref = copy1;
+	c_ref.clone();
+	c_ref.condition();
+	c_ref.statements();
+	c_ref.style();
+	c_ref.write(stream);
 }
 
 BOOST_AUTO_TEST_CASE(if_statement_tests)
@@ -219,6 +243,13 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(copy2.if_block().statements().size() == 2);
 	BOOST_TEST(copy2.else_block().statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "2");
+
+	const auto& c_ref = copy1;
+	c_ref.clone();
+	c_ref.condition();
+	c_ref.else_block();
+	c_ref.if_block();
+	c_ref.write(stream);
 }
 
 BOOST_AUTO_TEST_CASE(catch_block_tests)
@@ -250,6 +281,12 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	BOOST_TEST(block.statements().size() == 2);
 
 	output << copy2;
+
+	const auto& c_ref = copy1;
+	c_ref.statements();
+	c_ref.variable();
+
+	output << c_ref;
 }
 
 BOOST_AUTO_TEST_CASE(try_statement_tests)
@@ -296,6 +333,12 @@ BOOST_AUTO_TEST_CASE(try_statement_tests)
 	BOOST_TEST(stmt->catch_clauses().size() == 1);
 
 	output << copy2;
+
+	const auto& c_ref = copy1;
+	c_ref.catch_clauses();
+	c_ref.clone();
+	c_ref.statements();
+	c_ref.write(output);
 }
 
 BOOST_AUTO_TEST_CASE(case_statement_test)
@@ -332,6 +375,11 @@ BOOST_AUTO_TEST_CASE(case_statement_test)
 	auto& var2 = block2.label();
 	const auto& var3 = block2.label();
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(var2).expr() == "5");
+
+	const auto& c_ref = copy1;
+	c_ref.has_label();
+	c_ref.label();
+	c_ref.statements();
 }
 
 BOOST_AUTO_TEST_SUITE_END()
