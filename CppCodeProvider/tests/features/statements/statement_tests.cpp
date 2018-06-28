@@ -9,6 +9,7 @@ BOOST_AUTO_TEST_SUITE(statement_tests)
 using namespace std;
 using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::statements;
+using namespace cpp::codeprovider::declarations;
 
 BOOST_AUTO_TEST_CASE(expression_statement_tests)
 {
@@ -211,7 +212,7 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(copy2.else_block().statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "2");
 
-//	copy2 = *stmt;
+	copy2 = *stmt;
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
 	BOOST_TEST(stmt->if_block().statements().size() == 2);
 	BOOST_TEST(stmt->else_block().statements().size() == 2);
@@ -295,6 +296,42 @@ BOOST_AUTO_TEST_CASE(try_statement_tests)
 	BOOST_TEST(stmt->catch_clauses().size() == 1);
 
 	output << copy2;
+}
+
+BOOST_AUTO_TEST_CASE(case_statement_test)
+{
+	case_statement block(false);
+	BOOST_TEST(block.statements().size() == 0);
+	auto& var = block.label();
+
+	boost::test_tools::output_test_stream output;
+	output << block;
+
+	auto copy1(block);
+
+	const auto& body1 = block.statements();
+	auto& body2 = block.statements();
+	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
+
+	BOOST_TEST(block.statements().size() == 2);
+
+	auto copy2(block);
+
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(block.statements().size() == 2);
+
+	copy2 = block;
+
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(block.statements().size() == 2);
+
+	output << copy2;
+
+	case_statement block2(make_unique<primitive_expression>("5"));
+	auto& var2 = block2.label();
+	const auto& var3 = block2.label();
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(var2).expr() == "5");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
