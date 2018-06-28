@@ -33,7 +33,9 @@ namespace cpp::codeprovider::statements
 		std::vector<catch_clause> catch_blocks;
 	public:
 		std::vector<std::unique_ptr<statement>>& statements();
+		const std::vector<std::unique_ptr<statement>>& statements() const;
 		std::vector<catch_clause>& catch_clauses();
+		const std::vector<catch_clause>& catch_clauses() const;
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

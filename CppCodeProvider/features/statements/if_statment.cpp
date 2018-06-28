@@ -29,14 +29,24 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	block_statement& if_statement::if_block()
+	vector<unique_ptr<statement>>& if_statement::if_block()
 	{
-		return if_collection;
+		return if_collection.statements();
 	}
 
-	block_statement& if_statement::else_block()
+	const vector<unique_ptr<statement>>& if_statement::if_block() const
 	{
-		return else_collection;
+		return if_collection.statements();
+	}
+
+	vector<unique_ptr<statement>>& if_statement::else_block()
+	{
+		return else_collection.statements();
+	}
+
+	const vector<unique_ptr<statement>>& if_statement::else_block() const
+	{
+		return else_collection.statements();
 	}
 
 	const expression& if_statement::condition() const
