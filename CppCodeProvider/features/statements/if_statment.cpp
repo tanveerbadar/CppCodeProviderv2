@@ -13,6 +13,17 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
+	if_statement& if_statement::operator=(const if_statement& other)
+	{
+		if (this != &other)
+		{
+			if_collection = other.if_collection;
+			else_collection = other.else_collection;
+			condition_exp = other.condition_exp->clone();
+		}
+		return *this;
+	}
+
 	block_statement& if_statement::if_block()
 	{
 		return if_collection;
