@@ -80,6 +80,17 @@ namespace cpp::codeprovider::statements
 			collection.emplace_back(stmt);
 	}
 
+	switch_statement& switch_statement::operator=(const switch_statement& other)
+	{
+		if (this != &other)
+		{
+			auto e = other.condition_exp->clone();
+			collection = other.collection;
+			condition_exp = move(e);
+		}
+		return *this;
+	}
+
 	unique_ptr<statement> switch_statement::clone() const
 	{
 		return make_unique<switch_statement>(*this);
@@ -113,6 +124,11 @@ namespace cpp::codeprovider::statements
 	}
 
 	vector<case_statement>& switch_statement::cases()
+	{
+		return collection;
+	}
+
+	const vector<case_statement>& switch_statement::cases() const
 	{
 		return collection;
 	}
