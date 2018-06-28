@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_SUITE(expression_tests)
 using namespace std;
 using namespace cpp::codeprovider::expressions;
 
-BOOST_AUTO_TEST_CASE(binary_expression_test)
+BOOST_AUTO_TEST_CASE(binary_expression_tests)
 {
 	expression_type binary_expressions[] = {
 				expression_type::addition,
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(binary_expression_test)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(unary_expression_test)
+BOOST_AUTO_TEST_CASE(unary_expression_tests)
 {
 	expression_type unary_expressions[] = {
 		expression_type::address_of,
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE(unary_expression_test)
 	}
 }
 
-BOOST_AUTO_TEST_CASE(ternary_expression_test)
+BOOST_AUTO_TEST_CASE(ternary_expression_tests)
 {
 	auto e = make_unique<ternary_expression>(make_unique<primitive_expression>("1"), make_unique<primitive_expression>("2"), make_unique<primitive_expression>("3"));
 	BOOST_TEST(e->type() == expression_type::conditional);

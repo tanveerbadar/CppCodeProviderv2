@@ -341,7 +341,7 @@ BOOST_AUTO_TEST_CASE(try_statement_tests)
 	c_ref.write(output);
 }
 
-BOOST_AUTO_TEST_CASE(case_statement_test)
+BOOST_AUTO_TEST_CASE(case_statement_tests)
 {
 	case_statement block(false);
 	BOOST_TEST(block.statements().size() == 0);
@@ -382,7 +382,7 @@ BOOST_AUTO_TEST_CASE(case_statement_test)
 	c_ref.statements();
 }
 
-BOOST_AUTO_TEST_CASE(switch_statement_test)
+BOOST_AUTO_TEST_CASE(switch_statement_tests)
 {
 	auto stmt = make_unique<switch_statement>(make_unique<primitive_expression>("5"));
 	BOOST_TEST(stmt->cases().size() == 0);
@@ -422,5 +422,15 @@ BOOST_AUTO_TEST_CASE(switch_statement_test)
 	c_ref.clone();
 	c_ref.write(output);
 }
+
+BOOST_AUTO_TEST_CASE(jump_statement_tests)
+{
+	jump_statement break_stmt(jump_type::break_jump);
+	jump_statement continue_stmt(jump_type::continue_jump);
+	jump_statement goto_stmt(jump_type::goto_jump);
+	jump_statement return_stmt1(jump_type::return_jump);
+	jump_statement return_stmt2(jump_type::return_jump);
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
