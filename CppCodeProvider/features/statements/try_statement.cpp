@@ -27,6 +27,11 @@ namespace cpp::codeprovider::statements
 
 	auto placeholder = variable_declaration(declarator_specifier(make_unique<type>()));
 
+	catch_clause::catch_clause(unique_ptr<variable_declaration> var)
+		:catch_var(move(var))
+	{
+	}
+
 	catch_clause::catch_clause(const catch_clause& other)
 		:catch_var(make_unique<variable_declaration>(other.catch_var ? *other.catch_var : placeholder)), catch_body(other.catch_body)
 	{
