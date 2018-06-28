@@ -16,6 +16,7 @@ namespace cpp::codeprovider::statements
 		block_statement catch_body;
 	public:
 		catch_clause() = default;
+		catch_clause(std::unique_ptr<declarations::variable_declaration>);
 		catch_clause(const catch_clause&);
 		catch_clause& operator=(const catch_clause&);
 

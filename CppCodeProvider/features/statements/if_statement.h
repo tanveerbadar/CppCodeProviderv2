@@ -16,6 +16,7 @@ namespace cpp::codeprovider::statements
 	public:
 		if_statement(std::unique_ptr<expressions::expression>);
 		if_statement(const if_statement&);
+		if_statement& operator=(const if_statement&);
 
 		block_statement & if_block();
 		block_statement& else_block();
