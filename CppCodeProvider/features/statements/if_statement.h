@@ -21,8 +21,10 @@ namespace cpp::codeprovider::statements
 		if_statement(std::unique_ptr<expressions::expression>);
 		if_statement& operator=(const if_statement&);
 
-		block_statement & if_block();
-		block_statement& else_block();
+		std::vector<std::unique_ptr<statement>>& if_block();
+		const std::vector<std::unique_ptr<statement>>& if_block() const;
+		std::vector<std::unique_ptr<statement>>& else_block();
+		const std::vector<std::unique_ptr<statement>>& else_block() const;
 		const expressions::expression& condition() const;
 		if_statement& condition(std::unique_ptr<expressions::expression>);
 
