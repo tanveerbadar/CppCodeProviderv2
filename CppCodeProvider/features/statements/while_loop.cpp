@@ -78,6 +78,11 @@ namespace cpp::codeprovider::statements
 		return body.statements();
 	}
 
+	const vector<unique_ptr<statement>>& while_loop::statements() const
+	{
+		return body.statements();
+	}
+
 	ostream& operator<<(ostream& os, while_loop_style wls)
 	{
 		os << (wls == while_loop_style::do_while_loop ? "do-while" : "while");

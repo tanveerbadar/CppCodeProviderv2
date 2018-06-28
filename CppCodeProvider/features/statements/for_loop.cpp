@@ -91,4 +91,9 @@ namespace cpp::codeprovider::statements
 	{
 		return body.statements();
 	}
+
+	const vector<unique_ptr<statement>>& for_loop::statements() const
+	{
+		return body.statements();
+	}
 }

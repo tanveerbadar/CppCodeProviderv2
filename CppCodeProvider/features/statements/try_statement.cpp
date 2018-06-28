@@ -79,7 +79,17 @@ namespace cpp::codeprovider::statements
 		return try_block.statements();
 	}
 
+	const vector<unique_ptr<statement>>& try_statement::statements() const
+	{
+		return try_block.statements();
+	}
+
 	vector<catch_clause>& try_statement::catch_clauses()
+	{
+		return catch_blocks;
+	}
+
+	const vector<catch_clause>& try_statement::catch_clauses() const
 	{
 		return catch_blocks;
 	}
