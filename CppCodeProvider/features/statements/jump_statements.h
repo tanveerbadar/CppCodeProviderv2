@@ -16,6 +16,8 @@ namespace cpp::codeprovider::statements
 		return_jump
 	};
 
+	std::ostream& operator<<(std::ostream&, jump_type);
+
 	class jump_statement : public statement
 	{
 		jump_type j_type;
