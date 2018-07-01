@@ -19,6 +19,7 @@ namespace cpp::codeprovider::statements
 		std::unique_ptr<expressions::expression> condition_exp;
 	public:
 		if_statement(std::unique_ptr<expressions::expression>);
+		if_statement(const if_statement&);
 		if_statement& operator=(const if_statement&);
 
 		std::vector<std::unique_ptr<statement>>& if_block();
