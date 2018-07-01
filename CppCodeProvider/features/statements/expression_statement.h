@@ -10,8 +10,9 @@ namespace cpp::codeprovider::statements
 	class expression_statement : public statement
 	{
 		std::unique_ptr<expressions::expression> e1;
+		std::string label;
 	public:
-		expression_statement(std::unique_ptr<expressions::expression>);
+		expression_statement(std::unique_ptr<expressions::expression>, const std::string& = "");
 		expression_statement(const expression_statement&);
 		expression_statement& operator=(const expression_statement&);
 

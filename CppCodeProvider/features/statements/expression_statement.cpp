@@ -8,13 +8,13 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
-	expression_statement::expression_statement(unique_ptr<expressions::expression> e)
-		: e1(move(e))
+	expression_statement::expression_statement(unique_ptr<expressions::expression> e, const string& l)
+		: e1(move(e)), label(l)
 	{
 	}
 
 	expression_statement::expression_statement(const expression_statement& other)
-		: expression_statement(other.e1->clone())
+		: e1(other.e1->clone()), label(other.label)
 	{
 	}
 
@@ -23,6 +23,7 @@ namespace cpp::codeprovider::statements
 		if (this != &other)
 		{
 			e1 = other.e1->clone();
+			label = other.label;
 		}
 		return *this;
 	}
@@ -37,6 +38,8 @@ namespace cpp::codeprovider::statements
 		auto indent = formatter_settings::settings.get_indent_string();
 		if (comment.size() > 0)
 			os << indent << "//" << comment << endl;
+		if (label.size() > 0)
+			os << label << ":" << endl;
 		os << indent << *e1 << ";" << endl;
 	}
 
