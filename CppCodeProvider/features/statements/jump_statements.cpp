@@ -7,9 +7,19 @@ namespace cpp::codeprovider::statements
 	using namespace std;
 	using namespace formatting;
 
+	jump_statement::jump_statement(jump_type t)
+		:j_type(t)
+	{
+	}
+
 	jump_statement::jump_statement(const jump_statement& other)
 		:j_type(other.j_type), e1(other.e1->clone())
 	{
+	}
+
+	jump_type jump_statement::type() const
+	{
+		return j_type;
 	}
 
 	unique_ptr<statement> jump_statement::clone() const
