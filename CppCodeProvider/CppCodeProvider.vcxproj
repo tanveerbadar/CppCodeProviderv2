@@ -76,6 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>E:\boost\boost_1_67_0;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\boost\boost_1_67_0\boost_1_67\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -183,6 +184,7 @@
     <ClCompile Include="features\statements\switch_statement.cpp" />
     <ClCompile Include="features\statements\try_statement.cpp" />
     <ClCompile Include="features\statements\while_loop.cpp" />
+    <ClCompile Include="tests\features\statements\statement_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.h" />

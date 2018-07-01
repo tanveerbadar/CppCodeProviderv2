@@ -8,7 +8,10 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
-	primitive_expression placeholder("");
+	namespace
+	{
+		primitive_expression placeholder("");
+	}
 
 	for_loop::for_loop(const for_loop& other)
 		: init((other.init ? *other.init : placeholder).clone()), condition_exp((other.condition_exp ? *other.condition_exp : placeholder).clone()), loop_exp((other.loop_exp ? *other.loop_exp : placeholder).clone()), body(other.body)

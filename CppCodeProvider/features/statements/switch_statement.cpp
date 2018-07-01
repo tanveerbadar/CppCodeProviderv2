@@ -8,6 +8,11 @@ namespace cpp::codeprovider::statements
 	using namespace expressions;
 	using namespace formatting;
 
+	namespace
+	{
+		primitive_expression placeholder("");
+	}
+
 	case_statement::case_statement(bool)
 		:block()
 	{
@@ -19,7 +24,7 @@ namespace cpp::codeprovider::statements
 	}
 
 	case_statement::case_statement(const case_statement& other)
-		: e(other.e ? other.e->clone() : make_unique<primitive_expression>("")), block(other.block)
+		: e((other.e ? *other.e : placeholder).clone()), block(other.block)
 	{
 	}
 

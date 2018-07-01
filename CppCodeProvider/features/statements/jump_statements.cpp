@@ -1,11 +1,18 @@
 #include "jump_statements.h"
 #include "..\expressions\common.h"
 #include "..\..\formatters\formatter_settings.h"
+#include "..\expressions\unary_expressions.h"
 
 namespace cpp::codeprovider::statements
 {
 	using namespace std;
 	using namespace formatting;
+	using namespace expressions;
+
+	namespace
+	{
+		primitive_expression placeholder("");
+	}
 
 	jump_statement::jump_statement(jump_type t)
 		:j_type(t)
@@ -13,8 +20,19 @@ namespace cpp::codeprovider::statements
 	}
 
 	jump_statement::jump_statement(const jump_statement& other)
-		:j_type(other.j_type), e1(other.e1->clone())
+		:j_type(other.j_type), e1((other.e1 ? *other.e1 : placeholder).clone())
 	{
+	}
+
+	jump_statement& jump_statement::operator=(const jump_statement& other)
+	{
+		if (this != &other)
+		{
+			if (other.e1)
+				e1 = other.e1->clone();
+			j_type = other.j_type;
+		}
+		return *this;
 	}
 
 	jump_type jump_statement::type() const
