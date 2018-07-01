@@ -1,3 +1,5 @@
+#define BOOST_TEST_MODULE cpp_code_provider_tests
+
 #include <boost/test/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
 #include "..\..\..\features\statements.h"
@@ -446,7 +448,7 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 
 	output << copy1;
 
-	//	copy1 = break_stmt;
+	copy1 = break_stmt;
 
 	BOOST_TEST(copy1.type() == jump_type::break_jump);
 	BOOST_TEST(break_stmt.type() == jump_type::break_jump);

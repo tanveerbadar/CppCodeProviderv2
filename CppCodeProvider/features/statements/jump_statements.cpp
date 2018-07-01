@@ -24,6 +24,17 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
+	jump_statement& jump_statement::operator=(const jump_statement& other)
+	{
+		if (this != &other)
+		{
+			if (other.e1)
+				e1 = other.e1->clone();
+			j_type = other.j_type;
+		}
+		return *this;
+	}
+
 	jump_type jump_statement::type() const
 	{
 		return j_type;

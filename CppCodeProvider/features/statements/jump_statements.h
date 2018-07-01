@@ -25,6 +25,7 @@ namespace cpp::codeprovider::statements
 	public:
 		jump_statement(jump_type);
 		jump_statement(const jump_statement&);
+		jump_statement& operator=(const jump_statement&);
 
 		jump_type type() const;
 
