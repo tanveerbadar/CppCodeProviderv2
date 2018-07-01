@@ -430,6 +430,26 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 	jump_statement goto_stmt(jump_type::goto_jump);
 	jump_statement return_stmt1(jump_type::return_jump);
 	jump_statement return_stmt2(jump_type::return_jump);
+
+	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
+	BOOST_TEST(continue_stmt.type() == jump_type::continue_jump);
+	BOOST_TEST(goto_stmt.type() == jump_type::goto_jump);
+	BOOST_TEST(return_stmt1.type() == jump_type::return_jump);
+
+	boost::test_tools::output_test_stream output;
+	output << break_stmt;
+
+	auto copy1(break_stmt);
+
+	BOOST_TEST(copy1.type() == jump_type::break_jump);
+	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
+
+	output << copy1;
+
+//	copy1 = break_stmt;
+
+	BOOST_TEST(copy1.type() == jump_type::break_jump);
+	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
 }
 
 
