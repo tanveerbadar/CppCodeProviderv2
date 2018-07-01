@@ -53,4 +53,24 @@ namespace cpp::codeprovider::statements
 			break;
 		}
 	}
+
+	ostream & operator<<(ostream& os, jump_type t)
+	{
+		switch (t)
+		{
+		case jump_type::break_jump:
+			os << "break;";
+			break;
+		case jump_type::continue_jump:
+			os << "continue;";
+			break;
+		case jump_type::goto_jump:
+			os << "goto;";
+			break;
+		case jump_type::return_jump:
+			os << "return;";
+			break;
+		}
+		return os;
+	}
 }
