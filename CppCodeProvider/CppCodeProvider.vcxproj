@@ -164,7 +164,7 @@
     <ClCompile Include="CppCodeProvider.cpp" />
     <ClCompile Include="features\declarations\declaration_common.cpp" />
     <ClCompile Include="features\declarations\declarator.cpp" />
-    <ClCompile Include="features\declarations\declarator_specific.cpp" />
+    <ClCompile Include="features\declarations\declarator_specifier.cpp" />
     <ClCompile Include="features\declarations\variable_declaration.cpp" />
     <ClCompile Include="features\declarations\variable_declaration_list.cpp" />
     <ClCompile Include="features\expressions\binary_expressions.cpp" />
@@ -191,7 +191,7 @@
     <ClInclude Include="features\declarations.h" />
     <ClInclude Include="features\declarations\common.h" />
     <ClInclude Include="features\declarations\declarator.h" />
-    <ClInclude Include="features\declarations\declarator_specific.h" />
+    <ClInclude Include="features\declarations\declarator_specifier.h" />
     <ClInclude Include="features\declarations\variable_declaration.h" />
     <ClInclude Include="features\declarations\variable_declaration_list.h" />
     <ClInclude Include="features\expressions.h" />

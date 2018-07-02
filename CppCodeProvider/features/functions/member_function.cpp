@@ -4,15 +4,6 @@
 
 namespace cpp::codeprovider::types
 {
-	class type
-	{
-	};
-
-	class user_defined_type : public type
-	{
-
-	};
-
 	namespace templates
 	{
 		class template_parameter
@@ -29,7 +20,7 @@ namespace cpp::codeprovider::functions
 	using namespace statements;
 	using namespace types;
 
-	member_function::member_function(const string& n, unique_ptr<type_declaration> returns, const user_defined_type& udt)
+	member_function::member_function(const string& n, unique_ptr<type> returns, const user_defined_type& udt)
 		:impl(make_unique<callable>(n, move(returns))), container(&udt)
 	{
 	}

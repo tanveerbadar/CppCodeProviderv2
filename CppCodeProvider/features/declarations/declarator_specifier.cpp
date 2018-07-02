@@ -1,10 +1,10 @@
-#include "declarator_specific.h"
+#include "declarator_specifier.h"
 
 namespace cpp::codeprovider::declarations
 {
 	using namespace std;
 
-	declarator_specifier::declarator_specifier(const types::type_declaration& t)
+	declarator_specifier::declarator_specifier(const types::type& t)
 		:type(&t)
 	{
 	}

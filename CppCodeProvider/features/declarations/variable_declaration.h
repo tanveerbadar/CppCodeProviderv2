@@ -4,7 +4,7 @@
 #pragma once
 
 #include "common.h"
-#include "declarator_specific.h"
+#include "declarator_specifier.h"
 #include "declarator.h"
 
 namespace cpp::codeprovider::declarations

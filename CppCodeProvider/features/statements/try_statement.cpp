@@ -9,7 +9,7 @@ namespace cpp::codeprovider::statements
 	using namespace types;
 
 	catch_clause::catch_clause(const catch_clause& other)
-		:catch_var(other.catch_var ? make_unique<variable_declaration>(*other.catch_var) : make_unique<variable_declaration>(declarator_specifier(type_declaration()))), catch_body(other.catch_body)
+		:catch_var(other.catch_var ? make_unique<variable_declaration>(*other.catch_var) : make_unique<variable_declaration>(declarator_specifier(type()))), catch_body(other.catch_body)
 	{
 	}
 
