@@ -2,8 +2,16 @@
 #include "member_function.h"
 #include "..\declarations\variable_declaration.h"
 
+using namespace std;
+
 namespace cpp::codeprovider::types
 {
+	class type
+	{
+	public:
+		string name;
+	};
+
 	namespace templates
 	{
 		class template_parameter
@@ -15,7 +23,6 @@ namespace cpp::codeprovider::types
 
 namespace cpp::codeprovider::functions
 {
-	using namespace std;
 	using namespace internals;
 	using namespace statements;
 	using namespace types;

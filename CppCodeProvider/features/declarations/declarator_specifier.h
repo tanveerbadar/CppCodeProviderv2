@@ -7,11 +7,7 @@
 
 namespace cpp::codeprovider::types
 {
-	class type
-	{
-	public:
-		std::string name;
-	};
+	class type;
 }
 
 namespace cpp::codeprovider::declarations
@@ -28,10 +24,7 @@ namespace cpp::codeprovider::declarations
 					is_auto = false,
 					is_extern = false;
 
-		const types::type& get_type() const
-		{
-			return *type;
-		}
+		const types::type& get_type() const;
 	};
 
 	std::ostream& operator<<(std::ostream&, const declarator_specifier&);

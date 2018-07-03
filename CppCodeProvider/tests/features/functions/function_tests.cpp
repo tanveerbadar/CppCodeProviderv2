@@ -7,23 +7,21 @@
 
 using namespace std;
 
-namespace cpp::codeprovider::types::templates
-{
-	class template_parameter
-	{
-
-	};
-}
-
 namespace cpp::codeprovider::types
 {
-	class type2
+	class type
 	{
 	public:
-		type2(const string& name)
-		{
-		}
+		string name;
 	};
+
+	namespace templates
+	{
+		class template_parameter
+		{
+
+		};
+	}
 }
 
 using f = cpp::codeprovider::functions::function;
