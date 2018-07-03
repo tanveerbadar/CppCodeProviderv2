@@ -49,9 +49,19 @@ namespace cpp::codeprovider::functions
 		return *this;
 	}
 
+	vector<unique_ptr<variable_declaration>>& function::parameters()
+	{
+		return impl->parameter_list;
+	}
+
 	const vector<unique_ptr<variable_declaration>>& function::parameters() const
 	{
 		return impl->parameter_list;
+	}
+
+	vector<unique_ptr<template_parameter>>& function::template_parameters()
+	{
+		return impl->template_parameter_list;
 	}
 
 	const vector<unique_ptr<template_parameter>>& function::template_parameters() const
@@ -62,6 +72,12 @@ namespace cpp::codeprovider::functions
 	bool function::is_inline() const
 	{
 		return impl->is_inline;
+	}
+
+	function& function::is_inline(bool flag)
+	{
+		impl->is_inline = flag;
+		return *this;
 	}
 
 	block_statement& function::body()

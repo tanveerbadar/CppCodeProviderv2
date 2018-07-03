@@ -34,15 +34,33 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	t->name = "t1";
 	f f1("something", move(t));
 
+	f1.body();
+	f1.is_inline();
+	f1.parameters();
+	f1.return_type();
+	f1.template_parameters();
+
 	boost::test_tools::output_test_stream stream;
 
 	stream << f1;
 
 	auto copy1(f1);
 
+	copy1.body();
+	copy1.is_inline();
+	copy1.parameters();
+	copy1.return_type();
+	copy1.template_parameters();
+
 	stream << copy1;
 
 	copy1 = f1;
+
+	copy1.body();
+	copy1.is_inline();
+	copy1.parameters();
+	copy1.return_type();
+	copy1.template_parameters();
 
 	stream << copy1;
 
