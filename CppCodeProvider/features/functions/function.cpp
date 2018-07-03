@@ -25,20 +25,55 @@ namespace cpp::codeprovider::types
 namespace cpp::codeprovider::functions
 {
 	using namespace internals;
+	using namespace declarations;
 	using namespace statements;
 	using namespace types;
+	using namespace templates;
 
 	function::function(const string& n, unique_ptr<type> returns)
 		:impl(make_unique<callable>(n,move(returns)))
 	{
 	}
 
+	function::function(const function& other)
+		: impl(make_unique<callable>(*other.impl))
+	{
+	}
+
+	function& function::operator=(const function& other)
+	{
+		if (this != &other)
+		{
+			impl = make_unique<callable>(*other.impl);
+		}
+		return *this;
+	}
+
+	const vector<unique_ptr<variable_declaration>>& function::parameters() const
+	{
+		return impl->parameter_list;
+	}
+
+	const vector<unique_ptr<template_parameter>>& function::template_parameters() const
+	{
+		return impl->template_parameter_list;
+	}
+
+	bool function::is_inline() const
+	{
+		return impl->is_inline;
+	}
+
 	block_statement& function::body()
 	{
 		return impl->statements;
 	}
-
 	
+	const block_statement& function::body() const
+	{
+		return impl->statements;
+	}
+
 	type& function::return_type() const
 	{
 		return *impl->return_type;
