@@ -17,9 +17,13 @@ BOOST_AUTO_TEST_CASE(expression_statement_tests)
 
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->expression()).expr() == "1");
 
-	auto other = stmt->clone();
-
 	boost::test_tools::output_test_stream stream;
+
+	stmt->clone();
+	stmt->expression();
+	stmt->write(stream);
+
+	auto other = stmt->clone();
 
 	stream << *other;
 	other->write(stream);
@@ -27,6 +31,10 @@ BOOST_AUTO_TEST_CASE(expression_statement_tests)
 	expression_statement copy(*stmt);
 
 	copy = *stmt;
+
+	copy.clone();
+	copy.expression();
+	copy.write(stream);
 
 	const auto& c_ref = copy;
 	c_ref.clone();
