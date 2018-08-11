@@ -41,14 +41,19 @@ namespace cpp::codeprovider
 			std::unique_ptr<internals::callable> impl;
 		public:
 			function(const std::string&, std::unique_ptr<types::type>);
+			function(const function&);
+			function& operator=(const function&);
 
 			std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
+			const std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters() const;
 			std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
+			const std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters() const;
 			bool is_inline() const;
 			function& is_inline(bool);
-			types::type& return_type();
+			types::type& return_type() const;
 			function& return_type(std::unique_ptr<types::type>);
 			statements::block_statement& body();
+			const statements::block_statement& body() const;
 
 			friend std::ostream& operator<<(std::ostream&, const function&);
 		};

@@ -2,22 +2,14 @@
 #include "member_function.h"
 #include "..\declarations\variable_declaration.h"
 
+using namespace std;
+
 namespace cpp::codeprovider::types
 {
 	class type
 	{
 	public:
-		std::string name;
-
-		virtual std::unique_ptr<type> clone() const
-		{
-			return std::make_unique<type>(*this);
-		}
-	};
-
-	class user_defined_type : public type
-	{
-
+		string name;
 	};
 
 	namespace templates
@@ -31,7 +23,6 @@ namespace cpp::codeprovider::types
 
 namespace cpp::codeprovider::functions
 {
-	using namespace std;
 	using namespace internals;
 	using namespace statements;
 	using namespace types;

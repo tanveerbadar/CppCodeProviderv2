@@ -21,6 +21,7 @@ namespace cpp::codeprovider
 			bool is_inline = false;
 
 			callable(const std::string&, std::unique_ptr<types::type>);
+			callable(const callable&);
 		};
 	}
 }

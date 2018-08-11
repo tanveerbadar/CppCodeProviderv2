@@ -164,7 +164,7 @@
     <ClCompile Include="CppCodeProvider.cpp" />
     <ClCompile Include="features\declarations\declaration_common.cpp" />
     <ClCompile Include="features\declarations\declarator.cpp" />
-    <ClCompile Include="features\declarations\declarator_specifer.cpp" />
+    <ClCompile Include="features\declarations\declarator_specifier.cpp" />
     <ClCompile Include="features\declarations\variable_declaration.cpp" />
     <ClCompile Include="features\declarations\variable_declaration_list.cpp" />
     <ClCompile Include="features\expressions\binary_expressions.cpp" />
@@ -185,6 +185,7 @@
     <ClCompile Include="features\statements\try_statement.cpp" />
     <ClCompile Include="features\statements\while_loop.cpp" />
     <ClCompile Include="tests\features\statements\statement_tests.cpp" />
+    <ClCompile Include="tests\features\functions\function_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.h" />
