@@ -6,29 +6,10 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "..\forward_declarations.h"
 
 namespace cpp::codeprovider
 {
-	namespace types
-	{
-		class type;
-
-		namespace templates
-		{
-			class template_parameter;
-		}
-	}
-
-	namespace declarations
-	{
-		class variable_declaration;
-	}
-
-	namespace statements
-	{
-		class block_statement;
-	}
-
 	namespace functions
 	{
 		namespace internals

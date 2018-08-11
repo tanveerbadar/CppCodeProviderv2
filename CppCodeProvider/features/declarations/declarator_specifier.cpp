@@ -15,8 +15,13 @@ namespace cpp::codeprovider::declarations
 {
 	using namespace types;
 
-	declarator_specifier::declarator_specifier(const types::type& t)
-		:type(&t)
+	declarator_specifier::declarator_specifier(unique_ptr<types::type> t)
+		:type(move(t))
+	{
+	}
+
+	declarator_specifier::declarator_specifier(const declarator_specifier& other)
+		: is_static(other.is_static), is_constant(other.is_constant), is_volatile(other.is_volatile), is_auto(other.is_auto), is_extern(other.is_extern), type(make_unique<types::type>(*other.type))
 	{
 	}
 

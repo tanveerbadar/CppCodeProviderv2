@@ -17,11 +17,9 @@ namespace cpp::codeprovider::types
 	{
 		class template_parameter
 		{
-
 		};
 	}
 }
-
 namespace cpp::codeprovider::functions
 {
 	using namespace internals;

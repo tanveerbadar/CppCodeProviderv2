@@ -31,11 +31,6 @@ namespace cpp::codeprovider
 		class variable_declaration;
 	}
 
-	namespace templates
-	{
-		class template_parameter;
-	}
-
 	namespace statements
 	{
 		class block_statement;

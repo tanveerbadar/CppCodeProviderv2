@@ -11,12 +11,13 @@ namespace cpp::codeprovider::types
 	class type
 	{
 	public:
-		string name;
-
-		unique_ptr<type> clone() const
+		type(const string& n)
+			:name(n)
 		{
-			return make_unique<type>(*this);
 		}
+		type(const type&) = default;
+
+		string name;
 	};
 
 	namespace templates
@@ -40,7 +41,7 @@ namespace cpp::codeprovider::functions::internals
 	}
 
 	callable::callable(const callable& other)
-		: statements(other.statements), return_type(other.return_type->clone()), name(other.name), is_inline(other.is_inline)
+		: statements(other.statements), return_type(make_unique<type>(*other.return_type)), name(other.name), is_inline(other.is_inline)
 	{
 		for (auto& param : other.parameter_list)
 			parameter_list.emplace_back(make_unique<variable_declaration>(*param));

@@ -12,6 +12,12 @@ namespace cpp::codeprovider::types
 	class type
 	{
 	public:
+		type(const string& n)
+			:name(n)
+		{
+		}
+		type(const type&) = default;
+
 		string name;
 	};
 
@@ -30,9 +36,7 @@ using namespace cpp::codeprovider::types;
 
 BOOST_AUTO_TEST_CASE(function_tests)
 {
-	auto t = make_unique<type>();
-	t->name = "t1";
-	f f1("something", move(t));
+	f f1("something", make_unique<type>("t1"));
 
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(f1.body().statements().size() == 0);
