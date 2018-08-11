@@ -34,6 +34,12 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	t->name = "t1";
 	f f1("something", move(t));
 
+	BOOST_TEST(!f1.is_inline());
+	BOOST_TEST(f1.body().statements().size() == 0);
+	BOOST_TEST(f1.parameters().size() == 0);
+	BOOST_TEST(f1.template_parameters().size() == 0);
+	BOOST_TEST(f1.return_type().name == "t1");
+
 	f1.body();
 	f1.is_inline();
 	f1.parameters();
@@ -45,6 +51,12 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	stream << f1;
 
 	auto copy1(f1);
+
+	BOOST_TEST(!copy1.is_inline());
+	BOOST_TEST(copy1.body().statements().size() == 0);
+	BOOST_TEST(copy1.parameters().size() == 0);
+	BOOST_TEST(copy1.template_parameters().size() == 0);
+	BOOST_TEST(copy1.return_type().name == "t1");
 
 	copy1.body();
 	copy1.is_inline();
