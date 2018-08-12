@@ -1,20 +1,6 @@
 #include "variable_declaration_list.h"
 #include "..\expressions\common.h"
-#include <sstream>
-
-namespace cpp::codeprovider::types
-{
-	class type
-	{
-	public:
-		std::string name;
-
-		virtual std::unique_ptr<type> clone() const
-		{
-			return std::make_unique<type>(*this);
-		}
-	};
-}
+#include "..\types\common.h"
 
 namespace cpp::codeprovider::declarations
 {

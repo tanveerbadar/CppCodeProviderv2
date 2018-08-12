@@ -9,7 +9,7 @@
 
 namespace cpp::codeprovider::statements
 {
-	struct statement
+	class statement
 	{
 	public:
 		std::string comment;
@@ -19,7 +19,7 @@ namespace cpp::codeprovider::statements
 		virtual ~statement() = 0;
 	};
 
-	std::ostream& operator <<(std::ostream& os, const statement& expr);
+	std::ostream& operator <<(std::ostream&, const statement&);
 }
 
 #endif // !COMMON_STATEMENT_HEADER

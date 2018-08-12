@@ -219,6 +219,7 @@
     <ClInclude Include="features\statements\while_loop.h" />
     <ClInclude Include="features\types.h" />
     <ClInclude Include="features\types\access_levels.h" />
+    <ClInclude Include="features\types\base_type.h" />
     <ClInclude Include="features\types\common.h" />
     <ClInclude Include="features\types\primitive_type.h" />
     <ClInclude Include="features\types\template_parameter.h" />

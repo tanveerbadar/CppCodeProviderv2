@@ -17,9 +17,19 @@ namespace cpp::codeprovider::functions
 	{
 	}
 
+	member_function::member_function(const member_function& other)
+		:impl(make_unique<callable>(*other.impl)), container(other.container), access(other.access)
+	{
+	}
+
 	block_statement& member_function::body()
 	{
 		return impl->statements;
+	}
+
+	access_levels member_function::accessibility() const
+	{
+		return access;
 	}
 
 	ostream& operator<<(ostream& os, const member_function& func)

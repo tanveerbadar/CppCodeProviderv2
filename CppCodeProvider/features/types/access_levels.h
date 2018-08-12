@@ -7,6 +7,7 @@ namespace cpp::codeprovider::types
 {
 	enum class access_levels
 	{
+		default_access,
 		public_access,
 		protected_access,
 		private_access,

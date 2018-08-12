@@ -1,15 +1,7 @@
 #include "declarator_specifier.h"
+#include "..\types\common.h"
 
 using namespace std;
-
-namespace cpp::codeprovider::types
-{
-	class type
-	{
-	public:
-		string name;
-	};
-}
 
 namespace cpp::codeprovider::declarations
 {
@@ -21,7 +13,7 @@ namespace cpp::codeprovider::declarations
 	}
 
 	declarator_specifier::declarator_specifier(const declarator_specifier& other)
-		: is_static(other.is_static), is_constant(other.is_constant), is_volatile(other.is_volatile), is_auto(other.is_auto), is_extern(other.is_extern), type(make_unique<types::type>(*other.type))
+		: is_static(other.is_static), is_constant(other.is_constant), is_volatile(other.is_volatile), is_auto(other.is_auto), is_extern(other.is_extern), type(other.type->clone())
 	{
 	}
 
@@ -42,7 +34,7 @@ namespace cpp::codeprovider::declarations
 			os << "volatile ";
 		if (ds.is_static)
 			os << "static ";
-		os << ds.get_type().name << " ";
+		os << ds.get_type().get_name() << " ";
 
 		return os;
 	}

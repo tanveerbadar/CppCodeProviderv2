@@ -20,6 +20,8 @@ namespace cpp::codeprovider::types
 		virtual std::unique_ptr<type> clone() const = 0;
 		virtual ~type() = 0;
 	};
+
+	std::ostream& operator<<(std::ostream&, const type&);
 }
 
 #endif // ! TYPES_COMMON_HEADER
