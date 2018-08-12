@@ -19,6 +19,8 @@ namespace cpp::codeprovider
 		{
 			class template_parameter;
 		}
+
+		class user_defined_type;
 	}
 
 	namespace expressions

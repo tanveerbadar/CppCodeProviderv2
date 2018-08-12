@@ -2,24 +2,11 @@
 #include "callable.h"
 #include "..\declarations\declarator_specifier.h"
 #include "..\declarations\variable_declaration.h"
+#include "..\types\common.h"
+#include "..\types\template_parameter.h"
 
 using namespace std;
 
-namespace cpp::codeprovider::types
-{
-	class type
-	{
-	public:
-		string name;
-	};
-
-	namespace templates
-	{
-		class template_parameter
-		{
-		};
-	}
-}
 namespace cpp::codeprovider::functions
 {
 	using namespace internals;
@@ -104,7 +91,7 @@ namespace cpp::codeprovider::functions
 		if (func.impl->is_inline)
 			os << "inline ";
 
-		os << func.impl->return_type->name << " " << func.impl->name << "(";
+		os << func.impl->return_type->get_name() << " " << func.impl->name << "(";
 
 		const auto& variables = func.impl->parameter_list;
 

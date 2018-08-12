@@ -6,31 +6,11 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "..\forward_declarations.h"
+#include "..\types\access_levels.h"
 
 namespace cpp::codeprovider
 {
-	namespace types
-	{
-		class type;
-		class user_defined_type;
-		enum class access_level : int;
-
-		namespace templates
-		{
-			class template_parameter;
-		}
-	}
-
-	namespace declarations
-	{
-		class variable_declaration;
-	}
-
-	namespace statements
-	{
-		class block_statement;
-	}
-
 	namespace functions
 	{
 		namespace internals
@@ -41,10 +21,12 @@ namespace cpp::codeprovider
 		class member_function
 		{
 			std::unique_ptr<internals::callable> impl;
-			const types::user_defined_type* container;
-			types::access_level access;
+			std::shared_ptr<types::user_defined_type> container;
+			types::access_levels access;
 		public:
-			member_function(const std::string&, std::unique_ptr<types::type>, const types::user_defined_type&);
+			member_function(const std::string&, std::unique_ptr<types::type>, std::shared_ptr<types::user_defined_type>);
+			member_function(const member_function&);
+			member_function operator =(const member_function&);
 
 			std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
 			std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
@@ -58,8 +40,8 @@ namespace cpp::codeprovider
 			member_function& is_constant(bool);
 			bool is_volatile() const;
 			member_function& is_volatile(bool);
-			types::access_level accessibility() const;
-			member_function& accessibility(types::access_level);
+			types::access_levels accessibility() const;
+			member_function& accessibility(types::access_levels);
 			types::type& return_type();
 			member_function& return_type(types::type&);
 			statements::block_statement& body();

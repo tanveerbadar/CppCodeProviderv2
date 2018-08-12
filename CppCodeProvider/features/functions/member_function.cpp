@@ -1,25 +1,10 @@
 #include "callable.h"
 #include "member_function.h"
 #include "..\declarations\variable_declaration.h"
+#include "..\types\user_defined_type.h"
+#include "..\types\template_parameter.h"
 
 using namespace std;
-
-namespace cpp::codeprovider::types
-{
-	class type
-	{
-	public:
-		string name;
-	};
-
-	namespace templates
-	{
-		class template_parameter
-		{
-
-		};
-	}
-}
 
 namespace cpp::codeprovider::functions
 {
@@ -27,8 +12,8 @@ namespace cpp::codeprovider::functions
 	using namespace statements;
 	using namespace types;
 
-	member_function::member_function(const string& n, unique_ptr<type> returns, const user_defined_type& udt)
-		:impl(make_unique<callable>(n, move(returns))), container(&udt)
+	member_function::member_function(const string& n, unique_ptr<type> returns, shared_ptr<user_defined_type> udt)
+		:impl(make_unique<callable>(n, move(returns))), container(udt)
 	{
 	}
 
@@ -42,7 +27,7 @@ namespace cpp::codeprovider::functions
 		if (func.impl->is_inline)
 			os << "inline ";
 
-		os << func.impl->return_type->name << " " << func.impl->name << "(";
+		os << func.impl->return_type->get_name() << " " << func.impl->name << "(";
 
 		const auto& variables = func.impl->parameter_list;
 

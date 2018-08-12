@@ -2,31 +2,9 @@
 #include <boost/test/output_test_stream.hpp>
 #include "..\..\..\features\functions.h"
 #include "..\..\..\features\declarations\variable_declaration.h"
+#include "..\..\..\features\types.h"
 
 using namespace std;
-
-namespace cpp::codeprovider::types
-{
-	class type
-	{
-	public:
-		type(const string& n)
-			:name(n)
-		{
-		}
-		type(const type&) = default;
-
-		string name;
-	};
-
-	namespace templates
-	{
-		class template_parameter
-		{
-
-		};
-	}
-}
 
 using f = cpp::codeprovider::functions::function;
 using namespace cpp::codeprovider::functions;
@@ -34,13 +12,13 @@ using namespace cpp::codeprovider::types;
 
 BOOST_AUTO_TEST_CASE(function_tests)
 {
-	f f1("something", make_unique<type>("t1"));
+	f f1("something", make_unique<primitive_type>("int"));
 
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
-	BOOST_TEST(f1.return_type().name == "t1");
+	BOOST_TEST(f1.return_type().get_name() == "int");
 
 	f1.body();
 	f1.is_inline();
@@ -58,7 +36,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(copy1.body().statements().size() == 0);
 	BOOST_TEST(copy1.parameters().size() == 0);
 	BOOST_TEST(copy1.template_parameters().size() == 0);
-	BOOST_TEST(copy1.return_type().name == "t1");
+	BOOST_TEST(copy1.return_type().get_name() == "int");
 
 	copy1.body();
 	copy1.is_inline();

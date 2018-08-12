@@ -1,17 +1,9 @@
 #include "try_statement.h"
 #include "..\expressions\common.h"
 #include "..\declarations\variable_declaration.h"
+#include "..\types\primitive_type.h"
 
 using namespace std;
-
-namespace cpp::codeprovider::types
-{
-	class type
-	{
-	public:
-		string name;
-	};
-}
 
 namespace cpp::codeprovider::statements
 {
@@ -20,7 +12,7 @@ namespace cpp::codeprovider::statements
 
 	namespace
 	{
-		auto placeholder = variable_declaration(declarator_specifier(make_unique<type>()));
+		auto placeholder = variable_declaration(declarator_specifier(make_unique<primitive_type>("")));
 	}
 
 	catch_clause::catch_clause(unique_ptr<variable_declaration> var)
