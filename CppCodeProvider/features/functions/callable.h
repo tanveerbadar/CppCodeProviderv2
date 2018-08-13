@@ -19,6 +19,11 @@ namespace cpp::codeprovider
 			std::string name;
 			std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
 			bool is_inline = false;
+			bool is_abstract = false;
+			bool is_override = false;
+			bool is_virtual = false;
+			bool is_constant = false;
+			bool is_volatile = false;
 
 			callable(const std::string&, std::unique_ptr<types::type>);
 			callable(const callable&);

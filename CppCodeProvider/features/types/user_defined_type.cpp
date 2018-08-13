@@ -4,25 +4,17 @@
 #include "..\functions\member_function.h"
 #include "..\declarations\variable_declaration.h"
 #include "..\expressions\common.h"
+#include "..\..\utils\write_helpers.h"
 #include <sstream>
 
 using namespace std;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::utils;
 
 namespace
 {
-	void write_base_types(ostream &os, const vector<base_type> &base_types)
-	{
-		if(base_types.size() == 0)
-			return;
-		if (base_types.size() > 1)
-			for (auto i = 0; i < base_types.size() - 1; ++i)
-				os << base_types[i] << ", ";
-		os << base_types[base_types.size() - 1] << endl;
-	}
-
 	void write_members(const vector<unique_ptr<tuple<access_levels, variable_declaration>>>& variables, ostringstream& default_stream, ostringstream& private_stream, ostringstream& protected_stream, ostringstream& public_streams)
 	{
 		for (const auto& t : variables)
@@ -87,17 +79,17 @@ vector<unique_ptr<member_function>> &user_defined_type::member_functions()
 void user_defined_type::write(ostream &os) const
 {
 	os << (this->is_class ? "class " : "struct ") << get_name() << endl;
-	write_base_types(os, base_types);
+	write_vector(os, base_types);
 	os << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(fields, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 	write_members(functions, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 	os << "private:" << endl;
-	os << private_stream.rdbuf() << endl;
+	os << private_stream.str() << endl;
 	os << "protected:" << endl;
-	os << protected_stream.rdbuf() << endl;
+	os << protected_stream.str() << endl;
 	os << "public: " << endl;
-	os << public_stream.rdbuf() << endl;
+	os << public_stream.str() << endl;
 	os << "};" << endl << endl;
 }
 

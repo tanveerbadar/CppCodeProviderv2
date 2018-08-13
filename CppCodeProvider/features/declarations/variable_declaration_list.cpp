@@ -1,11 +1,13 @@
 #include "variable_declaration_list.h"
 #include "..\expressions\common.h"
 #include "..\types\common.h"
+#include "..\..\utils\write_helpers.h"
+
+using namespace std;
+using namespace cpp::codeprovider::utils;
 
 namespace cpp::codeprovider::declarations
 {
-	using namespace std;
-
 	variable_declaration_list::variable_declaration_list(const declarator_specifier& specifier)
 		:var_specifier(specifier)
 	{
@@ -40,13 +42,8 @@ namespace cpp::codeprovider::declarations
 	{
 		os << list.specifier();
 
-		const auto& variables = list.declarations();
-
-		if (variables.size() > 1)
-			for (auto i = 0; i < variables.size() - 1; ++i)
-				os << variables[i] << ", ";
-		os << variables[variables.size() - 1] << endl;
-
+		write_vector(os, list.declarations());
+		
 		return os;
 	}
 }

@@ -177,13 +177,14 @@
     <ClCompile Include="features\functions\member_function.cpp" />
     <ClCompile Include="features\statements\block_statement.cpp" />
     <ClCompile Include="features\statements\for_loop.cpp" />
-    <ClCompile Include="features\statements\if_statment.cpp" />
+    <ClCompile Include="features\statements\if_statement.cpp" />
     <ClCompile Include="features\statements\jump_statements.cpp" />
     <ClCompile Include="features\statements\statement_common.cpp" />
     <ClCompile Include="features\statements\expression_statement.cpp" />
     <ClCompile Include="features\statements\switch_statement.cpp" />
     <ClCompile Include="features\statements\try_statement.cpp" />
     <ClCompile Include="features\statements\while_loop.cpp" />
+    <ClCompile Include="features\types\base_type.cpp" />
     <ClCompile Include="features\types\primitive_type.cpp" />
     <ClCompile Include="features\types\template_parameter.cpp" />
     <ClCompile Include="features\types\types_common.cpp" />
