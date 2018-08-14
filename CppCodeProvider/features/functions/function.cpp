@@ -92,14 +92,25 @@ namespace cpp::codeprovider::functions
 	{
 		write_vector(os, func.impl->template_parameter_list);
 		
-		if (func.impl->is_inline)
+		if(func.impl->is_inline)
 			os << "inline ";
+		if(func.impl->is_static)
+			os << "static ";
 
-		os << func.impl->return_type->get_name() << " " << func.impl->name << "(";
+		if(func.impl->has_trailing_return_type)
+			os << "auto ";
+		else
+			os << func.impl->return_type->get_name();
+		
+		os << " " << func.impl->name << "(";
 
 		write_vector(os, func.impl->parameter_list);
 
 		os << ")" << endl;
+
+		if(func.impl->has_trailing_return_type)
+			os << " -> " << func.impl->return_type->get_name() << endl;
+
 		os << func.impl->statements;
 
 		return os;

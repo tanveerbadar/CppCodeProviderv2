@@ -13,5 +13,6 @@
         "utility": "cpp",
         "xlocnum": "cpp",
         "xtr1common": "cpp"
-    }
+    },
+    "editor.fontSize": 18
 }

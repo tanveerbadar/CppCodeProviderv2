@@ -34,15 +34,95 @@ namespace cpp::codeprovider::functions
 		return access;
 	}
 
+	bool member_function::is_inline() const
+	{
+		return impl->is_inline;
+	}
+	
+	member_function& member_function::is_inline(bool flag)
+	{
+		impl->is_inline = flag;
+		return *this;
+	}
+
+	bool member_function::is_virtual() const
+	{
+		return impl->is_virtual;
+	}
+
+	member_function& member_function::is_virtual(bool flag)
+	{
+		impl->is_virtual = flag;
+		return *this;
+	}
+
+	bool member_function::is_static() const
+	{
+		return impl->is_static;
+	}
+	member_function& member_function::is_static(bool flag)
+	{
+		impl->is_static = flag;
+		return *this;
+	}
+
+	bool member_function::is_constant() const
+	{
+		return impl->is_constant;
+	}
+
+	member_function& member_function::is_constant(bool flag)
+	{
+		impl->is_constant = flag;
+		return *this;
+	}
+
+	bool member_function::is_volatile() const
+	{
+		return impl->is_volatile;
+	}
+	
+	member_function& member_function::is_volatile(bool flag)
+	{
+		impl->is_volatile = flag;
+		return *this;
+	}
+
 	ostream& operator<<(ostream& os, const member_function& func)
 	{
 		write_vector(os, func.impl->template_parameter_list);
 
-		os << func.impl->return_type->get_name() << " " << func.impl->name << "(";
+		if(func.impl->is_inline)
+			os << "inline ";
+		if(func.impl->is_static)
+			os << "static ";
+		if(func.impl->is_virtual || func.impl->is_abstract)
+			os << "virtual ";
+
+		if(func.impl->has_trailing_return_type)
+			os << "auto ";
+		else
+			os << func.impl->return_type->get_name();
+
+		os << " " << func.impl->name << "(";
 
 		write_vector(os, func.impl->parameter_list);
 
-		os << ")" << endl;
+		os << ")";
+
+		if(func.impl->is_constant)
+			os << " const";
+		if(func.impl->is_volatile)
+			os << " volatile";
+		if(func.impl->is_abstract)
+			os << " = 0";
+		if(func.impl->is_override)
+			os << " override";
+		os << endl;
+	
+		if(func.impl->has_trailing_return_type)
+			os << " -> " << func.impl->return_type->get_name() << endl;
+	
 		os << func.impl->statements;
 
 		return os;

@@ -24,6 +24,8 @@ namespace cpp::codeprovider
 			bool is_virtual = false;
 			bool is_constant = false;
 			bool is_volatile = false;
+			bool is_static = false;
+			bool has_trailing_return_type = false;
 
 			callable(const std::string&, std::unique_ptr<types::type>);
 			callable(const callable&);
