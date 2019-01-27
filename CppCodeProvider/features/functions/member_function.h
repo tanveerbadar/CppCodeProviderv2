@@ -33,7 +33,7 @@ namespace cpp::codeprovider
 			bool is_inline() const;
 			member_function& is_inline(bool);
 			bool is_constexpr() const;
-			function& is_constexpr(bool);
+			member_function& is_constexpr(bool);
 			bool is_virtual() const;
 			member_function& is_virtual(bool);
 			bool is_static() const;

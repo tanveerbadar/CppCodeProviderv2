@@ -51,7 +51,7 @@ namespace cpp::codeprovider::functions
 		return impl->is_const_expr;
 	}
 
-	function& member_function::is_constexpr(bool flag)
+	member_function& member_function::is_constexpr(bool flag)
 	{
 		impl->is_const_expr = flag;
 		return *this;
