@@ -68,6 +68,17 @@ namespace cpp::codeprovider::functions
 		return *this;
 	}
 
+	bool function::is_constexpr() const
+	{
+		return impl->is_const_expr;
+	}
+
+	function& function::is_constexpr(bool flag)
+	{
+		impl->is_const_expr = flag;
+		return *this;
+	}
+
 	block_statement& function::body()
 	{
 		return impl->statements;
@@ -93,6 +104,8 @@ namespace cpp::codeprovider::functions
 	{
 		write_vector(os, func.impl->template_parameter_list);
 		
+		if(func.impl->is_const_expr)
+			os << "constexpr ";
 		if(func.impl->is_inline)
 			os << "inline ";
 		if(func.impl->is_static)
