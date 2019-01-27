@@ -9,8 +9,21 @@ using namespace std;
 
 namespace cpp::codeprovider::types
 {
+    bool base_type::is_virtual() const
+    {
+        return is_virtual_base;
+    }
+
+    base_type& base_type::is_virtual(bool flag)
+    {
+        is_virtual_base = flag;
+        return *this;
+    }
+
     ostream& operator<<(ostream& os, const base_type& b)
     {
+        if(b.is_virtual_base)
+            os << "virtual ";
         switch(b.access)
         {
         case access_levels::default_access:
