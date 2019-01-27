@@ -1,8 +1,9 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
-#include "..\..\..\features\functions.h"
-#include "..\..\..\features\declarations\variable_declaration.h"
-#include "..\..\..\features\types.h"
+#include "../../../features/expressions.h"
+#include "../../../features/functions.h"
+#include "../../../features/declarations/variable_declaration.h"
+#include "../../../features/types.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	f f1("something", make_unique<primitive_type>("int"));
 
 	BOOST_TEST(!f1.is_inline());
+	BOOST_TEST(!f1.is_constexpr());
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
@@ -25,6 +27,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	f1.parameters();
 	f1.return_type();
 	f1.template_parameters();
+	f1.is_constexpr();
 
 	boost::test_tools::output_test_stream stream;
 
@@ -33,6 +36,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	auto copy1(f1);
 
 	BOOST_TEST(!copy1.is_inline());
+	BOOST_TEST(!copy1.is_constexpr());
 	BOOST_TEST(copy1.body().statements().size() == 0);
 	BOOST_TEST(copy1.parameters().size() == 0);
 	BOOST_TEST(copy1.template_parameters().size() == 0);
@@ -43,6 +47,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	copy1.parameters();
 	copy1.return_type();
 	copy1.template_parameters();
+	copy1.is_constexpr();
 
 	stream << copy1;
 
@@ -53,6 +58,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	copy1.parameters();
 	copy1.return_type();
 	copy1.template_parameters();
+	copy1.is_constexpr();
 
 	stream << copy1;
 
@@ -62,4 +68,5 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	c_ref.parameters();
 	c_ref.return_type();
 	c_ref.template_parameters();
+	c_ref.is_constexpr();
 }
