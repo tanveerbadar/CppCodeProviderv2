@@ -1,7 +1,7 @@
 #include "variable_declaration_list.h"
-#include "..\expressions\common.h"
-#include "..\types\common.h"
-#include "..\..\utils\write_helpers.h"
+#include "../expressions/common.h"
+#include "../types/common.h"
+#include "../../utils/write_helpers.h"
 
 using namespace std;
 using namespace cpp::codeprovider::utils;

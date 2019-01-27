@@ -4,7 +4,7 @@
 #pragma once
 
 #include "common.h"
-#include "..\forward_declarations.h"
+#include "../forward_declarations.h"
 
 namespace cpp::codeprovider::statements
 {

@@ -1,7 +1,7 @@
 #include "try_statement.h"
-#include "..\expressions\common.h"
-#include "..\declarations\variable_declaration.h"
-#include "..\types\primitive_type.h"
+#include "../expressions/common.h"
+#include "../declarations/variable_declaration.h"
+#include "../types/primitive_type.h"
 
 using namespace std;
 
@@ -53,7 +53,7 @@ namespace cpp::codeprovider::statements
 	std::ostream& operator<<(std::ostream& os, const catch_clause& c)
 	{
 		os << "catch(";
-		if (c.variable().declarator().name.size() > 0)
+		if (c.variable().var_declarator().name.size() > 0)
 			os << c.variable();
 		else
 			os << "...";

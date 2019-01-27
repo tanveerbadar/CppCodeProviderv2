@@ -1,6 +1,6 @@
 #include "while_loop.h"
-#include "..\expressions\common.h"
-#include "..\..\formatters\formatter_settings.h"
+#include "../expressions/common.h"
+#include "../../formatters/formatter_settings.h"
 
 namespace cpp::codeprovider::statements
 {

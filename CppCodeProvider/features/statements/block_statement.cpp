@@ -1,6 +1,6 @@
 #include <algorithm>
 #include "block_statement.h"
-#include "..\..\formatters\formatter_settings.h"
+#include "../../formatters/formatter_settings.h"
 
 namespace cpp::codeprovider::statements
 {

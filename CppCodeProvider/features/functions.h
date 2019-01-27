@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "functions\function.h"
-#include "functions\callable.h"
-#include "functions\member_function.h"
+#include "functions/function.h"
+#include "functions/callable.h"
+#include "functions/member_function.h"
 
 #endif // !FUNCTION_HEADER

@@ -1,5 +1,5 @@
 #include "declarator_specifier.h"
-#include "..\types\common.h"
+#include "../types/common.h"
 
 using namespace std;
 

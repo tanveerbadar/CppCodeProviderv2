@@ -16,7 +16,7 @@ namespace cpp::codeprovider::utils
 			if (parameters.size() > 1)
 				for (auto i = 1; i < parameters.size() - 1; ++i)
 					os << *parameters[i] << ", ";
-			os << *parameters[parameters.size() - 1] << endl;
+			os << *parameters[parameters.size() - 1] << std::endl;
 		}
    }
 
@@ -27,7 +27,7 @@ namespace cpp::codeprovider::utils
 			if (parameters.size() > 1)
 				for (auto i = 1; i < parameters.size() - 1; ++i)
 					os << parameters[i] << ", ";
-			os << parameters[parameters.size() - 1] << endl;
+			os << parameters[parameters.size() - 1] << std::endl;
 		}
    }
 }

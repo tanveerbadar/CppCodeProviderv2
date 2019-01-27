@@ -1,5 +1,5 @@
 #include "declarator.h"
-#include "..\expressions\unary_expressions.h"
+#include "../expressions/unary_expressions.h"
 
 namespace cpp::codeprovider::declarations
 {

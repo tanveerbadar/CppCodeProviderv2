@@ -1,7 +1,7 @@
 #include "if_statement.h"
-#include "..\expressions\common.h"
-#include "..\..\formatters\formatter_settings.h"
-#include "..\..\utils\write_helpers.h"
+#include "../expressions/common.h"
+#include "../../formatters/formatter_settings.h"
+#include "../../utils/write_helpers.h"
 
 namespace cpp::codeprovider::statements
 {

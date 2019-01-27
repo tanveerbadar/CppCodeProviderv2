@@ -1,6 +1,6 @@
 #include "for_loop.h"
-#include "..\expressions\unary_expressions.h"
-#include "..\..\formatters\formatter_settings.h"
+#include "../expressions/unary_expressions.h"
+#include "../../formatters/formatter_settings.h"
 
 namespace cpp::codeprovider::statements
 {

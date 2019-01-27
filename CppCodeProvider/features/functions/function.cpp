@@ -1,10 +1,11 @@
 #include "function.h"
 #include "callable.h"
-#include "..\declarations\declarator_specifier.h"
-#include "..\declarations\variable_declaration.h"
-#include "..\types\common.h"
-#include "..\types\template_parameter.h"
-#include "..\..\utils\write_helpers.h"
+#include "../declarations/declarator_specifier.h"
+#include "../declarations/variable_declaration.h"
+#include "../types/common.h"
+#include "../types/template_parameter.h"
+#include "../../utils/write_helpers.h"
+#include "../expressions/common.h"
 
 using namespace std;
 using namespace cpp::codeprovider::utils;

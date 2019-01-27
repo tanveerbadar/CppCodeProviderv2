@@ -18,8 +18,8 @@ namespace cpp::codeprovider::declarations
 		variable_declaration(const variable_declaration&) = default;
 
 		const declarator_specifier & specifier() const;
-		const declarator& declarator() const;
-		declarations::declarator& declarator();
+		const declarations::declarator& var_declarator() const;
+		declarations::declarator& var_declarator();
 
 		std::unique_ptr<declaration> clone() const override;
 		void write(std::ostream&) override;

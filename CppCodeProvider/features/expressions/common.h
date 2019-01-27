@@ -3,6 +3,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
 namespace cpp::codeprovider::expressions
 {

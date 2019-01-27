@@ -6,8 +6,8 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "..\forward_declarations.h"
-#include "..\types\access_levels.h"
+#include "../forward_declarations.h"
+#include "../types/access_levels.h"
 
 namespace cpp::codeprovider
 {

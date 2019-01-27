@@ -4,7 +4,8 @@
 
 #include <iostream>
 #include <string>
-#include "..\forward_declarations.h"
+#include <memory>
+#include "../forward_declarations.h"
 
 namespace cpp::codeprovider::declarations
 {

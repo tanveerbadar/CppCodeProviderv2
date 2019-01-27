@@ -1,5 +1,5 @@
 #include "common.h"
-#include "..\..\formatters\formatter_settings.h"
+#include "../../formatters/formatter_settings.h"
 
 namespace cpp::codeprovider::formatting
 {

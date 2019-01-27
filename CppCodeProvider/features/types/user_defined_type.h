@@ -5,8 +5,8 @@
 
 #include <vector>
 #include "common.h"
-#include "..\functions\member_function.h"
-#include "..\declarations\variable_declaration.h"
+#include "../functions/member_function.h"
+#include "../declarations/variable_declaration.h"
 #include "base_type.h"
 #include "template_parameter.h"
 

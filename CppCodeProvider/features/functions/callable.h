@@ -4,8 +4,8 @@
 #pragma once
 
 #include <string>
-#include "..\forward_declarations.h"
-#include "..\statements\block_statement.h"
+#include "../forward_declarations.h"
+#include "../statements/block_statement.h"
 
 namespace cpp::codeprovider
 {

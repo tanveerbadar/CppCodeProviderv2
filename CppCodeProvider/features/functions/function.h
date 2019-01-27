@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "..\forward_declarations.h"
+#include "../forward_declarations.h"
 
 namespace cpp::codeprovider
 {

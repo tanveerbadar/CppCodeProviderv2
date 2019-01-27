@@ -1,10 +1,10 @@
 #include "user_defined_type.h"
-#include "..\functions\callable.h"
+#include "../functions/callable.h"
 #include "template_parameter.h"
-#include "..\functions\member_function.h"
-#include "..\declarations\variable_declaration.h"
-#include "..\expressions\common.h"
-#include "..\..\utils\write_helpers.h"
+#include "../functions/member_function.h"
+#include "../declarations/variable_declaration.h"
+#include "../expressions/common.h"
+#include "../../utils/write_helpers.h"
 #include <sstream>
 
 using namespace std;

@@ -1,9 +1,10 @@
 #include "callable.h"
 #include "member_function.h"
-#include "..\declarations\variable_declaration.h"
-#include "..\types\user_defined_type.h"
-#include "..\types\template_parameter.h"
-#include "..\..\utils\write_helpers.h"
+#include "../declarations/variable_declaration.h"
+#include "../types/user_defined_type.h"
+#include "../types/template_parameter.h"
+#include "../../utils/write_helpers.h"
+#include "../expressions/common.h"
 
 using namespace std;
 

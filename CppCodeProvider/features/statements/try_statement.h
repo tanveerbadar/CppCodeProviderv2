@@ -6,7 +6,7 @@
 #include <string>
 #include "common.h"
 #include "block_statement.h"
-#include "..\forward_declarations.h"
+#include "../forward_declarations.h"
 
 namespace cpp::codeprovider::statements
 {

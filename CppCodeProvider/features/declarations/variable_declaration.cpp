@@ -1,6 +1,6 @@
 #include "variable_declaration.h"
-#include "..\expressions\common.h"
-#include "..\types\common.h"
+#include "../expressions/common.h"
+#include "../types/common.h"
 
 namespace cpp::codeprovider::declarations
 {
@@ -16,7 +16,7 @@ namespace cpp::codeprovider::declarations
 		return var_specifier;
 	}
 
-	declarator& variable_declaration::declarator()
+	declarations::declarator& variable_declaration::var_declarator()
 	{
 		return var_decl;
 	}
@@ -31,14 +31,14 @@ namespace cpp::codeprovider::declarations
 		os << *this;
 	}
 
-	const declarator& variable_declaration::declarator() const
+	const declarations::declarator& variable_declaration::var_declarator() const
 	{
 		return var_decl;
 	}
 
 	ostream& operator<<(ostream& os, const variable_declaration& var)
 	{
-		os << var.specifier() << var.declarator();
+		os << var.specifier() << var.var_declarator();
 		return os;
 	}
 }
