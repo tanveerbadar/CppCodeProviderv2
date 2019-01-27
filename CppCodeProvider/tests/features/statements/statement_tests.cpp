@@ -460,5 +460,51 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
 }
 
+BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
+{
+	auto stmt = make_unique<ranged_for_loop>();
+
+	BOOST_TEST(stmt->statements().size() == 0);
+
+	boost::test_tools::output_test_stream stream;
+
+	stream << *stmt;
+
+	auto copy1(*stmt);
+	const auto& body1 = stmt->statements();
+	auto& body2 = stmt->statements();
+	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
+
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->initializer()).expr() == "");
+
+	stmt->initializer(make_unique<primitive_expression>("1"));
+
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->initializer()).expr() == "1");
+
+	auto other = stmt->clone();
+
+	stream << *other;
+	other->write(stream);
+
+	auto copy2(*stmt);
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->initializer()).expr() == "1");
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
+
+	copy2 = *stmt;
+	BOOST_TEST(stmt->statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(stmt->initializer()).expr() == "1");
+	BOOST_TEST(copy2.statements().size() == 2);
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(copy2.initializer()).expr() == "1");
+
+	const auto& c_ref = copy1;
+	c_ref.clone();
+	c_ref.initializer();
+	c_ref.statements();
+	c_ref.write(stream);
+}
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -10,5 +10,6 @@
 #include "statements/switch_statement.h"
 #include "statements/if_statement.h"
 #include "statements/try_statement.h"
+#include "statements/ranged_for_loop.h"
 
 #endif

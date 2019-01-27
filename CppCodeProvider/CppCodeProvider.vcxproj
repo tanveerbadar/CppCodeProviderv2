@@ -179,6 +179,7 @@
     <ClCompile Include="features\statements\for_loop.cpp" />
     <ClCompile Include="features\statements\if_statement.cpp" />
     <ClCompile Include="features\statements\jump_statements.cpp" />
+    <ClCompile Include="features\statements\ranged_for_loop.cpp" />
     <ClCompile Include="features\statements\statement_common.cpp" />
     <ClCompile Include="features\statements\expression_statement.cpp" />
     <ClCompile Include="features\statements\switch_statement.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="features\statements\for_loop.h" />
     <ClInclude Include="features\statements\if_statement.h" />
     <ClInclude Include="features\statements\jump_statements.h" />
+    <ClInclude Include="features\statements\ranged_for_loop.h" />
     <ClInclude Include="features\statements\switch_statement.h" />
     <ClInclude Include="features\statements\try_statement.h" />
     <ClInclude Include="features\statements\while_loop.h" />
