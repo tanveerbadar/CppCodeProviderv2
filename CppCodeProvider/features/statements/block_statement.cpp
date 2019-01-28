@@ -1,4 +1,3 @@
-#include <algorithm>
 #include "block_statement.h"
 #include "../../formatters/formatter_settings.h"
 

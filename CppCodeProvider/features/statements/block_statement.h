@@ -2,9 +2,10 @@
 #define BLOCK_STATEMENT_HEADER
 
 #pragma once
-#include "common.h"
-#include <vector>
+
 #include <memory>
+#include <vector>
+#include "common.h"
 
 namespace cpp::codeprovider::statements
 {

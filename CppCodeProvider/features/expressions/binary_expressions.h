@@ -3,8 +3,8 @@
 #pragma once
 
 #include <memory>
-#include "expression_types.h"
 #include "common.h"
+#include "expression_types.h"
 
 namespace cpp::codeprovider::expressions
 {

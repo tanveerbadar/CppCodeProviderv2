@@ -2,6 +2,7 @@
 #define EXPRESSION_STATEMENT_HEADER
 
 #pragma once
+
 #include "common.h"
 #include "../forward_declarations.h"
 

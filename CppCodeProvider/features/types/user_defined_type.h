@@ -4,11 +4,11 @@
 #pragma once
 
 #include <vector>
-#include "common.h"
-#include "../functions/member_function.h"
-#include "../declarations/variable_declaration.h"
 #include "base_type.h"
+#include "common.h"
 #include "template_parameter.h"
+#include "../declarations/variable_declaration.h"
+#include "../functions/member_function.h"
 
 namespace cpp::codeprovider::types
 {

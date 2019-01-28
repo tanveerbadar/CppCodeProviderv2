@@ -37,7 +37,6 @@ namespace cpp::codeprovider::expressions
 		return make_unique<unary_expression>(*this);
 	}
 
-
 	const expression& unary_expression::expr() const
 	{
 		return *e1;

@@ -1,8 +1,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
+#include "../../../features/declarations/variable_declaration.h"
 #include "../../../features/expressions.h"
 #include "../../../features/functions.h"
-#include "../../../features/declarations/variable_declaration.h"
 #include "../../../features/types.h"
 
 using namespace std;

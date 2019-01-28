@@ -4,8 +4,8 @@
 #pragma once
 #include <memory>
 #include <string>
-#include "expression_types.h"
 #include "common.h"
+#include "expression_types.h"
 
 namespace cpp::codeprovider::expressions
 {

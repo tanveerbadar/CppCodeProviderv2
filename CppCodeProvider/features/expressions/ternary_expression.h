@@ -3,9 +3,9 @@
 
 #pragma once
 
+#include <memory>
 #include "common.h"
 #include "expression_types.h"
-#include <memory>
 
 namespace cpp::codeprovider::expressions
 {
