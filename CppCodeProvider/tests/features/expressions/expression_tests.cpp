@@ -3,6 +3,10 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
 #include "../../../features/expressions.h"
+#include "../../../features/functions/callable.h"
+#include "../../../features/types/common.h"
+#include "../../../features/declarations/variable_declaration.h"
+#include "../../../features/types/template_parameter.h"
 
 BOOST_AUTO_TEST_SUITE(expression_tests)
 
@@ -178,6 +182,61 @@ BOOST_AUTO_TEST_CASE(ternary_expression_tests)
 	c_ref.right();
 	c_ref.type();
 	c_ref.write(stream);
+}
+
+BOOST_AUTO_TEST_CASE(lambda_expression_tests)
+{
+	auto f1 = make_unique<lambda_expression>();
+
+	f1->captured_variables().emplace_back(capture_mode::by_val, make_unique<unary_expression>(expression_type::variable_ref, make_unique<primitive_expression>("abc")));
+	BOOST_TEST(f1->body().statements().size() == 0);
+	BOOST_TEST(f1->parameters().size() == 0);
+	BOOST_TEST(f1->return_type().get());
+	BOOST_TEST(f1->default_capture_mode() == capture_mode::by_val);
+	BOOST_TEST(f1->captured_variables().size() == 1);
+
+	f1->body();
+	f1->parameters();
+	f1->return_type();
+	f1->default_capture_mode();
+	f1->captured_variables();
+
+	boost::test_tools::output_test_stream stream;
+
+	stream << *f1;
+
+	auto copy1(*f1);
+
+	BOOST_TEST(copy1.body().statements().size() == 0);
+	BOOST_TEST(copy1.parameters().size() == 0);
+	BOOST_TEST(copy1.return_type().get());
+	BOOST_TEST(copy1.default_capture_mode() == capture_mode::by_val);
+	BOOST_TEST(copy1.captured_variables().size() == 1);
+
+	copy1.body();
+	copy1.parameters();
+	copy1.return_type();
+	copy1.default_capture_mode();
+	copy1.captured_variables();
+
+	stream << copy1;
+
+	copy1 = *f1;
+
+	copy1.body();
+	copy1.parameters();
+	copy1.return_type();
+	copy1.default_capture_mode();
+	copy1.captured_variables();
+
+	stream << copy1;
+
+	const auto& c_ref = copy1;
+	c_ref.body();
+	c_ref.parameters();
+	c_ref.return_type();
+	c_ref.default_capture_mode();
+	c_ref.captured_variables();
 }
 
 BOOST_AUTO_TEST_SUITE_END()
