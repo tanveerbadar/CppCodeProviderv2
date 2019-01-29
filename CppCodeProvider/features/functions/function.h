@@ -31,6 +31,8 @@ namespace cpp::codeprovider
 			const std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters() const;
 			bool is_inline() const;
 			function& is_inline(bool);
+			bool is_static() const;
+			function& is_static(bool);
 			bool is_constexpr() const;
 			function& is_constexpr(bool);
 			types::type& return_type() const;

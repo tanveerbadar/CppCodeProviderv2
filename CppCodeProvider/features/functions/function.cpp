@@ -68,6 +68,17 @@ namespace cpp::codeprovider::functions
 		return *this;
 	}
 
+	bool function::is_static() const
+	{
+		return impl->is_static;
+	}
+
+	function& function::is_static(bool flag)
+	{
+		impl->is_static = flag;
+		return *this;
+	}
+
 	bool function::is_constexpr() const
 	{
 		return impl->is_const_expr;
@@ -102,30 +113,35 @@ namespace cpp::codeprovider::functions
 
 	ostream& operator<<(ostream& os, const function& func)
 	{
-		write_vector(os, func.impl->template_parameter_list);
-		
-		if(func.impl->is_const_expr)
+		if(func.template_parameters().size() > 0)
+		{
+			os << "template<";
+			write_vector(os, func.template_parameters());
+			os << ">";
+		}
+
+		if(func.is_constexpr())
 			os << "constexpr ";
-		if(func.impl->is_inline)
+		if(func.is_inline())
 			os << "inline ";
-		if(func.impl->is_static)
+		if(func.is_static())
 			os << "static ";
 
 		if(func.impl->has_trailing_return_type)
 			os << "auto ";
 		else
-			os << func.impl->return_type->get_name();
+			os << func.return_type().get_name();
 		
 		os << " " << func.impl->name << "(";
 
-		write_vector(os, func.impl->parameter_list);
+		write_vector(os, func.parameters());
 
 		os << ")" << endl;
 
 		if(func.impl->has_trailing_return_type)
-			os << " -> " << func.impl->return_type->get_name() << endl;
+			os << " -> " << func.return_type().get_name() << endl;
 
-		os << func.impl->statements;
+		os << func.body();
 
 		return os;
 	}
