@@ -29,6 +29,7 @@ namespace cpp::codeprovider
 			bool is_const_expr = false;
 			bool is_mutable = false;
 
+			callable() = default;
 			callable(const std::string&, std::unique_ptr<types::type>);
 			callable(const callable&);
 		};

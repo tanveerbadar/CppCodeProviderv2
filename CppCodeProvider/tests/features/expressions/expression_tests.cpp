@@ -191,8 +191,8 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	f1->captured_variables().emplace_back(capture_mode::by_val, make_unique<unary_expression>(expression_type::variable_ref, make_unique<primitive_expression>("abc")));
 	BOOST_TEST(f1->body().statements().size() == 0);
 	BOOST_TEST(f1->parameters().size() == 0);
-	BOOST_TEST(f1->return_type().get());
-	BOOST_TEST(f1->default_capture_mode() == capture_mode::by_val);
+	BOOST_TEST(!f1->return_type().get());
+	BOOST_TEST(f1->default_capture_mode() == capture_mode::none);
 	BOOST_TEST(f1->captured_variables().size() == 1);
 
 	f1->body();
@@ -209,8 +209,8 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	BOOST_TEST(copy1.body().statements().size() == 0);
 	BOOST_TEST(copy1.parameters().size() == 0);
-	BOOST_TEST(copy1.return_type().get());
-	BOOST_TEST(copy1.default_capture_mode() == capture_mode::by_val);
+	BOOST_TEST(!copy1.return_type().get());
+	BOOST_TEST(copy1.default_capture_mode() == capture_mode::none);
 	BOOST_TEST(copy1.captured_variables().size() == 1);
 
 	copy1.body();

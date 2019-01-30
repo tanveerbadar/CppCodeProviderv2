@@ -46,7 +46,12 @@ namespace
    }
 }
 
-lambda_expression::lambda_expression(const lambda_expression& other)
+lambda_expression::lambda_expression()
+    : impl(make_unique<callable>())
+{
+}
+
+lambda_expression::lambda_expression(const lambda_expression &other)
     : impl(make_unique<callable>(*other.impl))
 {
 }

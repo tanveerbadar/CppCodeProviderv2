@@ -30,7 +30,7 @@ namespace cpp::codeprovider::expressions
         capture_mode default_capture = capture_mode::none;
         std::vector<std::pair<capture_mode, std::unique_ptr<unary_expression>>> captures;
     public:
-        lambda_expression() = default;
+        lambda_expression();
         lambda_expression(const lambda_expression&);
         lambda_expression& operator=(const lambda_expression&);
 
