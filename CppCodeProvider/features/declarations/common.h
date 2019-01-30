@@ -13,7 +13,7 @@ namespace cpp::codeprovider::declarations
 	public:
 		virtual ~declaration() = 0;
 		virtual std::unique_ptr<declaration> clone() const = 0;
-		virtual void write(std::ostream&) = 0;
+		virtual void write(std::ostream&) const = 0;
 	};
 
 	std::ostream& operator<<(std::ostream&, const declaration&);

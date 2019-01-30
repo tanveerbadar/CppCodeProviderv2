@@ -6,34 +6,36 @@
 #include "../../utils/write_helpers.h"
 
 using namespace std;
-using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::types;
+using namespace cpp::codeprovider::types::templates;
 using namespace cpp::codeprovider::utils;
 
 namespace
 {
-	void write_members(const vector<unique_ptr<tuple<access_levels, variable_declaration>>>& variables, ostringstream& default_stream, ostringstream& private_stream, ostringstream& protected_stream, ostringstream& public_streams)
+void write_members(const vector<pair<access_levels, unique_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
+{
+	for (const auto &t : variables)
 	{
-		for (const auto& t : variables)
+		auto &[access, v] = t;
+
+		switch (access)
 		{
-			auto& [access, v] = *t;
-			switch (access)
-			{
-			case access_levels::private_access:
-				private_stream << v << endl;
-				break;
-			case access_levels::protected_access:
-				protected_stream << v << endl;
-				break;
-			case access_levels::public_access:
-				public_streams << v << endl;
-				break;
-			default:
-				default_stream << v << endl;
-				break;
-			}
+		case access_levels::private_access:
+			private_stream << *v << endl;
+			break;
+		case access_levels::protected_access:
+			protected_stream << *v << endl;
+			break;
+		case access_levels::public_access:
+			public_streams << *v << endl;
+			break;
+		default:
+			default_stream << *v << endl;
+			break;
 		}
+	}
 	}
 
 	void write_members(const vector<unique_ptr<member_function>> &functions, ostringstream& default_stream, ostringstream& private_stream, ostringstream& protected_stream, ostringstream& public_streams)
@@ -67,6 +69,11 @@ user_defined_type::user_defined_type(const string &name)
 user_defined_type::user_defined_type(const user_defined_type &other)
 	: type(other)
 {
+	for(auto& f: other.functions)
+		functions.push_back(make_unique<member_function>(*f));
+
+	for(auto& f:other.fields)
+		fields.push_back(make_pair(f.first, f.second->clone()));
 }
 
 user_defined_type& user_defined_type::operator=(const user_defined_type& other)
@@ -81,6 +88,21 @@ user_defined_type& user_defined_type::operator=(const user_defined_type& other)
 vector<unique_ptr<member_function>> &user_defined_type::member_functions()
 {
 	return functions;
+}
+
+vector<pair<access_levels, unique_ptr<declaration>>> &user_defined_type::member_fields()
+{
+	return fields;
+}
+
+vector<base_type> &user_defined_type::bases()
+{
+	return base_types;
+}
+
+vector<unique_ptr<template_parameter>> &user_defined_type::template_parameters()
+{
+	return template_parameter_list;
 }
 
 void user_defined_type::write(ostream &os) const

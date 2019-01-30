@@ -121,7 +121,7 @@ int main()
 	cout << f1;
 
 	auto udt = make_shared<user_defined_type>("udt");
-	member_function mf1("func2", make_unique<primitive_type>("int"), udt);
+	member_function mf1("func2", make_unique<primitive_type>("int"), *udt);
 
 	auto& body6 = mf1.body().statements();
 	body6.push_back(make_unique<expression_statement>(*s1));

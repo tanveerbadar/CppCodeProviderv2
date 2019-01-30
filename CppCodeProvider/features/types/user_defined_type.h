@@ -16,7 +16,7 @@ namespace cpp::codeprovider::types
 	{
 		bool is_class = true;
 		std::vector<std::unique_ptr<functions::member_function>> functions;
-		std::vector<std::unique_ptr<std::tuple<access_levels, declarations::variable_declaration>>> fields;
+		std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> fields;
 		std::vector<base_type> base_types;
 		std::vector<std::unique_ptr<templates::template_parameter>> template_parameter_list;
 	public:
@@ -28,7 +28,7 @@ namespace cpp::codeprovider::types
 		std::unique_ptr<type> clone() const override;
 
 		std::vector<std::unique_ptr<functions::member_function>>& member_functions();
-		std::vector<std::unique_ptr<declarations::variable_declaration>>& member_fields();
+		std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> &member_fields();
 		std::vector<base_type>& bases();
 		std::vector<std::unique_ptr<templates::template_parameter>>& template_parameters();
 	};

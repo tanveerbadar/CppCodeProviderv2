@@ -21,10 +21,10 @@ namespace cpp::codeprovider
 		class member_function
 		{
 			std::unique_ptr<internals::callable> impl;
-			std::shared_ptr<types::user_defined_type> container;
+			const types::user_defined_type* container;
 			types::access_levels access;
 		public:
-			member_function(const std::string&, std::unique_ptr<types::type>, std::shared_ptr<types::user_defined_type>);
+			member_function(const std::string&, std::unique_ptr<types::type>, const types::user_defined_type&);
 			member_function(const member_function&);
 			member_function& operator =(const member_function&);
 

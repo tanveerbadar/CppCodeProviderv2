@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 BOOST_AUTO_TEST_CASE(member_function_tests)
 {
 	auto udt = make_shared<user_defined_type>("udt");
-	member_function f1("something", make_unique<primitive_type>("int"), udt);
+	member_function f1("something", make_unique<primitive_type>("int"), *udt);
 
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(!f1.is_static());

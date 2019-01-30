@@ -17,8 +17,8 @@ namespace cpp::codeprovider::functions
 	using namespace templates;
 	using namespace utils;
 
-	member_function::member_function(const string& n, unique_ptr<type> returns, shared_ptr<user_defined_type> udt)
-		:impl(make_unique<callable>(n, move(returns))), container(udt)
+	member_function::member_function(const string& n, unique_ptr<type> returns, const user_defined_type& udt)
+		:impl(make_unique<callable>(n, move(returns))), container(&udt)
 	{
 	}
 

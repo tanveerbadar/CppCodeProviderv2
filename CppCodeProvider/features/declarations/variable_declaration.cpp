@@ -26,7 +26,7 @@ namespace cpp::codeprovider::declarations
 		return make_unique<variable_declaration>(*this);
 	}
 
-	void variable_declaration::write(ostream& os)
+	void variable_declaration::write(ostream& os) const
 	{
 		os << *this;
 	}
