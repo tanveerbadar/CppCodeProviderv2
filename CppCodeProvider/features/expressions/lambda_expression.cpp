@@ -54,6 +54,8 @@ lambda_expression::lambda_expression()
 lambda_expression::lambda_expression(const lambda_expression &other)
     : impl(make_unique<callable>(*other.impl))
 {
+    for(auto& vars: other.captures)
+        captures.push_back(make_pair(vars.first, vars.second->clone()));
 }
 
 lambda_expression& lambda_expression::operator=(const lambda_expression& other)
@@ -76,12 +78,12 @@ const vector<unique_ptr<variable_declaration>>& lambda_expression::parameters() 
     return impl->parameter_list;
 }
 
-vector<pair<capture_mode, unique_ptr<unary_expression>>>& lambda_expression::captured_variables()
+vector<pair<capture_mode, unique_ptr<expression>>> &lambda_expression::captured_variables()
 {
     return captures;
 }
 
-const vector<pair<capture_mode, unique_ptr<unary_expression>>>& lambda_expression::captured_variables() const
+const vector<pair<capture_mode, unique_ptr<expression>>> &lambda_expression::captured_variables() const
 {
     return captures;
 }

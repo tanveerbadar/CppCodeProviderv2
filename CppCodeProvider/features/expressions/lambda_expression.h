@@ -14,7 +14,7 @@ namespace cpp::codeprovider::functions::internals
 
 namespace cpp::codeprovider::expressions
 {
-    class unary_expression;
+    class expression;
     enum class capture_mode : char
     {
         none,
@@ -28,7 +28,7 @@ namespace cpp::codeprovider::expressions
     {
         std::unique_ptr<functions::internals::callable> impl;
         capture_mode default_capture = capture_mode::none;
-        std::vector<std::pair<capture_mode, std::unique_ptr<unary_expression>>> captures;
+        std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> captures;
     public:
         lambda_expression();
         lambda_expression(const lambda_expression&);
@@ -36,8 +36,8 @@ namespace cpp::codeprovider::expressions
 
         std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
         const std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters() const;
-        std::vector<std::pair<capture_mode, std::unique_ptr<unary_expression>>>& captured_variables();
-        const std::vector<std::pair<capture_mode, std::unique_ptr<unary_expression>>>& captured_variables() const;
+        std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> &captured_variables();
+        const std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> &captured_variables() const;
         std::unique_ptr<types::type>& return_type() const;
         lambda_expression& return_type(std::unique_ptr<types::type>);
         statements::block_statement& body();
