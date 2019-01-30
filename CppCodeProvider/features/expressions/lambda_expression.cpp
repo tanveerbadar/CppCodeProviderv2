@@ -115,12 +115,12 @@ lambda_expression& lambda_expression::default_capture_mode(capture_mode mode)
 
 bool lambda_expression::is_mutable() const
 {
-    return can_modify;
+    return impl->is_mutable;
 }
 
 lambda_expression& lambda_expression::is_mutable(bool flag)
 {
-    can_modify = flag;
+    impl->is_mutable = flag;
     return *this;
 }
 
@@ -145,7 +145,7 @@ void lambda_expression::write(ostream& os) const
     if(impl->return_type)
         os << " -> " << impl->return_type->get_name() << endl;
 
-    if(can_modify)
+    if(impl->is_mutable)
         os << " mutable";
 
     os << impl->statements;

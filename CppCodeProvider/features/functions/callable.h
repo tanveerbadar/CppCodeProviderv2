@@ -27,6 +27,7 @@ namespace cpp::codeprovider
 			bool is_static = false;
 			bool has_trailing_return_type = false;
 			bool is_const_expr = false;
+			bool is_mutable = false;
 
 			callable(const std::string&, std::unique_ptr<types::type>);
 			callable(const callable&);

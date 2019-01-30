@@ -29,7 +29,6 @@ namespace cpp::codeprovider::expressions
         std::unique_ptr<functions::internals::callable> impl;
         capture_mode default_capture = capture_mode::none;
         std::vector<std::pair<capture_mode, std::unique_ptr<unary_expression>>> captures;
-        bool can_modify = false;
     public:
         lambda_expression() = default;
         lambda_expression(const lambda_expression&);

@@ -208,6 +208,7 @@ namespace cpp::codeprovider::expressions
 		scope,
 		throw_exp,
 		decltype_exp,
+		lambda,
 	};
 
 	std::ostream& operator <<(std::ostream& os, expressions::expression_type type);

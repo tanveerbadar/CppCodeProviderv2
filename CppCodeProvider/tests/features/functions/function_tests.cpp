@@ -23,6 +23,10 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(f1.template_parameters().size() == 0);
 	BOOST_TEST(f1.return_type().get_name() == "int");
 
+	f1.is_inline(true);
+	f1.is_static(true);
+	f1.is_constexpr(true);
+
 	f1.body();
 	f1.is_inline();
 	f1.is_static();
@@ -37,9 +41,9 @@ BOOST_AUTO_TEST_CASE(function_tests)
 
 	auto copy1(f1);
 
-	BOOST_TEST(!copy1.is_inline());
-	BOOST_TEST(!copy1.is_static());
-	BOOST_TEST(!copy1.is_constexpr());
+	BOOST_TEST(copy1.is_inline());
+	BOOST_TEST(copy1.is_static());
+	BOOST_TEST(copy1.is_constexpr());
 	BOOST_TEST(copy1.body().statements().size() == 0);
 	BOOST_TEST(copy1.parameters().size() == 0);
 	BOOST_TEST(copy1.template_parameters().size() == 0);
@@ -56,6 +60,14 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	stream << copy1;
 
 	copy1 = f1;
+
+	BOOST_TEST(copy1.is_inline());
+	BOOST_TEST(copy1.is_static());
+	BOOST_TEST(copy1.is_constexpr());
+	BOOST_TEST(copy1.body().statements().size() == 0);
+	BOOST_TEST(copy1.parameters().size() == 0);
+	BOOST_TEST(copy1.template_parameters().size() == 0);
+	BOOST_TEST(copy1.return_type().get_name() == "int");
 
 	copy1.body();
 	copy1.is_inline();
@@ -85,10 +97,24 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(!f1.is_static());
 	BOOST_TEST(!f1.is_constexpr());
+	BOOST_TEST(!f1.is_virtual());
+	BOOST_TEST(!f1.is_abstract());
+	BOOST_TEST(!f1.is_constant());
+	BOOST_TEST(!f1.is_volatile());
+	BOOST_TEST(!f1.is_override());
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
 	BOOST_TEST(f1.return_type().get_name() == "int");
+
+	f1.is_inline(true);
+	f1.is_static(true);
+	f1.is_constexpr(true);
+	f1.is_virtual(true);
+	f1.is_abstract(true);
+	f1.is_constant(true);
+	f1.is_volatile(true);
+	f1.is_override(true);
 
 	f1.body();
 	f1.is_inline();
@@ -97,6 +123,11 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	f1.return_type();
 	f1.template_parameters();
 	f1.is_constexpr();
+	f1.is_virtual();
+	f1.is_abstract();
+	f1.is_constant();
+	f1.is_volatile();
+	f1.is_override();
 
 	boost::test_tools::output_test_stream stream;
 
@@ -104,9 +135,14 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	auto copy1(f1);
 
-	BOOST_TEST(!copy1.is_inline());
-	BOOST_TEST(!copy1.is_static());
-	BOOST_TEST(!copy1.is_constexpr());
+	BOOST_TEST(copy1.is_inline());
+	BOOST_TEST(copy1.is_static());
+	BOOST_TEST(copy1.is_constexpr());
+	BOOST_TEST(copy1.is_virtual());
+	BOOST_TEST(copy1.is_abstract());
+	BOOST_TEST(copy1.is_constant());
+	BOOST_TEST(copy1.is_volatile());
+	BOOST_TEST(copy1.is_override());
 	BOOST_TEST(copy1.body().statements().size() == 0);
 	BOOST_TEST(copy1.parameters().size() == 0);
 	BOOST_TEST(copy1.template_parameters().size() == 0);
@@ -123,6 +159,19 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	stream << copy1;
 
 	copy1 = f1;
+
+	BOOST_TEST(copy1.is_inline());
+	BOOST_TEST(copy1.is_static());
+	BOOST_TEST(copy1.is_constexpr());
+	BOOST_TEST(copy1.is_virtual());
+	BOOST_TEST(copy1.is_abstract());
+	BOOST_TEST(copy1.is_constant());
+	BOOST_TEST(copy1.is_volatile());
+	BOOST_TEST(copy1.is_override());
+	BOOST_TEST(copy1.body().statements().size() == 0);
+	BOOST_TEST(copy1.parameters().size() == 0);
+	BOOST_TEST(copy1.template_parameters().size() == 0);
+	BOOST_TEST(copy1.return_type().get_name() == "int");
 
 	copy1.body();
 	copy1.is_inline();
