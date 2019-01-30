@@ -22,6 +22,7 @@ namespace cpp::codeprovider::types
 	public:
 		user_defined_type(const std::string&);
 		user_defined_type(const user_defined_type&);
+		user_defined_type& operator=(const user_defined_type&);
 
 		void write(std::ostream&) const override;
 		std::unique_ptr<type> clone() const override;

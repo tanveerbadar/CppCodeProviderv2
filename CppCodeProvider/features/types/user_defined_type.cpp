@@ -69,6 +69,15 @@ user_defined_type::user_defined_type(const user_defined_type &other)
 {
 }
 
+user_defined_type& user_defined_type::operator=(const user_defined_type& other)
+{
+	if(this!=&other)
+	{
+		type::operator=(other);
+	}
+	return *this;
+}
+
 vector<unique_ptr<member_function>> &user_defined_type::member_functions()
 {
 	return functions;
@@ -76,6 +85,13 @@ vector<unique_ptr<member_function>> &user_defined_type::member_functions()
 
 void user_defined_type::write(ostream &os) const
 {
+	if(template_parameter_list.size() > 0)
+	{
+		os << "template<";
+		write_vector(os, template_parameter_list);
+		os << ">";
+	}
+
 	os << (this->is_class ? "class " : "struct ") << get_name() << endl;
 	write_vector(os, base_types);
 	os << "{" << endl;
