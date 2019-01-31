@@ -28,22 +28,22 @@ namespace cpp::codeprovider::declarations
 		return make_unique<variable_declaration_list>(*this);
 	}
 
-	void variable_declaration_list::write(ostream& os) const
+	ostream& variable_declaration_list::write_declaration(ostream &os) const
 	{
-		os << *this;
+		os << var_specifier;
+
+		write_vector(os, var_decls);
+	}
+
+	ostream &variable_declaration_list::write_definition(ostream &os) const
+	{
+		os << var_specifier;
+
+		write_vector(os, var_decls);
 	}
 
 	const declarator_specifier& variable_declaration_list::specifier() const
 	{
 		return var_specifier;
-	}
-
-	ostream& operator<<(ostream& os, const variable_declaration_list& list)
-	{
-		os << list.specifier();
-
-		write_vector(os, list.declarations());
-		
-		return os;
 	}
 }

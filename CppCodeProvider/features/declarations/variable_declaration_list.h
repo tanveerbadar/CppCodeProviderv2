@@ -21,9 +21,8 @@ namespace cpp::codeprovider::declarations
 		const std::vector<declarator>& declarations() const;
 
 		std::unique_ptr<declaration> clone() const override;
-		void write(std::ostream&) const override;
-
-		friend std::ostream& operator<<(std::ostream&, const variable_declaration_list&);
+		std::ostream &write_declaration(std::ostream &) const override;
+		std::ostream &write_definition(std::ostream &) const override;
 	};
 }
 

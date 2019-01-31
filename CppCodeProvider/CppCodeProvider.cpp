@@ -87,7 +87,10 @@ int main()
 
 	auto v1 = make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")));
 	v1->var_declarator().name = "a";
-	cout << *v1 << endl;
+	v1->write_declaration(cout);
+	cout << endl;
+	v1->write_definition(cout);
+	cout << endl;
 
 	auto v2 = make_unique<variable_declaration_list>(declarator_specifier(make_unique<primitive_type>("int")));
 	auto& variables = v2->declarations();
@@ -109,7 +112,10 @@ int main()
 	variables.push_back(lambda());
 	variables.push_back(lambda());
 
-	cout << *v2 << endl;
+	v2->write_declaration(cout);
+	cout << endl;
+	v2->write_definition(cout);
+	cout << endl;
 
 	function f1("func1", make_unique<primitive_type>("int"));
 	
@@ -136,7 +142,8 @@ int main()
 	copy = *a1;
 
 	udt->member_functions().emplace_back(mf1);
-	cout << *udt;
+	udt->write_declaration(cout);
+	udt->write_definition(cout);
 
 	char ch;
 	cin >> ch;

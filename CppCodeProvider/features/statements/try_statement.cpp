@@ -54,7 +54,7 @@ namespace cpp::codeprovider::statements
 	{
 		os << "catch(";
 		if (c.variable().var_declarator().name.size() > 0)
-			os << c.variable();
+			c.variable().write_declaration(os);
 		else
 			os << "...";
 		os << ")" << endl;

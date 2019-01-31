@@ -26,9 +26,14 @@ namespace cpp::codeprovider::declarations
 		return make_unique<variable_declaration>(*this);
 	}
 
-	void variable_declaration::write(ostream& os) const
+	ostream& variable_declaration::write_declaration(ostream& os) const
 	{
-		os << *this;
+		os << var_specifier << var_decl;
+	}
+
+	ostream &variable_declaration::write_definition(ostream &os) const
+	{
+		os << var_specifier << var_decl;
 	}
 
 	const declarations::declarator& variable_declaration::var_declarator() const
@@ -36,9 +41,4 @@ namespace cpp::codeprovider::declarations
 		return var_decl;
 	}
 
-	ostream& operator<<(ostream& os, const variable_declaration& var)
-	{
-		os << var.specifier() << var.var_declarator();
-		return os;
-	}
 }

@@ -15,8 +15,12 @@ namespace cpp::codeprovider::utils
 		{
 			if (parameters.size() > 1)
 				for (auto i = 1; i < parameters.size() - 1; ++i)
-					os << *parameters[i] << ", ";
-			os << *parameters[parameters.size() - 1] << std::endl;
+				{
+					parameters[i]->write_declaration(os);
+					os << ", ";
+				}
+			parameters[parameters.size() - 1]->write_declaration(os);
+			os << std::endl;
 		}
    }
 
@@ -30,6 +34,42 @@ namespace cpp::codeprovider::utils
 			os << parameters[parameters.size() - 1] << std::endl;
 		}
    }
-}
+
+   template <typename T> void write_definitions(std::ostream &os, const std::vector<T> &entities)
+   {
+	   for (const auto &e : entities)
+	   {
+		   e.write_definition(os);
+		   os << std::endl;
+	   }
+   }
+
+   template <typename T> void write_declarations(std::ostream &os, const std::vector<T> &entities)
+   {
+	   for (const auto &e : entities)
+	   {
+		   e.write_declaration(os);
+		   os << std::endl;
+	   }
+   }
+
+   template <typename T> void write_definitions(std::ostream &os, const std::vector<std::unique_ptr<T>> &entities)
+   {
+	   for (const auto &e : entities)
+	   {
+		   e -> write_definition(os);
+		   os << std::endl;
+	   }
+   }
+
+   template <typename T> void write_declarations(std::ostream &os, const std::vector<std::unique_ptr<T>> &entities)
+   {
+	   for (const auto &e : entities)
+	   {
+		   e -> write_declaration(os);
+		   os << std::endl;
+	   }
+   }
+ } // namespace cpp::codeprovider::utils
 
 #endif

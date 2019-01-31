@@ -10,8 +10,9 @@ namespace cpp::codeprovider::types::templates
 	class template_parameter : public type
 	{
 	public:
-		void write(std::ostream&) const override;
-		std::unique_ptr<type> clone() const override;
+	  std::ostream &write_declaration(std::ostream &) const override;
+	  std::ostream &write_definition(std::ostream &) const override;
+	  std::unique_ptr<type> clone() const override;
 	};
 }
 

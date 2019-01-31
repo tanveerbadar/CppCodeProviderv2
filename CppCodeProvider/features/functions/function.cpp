@@ -36,6 +36,10 @@ namespace cpp::codeprovider::functions
 		return *this;
 	}
 
+	function::~function()
+	{		
+	}
+
 	vector<unique_ptr<variable_declaration>>& function::parameters()
 	{
 		return impl->parameter_list;

@@ -4,7 +4,12 @@ using namespace std;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
 
-void template_parameter::write(ostream& os) const
+ostream &template_parameter::write_declaration(ostream &os) const
+{
+	os << "typename " << get_name();
+}
+
+ostream &template_parameter::write_definition(ostream &os) const
 {
 	os << "typename " << get_name();
 }

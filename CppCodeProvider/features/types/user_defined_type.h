@@ -7,10 +7,11 @@
 #include "base_type.h"
 #include "common.h"
 #include "../forward_declarations.h"
+#include "../namespaces/namespace_scope_entity.h"
 
 namespace cpp::codeprovider::types
 {
-	class user_defined_type : public type
+	class user_defined_type : public type, public namespaces::namespace_scope_entity
 	{
 		bool is_class = true;
 		std::vector<functions::member_function> functions;
@@ -22,7 +23,8 @@ namespace cpp::codeprovider::types
 		user_defined_type(const user_defined_type&);
 		user_defined_type& operator=(const user_defined_type&);
 
-		void write(std::ostream&) const override;
+		std::ostream &write_declaration(std::ostream &) const override;
+		std::ostream &write_definition(std::ostream &) const override;
 		std::unique_ptr<type> clone() const override;
 
 		std::vector<functions::member_function>& member_functions();

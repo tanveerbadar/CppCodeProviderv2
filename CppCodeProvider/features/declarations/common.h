@@ -5,18 +5,15 @@
 
 #include <iostream>
 #include <memory>
+#include "../namespaces/namespace_scope_entity.h"
 
 namespace cpp::codeprovider::declarations
 {
-	class declaration
+	class declaration : public namespaces::namespace_scope_entity
 	{
 	public:
-		virtual ~declaration() = 0;
 		virtual std::unique_ptr<declaration> clone() const = 0;
-		virtual void write(std::ostream&) const = 0;
 	};
-
-	std::ostream& operator<<(std::ostream&, const declaration&);
 }
 
 #endif // !COMMON_DECLARATION_HEADER

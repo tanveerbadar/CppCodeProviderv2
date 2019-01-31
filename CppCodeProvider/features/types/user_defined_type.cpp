@@ -26,22 +26,26 @@ namespace
 			switch (access)
 			{
 			case access_levels::private_access:
-				private_stream << *v << endl;
+				v->write_declaration(private_stream);
+				private_stream << endl;
 				break;
 			case access_levels::protected_access:
-				protected_stream << *v << endl;
+				v->write_declaration(protected_stream);
+				protected_stream << endl;
 				break;
 			case access_levels::public_access:
-				public_streams << *v << endl;
+				v->write_declaration(public_streams);
+				public_streams << endl;
 				break;
 			default:
-				default_stream << *v << endl;
+				v->write_declaration(default_stream);
+				default_stream << endl;
 				break;
 			}
 		}
 	}
 
-	void write_declaration(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
+	void write_declarations(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
 	{
 		for (const auto &mf : functions)
 		{
@@ -112,7 +116,7 @@ vector<unique_ptr<template_parameter>> &user_defined_type::template_parameters()
 	return template_parameter_list;
 }
 
-void user_defined_type::write(ostream &os) const
+ostream& user_defined_type::write_declaration(ostream &os) const
 {
 	if(template_parameter_list.size() > 0)
 	{
@@ -126,7 +130,7 @@ void user_defined_type::write(ostream &os) const
 	os << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(fields, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
-	write_declaration(functions, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+	write_declarations(functions, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 	os << "private:" << endl;
 	os << private_stream.str() << endl;
 	os << "protected:" << endl;
@@ -134,6 +138,11 @@ void user_defined_type::write(ostream &os) const
 	os << "public: " << endl;
 	os << public_stream.str() << endl;
 	os << "};" << endl << endl;
+}
+
+ostream& user_defined_type::write_definition(ostream& os) const
+{
+	write_definitions(os, functions);
 }
 
 unique_ptr<type> user_defined_type::clone() const

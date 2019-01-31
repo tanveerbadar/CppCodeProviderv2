@@ -8,7 +8,12 @@ primitive_type::primitive_type(const string& name)
 {
 }
 
-void primitive_type::write(ostream& os) const
+ostream &primitive_type::write_declaration(ostream &os) const
+{
+	os << get_name();
+}
+
+ostream &primitive_type::write_definition(ostream &os) const
 {
 	os << get_name();
 }

@@ -16,12 +16,11 @@ namespace cpp::codeprovider::types
 		type(const std::string&);
 	public:
 		std::string get_name() const;
-		virtual void write(std::ostream&) const = 0;
+		virtual std::ostream &write_declaration(std::ostream &) const = 0;
+		virtual std::ostream &write_definition(std::ostream &) const = 0;
 		virtual std::unique_ptr<type> clone() const = 0;
 		virtual ~type() = 0;
 	};
-
-	std::ostream& operator<<(std::ostream&, const type&);
 }
 
 #endif // ! TYPES_COMMON_HEADER
