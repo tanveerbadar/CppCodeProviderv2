@@ -5,7 +5,7 @@
 #include "../../../features/declarations/variable_declaration.h"
 #include "../../../features/expressions.h"
 #include "../../../features/functions/callable.h"
-#include "../../../features/types/common.h"
+#include "../../../features/statements/try_statement.h"
 #include "../../../features/types/template_parameter.h"
 
 BOOST_AUTO_TEST_SUITE(expression_tests)

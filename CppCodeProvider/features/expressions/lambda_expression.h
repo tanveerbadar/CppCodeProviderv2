@@ -7,14 +7,8 @@
 #include "common.h"
 #include "../forward_declarations.h"
 
-namespace cpp::codeprovider::functions::internals
-{
-    struct callable;
-}
-
 namespace cpp::codeprovider::expressions
 {
-    class expression;
     enum class capture_mode : char
     {
         none,

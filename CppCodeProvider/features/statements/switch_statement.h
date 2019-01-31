@@ -4,7 +4,6 @@
 #pragma once
 
 #include "block_statement.h"
-#include "common.h"
 #include "../forward_declarations.h"
 
 namespace cpp::codeprovider::statements

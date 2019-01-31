@@ -24,6 +24,7 @@ namespace cpp::codeprovider
 
 	namespace declarations
 	{
+		class declaration;
 		class variable_declaration;
 	}
 
@@ -36,6 +37,12 @@ namespace cpp::codeprovider
 	namespace functions
 	{
 		class function;
+		class member_function;
+
+		namespace internals
+		{
+			class callable;
+		}
 	}
 }
 

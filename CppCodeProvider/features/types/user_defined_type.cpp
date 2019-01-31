@@ -1,8 +1,11 @@
 #include <sstream>
 #include "template_parameter.h"
 #include "user_defined_type.h"
+#include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../functions/callable.h"
+#include "../functions/member_function.h"
+#include "../statements/try_statement.h"
 #include "../../utils/write_helpers.h"
 
 using namespace std;
@@ -14,28 +17,28 @@ using namespace cpp::codeprovider::utils;
 
 namespace
 {
-void write_members(const vector<pair<access_levels, unique_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
-{
-	for (const auto &t : variables)
+	void write_members(const vector<pair<access_levels, unique_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
 	{
-		auto &[access, v] = t;
-
-		switch (access)
+		for (const auto &t : variables)
 		{
-		case access_levels::private_access:
-			private_stream << *v << endl;
-			break;
-		case access_levels::protected_access:
-			protected_stream << *v << endl;
-			break;
-		case access_levels::public_access:
-			public_streams << *v << endl;
-			break;
-		default:
-			default_stream << *v << endl;
-			break;
+			auto &[access, v] = t;
+
+			switch (access)
+			{
+			case access_levels::private_access:
+				private_stream << *v << endl;
+				break;
+			case access_levels::protected_access:
+				protected_stream << *v << endl;
+				break;
+			case access_levels::public_access:
+				public_streams << *v << endl;
+				break;
+			default:
+				default_stream << *v << endl;
+				break;
+			}
 		}
-	}
 	}
 
 	void write_members(const vector<unique_ptr<member_function>> &functions, ostringstream& default_stream, ostringstream& private_stream, ostringstream& protected_stream, ostringstream& public_streams)

@@ -6,9 +6,7 @@
 #include <vector>
 #include "base_type.h"
 #include "common.h"
-#include "template_parameter.h"
-#include "../declarations/variable_declaration.h"
-#include "../functions/member_function.h"
+#include "../forward_declarations.h"
 
 namespace cpp::codeprovider::types
 {

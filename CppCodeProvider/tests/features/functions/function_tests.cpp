@@ -3,6 +3,7 @@
 #include "../../../features/declarations/variable_declaration.h"
 #include "../../../features/expressions.h"
 #include "../../../features/functions.h"
+#include "../../../features/statements/try_statement.h"
 #include "../../../features/types.h"
 
 using namespace std;

@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include <memory>
-#include <vector>
 #include "common.h"
 
 namespace cpp::codeprovider::statements

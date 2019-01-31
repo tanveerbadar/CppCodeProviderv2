@@ -2,7 +2,7 @@
 #include "unary_expressions.h"
 #include "../declarations/variable_declaration.h"
 #include "../functions/callable.h"
-#include "../types/common.h"
+#include "../statements/try_statement.h"
 #include "../types/template_parameter.h"
 #include "../../utils/write_helpers.h"
 

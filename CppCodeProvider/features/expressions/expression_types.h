@@ -1,5 +1,6 @@
 #ifndef BINARY_EXPRESSION_TYPE
 #define BINARY_EXPRESSION_TYPE
+
 #pragma once
 
 namespace cpp::codeprovider::expressions
