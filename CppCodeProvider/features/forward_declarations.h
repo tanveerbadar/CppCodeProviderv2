@@ -2,7 +2,6 @@
 #define FORWARD_DECLARATIONS_HEADER
 
 #pragma once
-#include <string>
 
 namespace cpp::codeprovider
 {
@@ -23,11 +22,6 @@ namespace cpp::codeprovider
 		class user_defined_type;
 	}
 
-	namespace expressions
-	{
-		class expression;
-	}
-
 	namespace declarations
 	{
 		class variable_declaration;
@@ -36,6 +30,7 @@ namespace cpp::codeprovider
 	namespace statements
 	{
 		class block_statement;
+		class catch_clause;
 	}
 
 	namespace functions

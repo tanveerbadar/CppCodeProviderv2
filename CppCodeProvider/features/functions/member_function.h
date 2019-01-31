@@ -32,6 +32,8 @@ namespace cpp::codeprovider
 			const std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters() const;
 			std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
 			const std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters() const;
+			std::vector<statements::catch_clause> &catch_blocks();
+			const std::vector<statements::catch_clause> &catch_blocks() const;
 			bool is_inline() const;
 			member_function& is_inline(bool);
 			bool is_constexpr() const;
@@ -48,6 +50,8 @@ namespace cpp::codeprovider
 			member_function& is_constant(bool);
 			bool is_volatile() const;
 			member_function& is_volatile(bool);
+			bool has_try_block() const;
+			member_function &has_try_block(bool);
 			types::access_levels accessibility() const;
 			member_function& accessibility(types::access_levels);
 			types::type& return_type();

@@ -6,6 +6,7 @@
 #include <string>
 #include "../forward_declarations.h"
 #include "../statements/block_statement.h"
+#include "../statements/try_statement.h"
 
 namespace cpp::codeprovider
 {
@@ -28,6 +29,8 @@ namespace cpp::codeprovider
 			bool has_trailing_return_type = false;
 			bool is_const_expr = false;
 			bool is_mutable = false;
+			bool has_function_try_block = false;
+			std::vector<statements::catch_clause> catch_blocks;
 
 			callable() = default;
 			callable(const std::string&, std::unique_ptr<types::type>);

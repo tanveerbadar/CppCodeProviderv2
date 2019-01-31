@@ -57,6 +57,16 @@ namespace cpp::codeprovider::functions
 		return impl->template_parameter_list;
 	}
 
+	vector<catch_clause> &function::catch_blocks()
+	{
+		return impl->catch_blocks;
+	}
+
+	const vector<catch_clause> &function::catch_blocks() const
+	{
+		return impl->catch_blocks;
+	}
+
 	bool function::is_inline() const
 	{
 		return impl->is_inline;
@@ -65,6 +75,17 @@ namespace cpp::codeprovider::functions
 	function& function::is_inline(bool flag)
 	{
 		impl->is_inline = flag;
+		return *this;
+	}
+
+	bool function::has_try_block() const
+	{
+		return impl->has_function_try_block;
+	}
+
+	function &function::has_try_block(bool flag)
+	{
+		impl->has_function_try_block = flag;
 		return *this;
 	}
 
@@ -141,7 +162,13 @@ namespace cpp::codeprovider::functions
 		if(func.impl->has_trailing_return_type)
 			os << " -> " << func.return_type().get_name() << endl;
 
+		if (func.has_try_block())
+			os << "try" << endl;
+
 		os << func.body();
+
+		if (func.has_try_block())
+			write_vector(os, func.catch_blocks());
 
 		return os;
 	}

@@ -29,13 +29,17 @@ namespace cpp::codeprovider
 			const std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters() const;
 			std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
 			const std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters() const;
+			std::vector<statements::catch_clause> &catch_blocks();
+			const std::vector<statements::catch_clause> &catch_blocks() const;
 			bool is_inline() const;
 			function& is_inline(bool);
 			bool is_static() const;
 			function& is_static(bool);
 			bool is_constexpr() const;
 			function& is_constexpr(bool);
-			types::type& return_type() const;
+			bool has_try_block() const;
+			function &has_try_block(bool);
+			types::type &return_type() const;
 			function& return_type(std::unique_ptr<types::type>);
 			statements::block_statement& body();
 			const statements::block_statement& body() const;
