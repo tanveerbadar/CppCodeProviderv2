@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE(user_defined_type_tests)
     BOOST_TEST(udt->template_parameters().size() == 0);
     BOOST_TEST(udt->get_name() == "udt");
 
-    udt->member_functions().emplace_back(make_unique<member_function>(string("mf"), make_unique<primitive_type>("int"), *udt));
+    udt->member_functions().emplace_back(string("mf"), make_unique<primitive_type>("int"), *udt);
     udt->member_fields().emplace_back(make_pair(access_levels::public_access, make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")))));
 
     auto copy(*udt);

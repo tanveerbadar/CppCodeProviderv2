@@ -38,7 +38,8 @@ BOOST_AUTO_TEST_CASE(function_tests)
 
 	boost::test_tools::output_test_stream stream;
 
-	stream << f1;
+	f1.write_declaration(stream);
+	f1.write_definition(stream);
 
 	auto copy1(f1);
 
@@ -58,7 +59,8 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	copy1.template_parameters();
 	copy1.is_constexpr();
 
-	stream << copy1;
+	copy1.write_declaration(stream);
+	copy1.write_definition(stream);
 
 	copy1 = f1;
 
@@ -78,7 +80,8 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	copy1.template_parameters();
 	copy1.is_constexpr();
 
-	stream << copy1;
+	copy1.write_declaration(stream);
+	copy1.write_definition(stream);
 
 	const auto& c_ref = copy1;
 	c_ref.body();
@@ -132,7 +135,8 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	boost::test_tools::output_test_stream stream;
 
-	stream << f1;
+	f1.write_declaration(stream);
+	f1.write_definition(stream);
 
 	auto copy1(f1);
 
@@ -157,7 +161,8 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	copy1.template_parameters();
 	copy1.is_constexpr();
 
-	stream << copy1;
+	copy1.write_declaration(stream);
+	copy1.write_definition(stream);
 
 	copy1 = f1;
 
@@ -182,7 +187,8 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	copy1.template_parameters();
 	copy1.is_constexpr();
 
-	stream << copy1;
+	copy1.write_declaration(stream);
+	copy1.write_definition(stream);
 
 	const auto& c_ref = copy1;
 	c_ref.body();

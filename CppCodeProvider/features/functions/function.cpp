@@ -131,43 +131,78 @@ namespace cpp::codeprovider::functions
 		return *this;
 	}
 
-	ostream& operator<<(ostream& os, const function& func)
+	ostream &function::write_declaration(ostream &os) const
 	{
-		if(func.template_parameters().size() > 0)
+		if (impl->template_parameter_list.size() > 0)
 		{
 			os << "template<";
-			write_vector(os, func.template_parameters());
+			write_vector(os, impl->template_parameter_list);
 			os << ">";
 		}
 
-		if(func.is_constexpr())
+		if (impl->is_const_expr)
 			os << "constexpr ";
-		if(func.is_inline())
+		if (impl->is_inline)
 			os << "inline ";
-		if(func.is_static())
+		if (impl->is_static)
 			os << "static ";
 
-		if(func.impl->has_trailing_return_type)
+		if (impl->has_trailing_return_type)
 			os << "auto ";
 		else
-			os << func.return_type().get_name();
-		
-		os << " " << func.impl->name << "(";
+			os << impl->return_type->get_name();
 
-		write_vector(os, func.parameters());
+		os << " " << impl->name << "(";
+
+		write_vector(os, impl->parameter_list);
 
 		os << ")" << endl;
 
-		if(func.impl->has_trailing_return_type)
-			os << " -> " << func.return_type().get_name() << endl;
+		if (impl->has_trailing_return_type)
+			os << " -> " << impl->return_type->get_name();
 
-		if (func.has_try_block())
+		os << ";" << endl;
+
+		return os;
+	}
+
+	ostream &function::write_definition(ostream & os) const
+	{
+		if (impl->template_parameter_list.size() > 0)
+		{
+			os << "template<";
+			write_vector(os, impl->template_parameter_list);
+			os << ">";
+		}
+
+		if (impl->is_const_expr)
+			os << "constexpr ";
+		if (impl->is_inline)
+			os << "inline ";
+		if (impl->is_static)
+			os << "static ";
+
+		if (impl->has_trailing_return_type)
+			os << "auto ";
+		else
+			os << impl->return_type->get_name();
+
+		os << " " << impl->name << "(";
+
+		write_vector(os, impl->parameter_list);
+
+		os << ")" << endl;
+
+		if (impl->has_trailing_return_type)
+			os << " -> " << impl->return_type->get_name() << endl;
+
+		if (impl->has_function_try_block)
 			os << "try" << endl;
 
-		os << func.body();
+		os << impl->statements;
 
-		if (func.has_try_block())
-			write_vector(os, func.catch_blocks());
+		if (impl->has_function_try_block)
+			write_vector(os, impl->catch_blocks);
 
 		return os;
 	}

@@ -52,9 +52,8 @@ namespace cpp::codeprovider::functions
 		member_function& return_type(std::unique_ptr<types::type>);
 		statements::block_statement& body();
 		const statements::block_statement& body() const;
-
-		friend std::ostream& operator<<(std::ostream&, const member_function&);
-		friend std::tuple<std::ostream&, std::ostream&> operator<<(std::tuple<std::ostream&, std::ostream&>, const member_function&);
+		std::ostream &write_declaration(std::ostream &) const;
+		std::ostream &write_definition(std::ostream &) const;
 	};
 }
 

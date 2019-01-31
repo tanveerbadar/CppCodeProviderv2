@@ -118,7 +118,8 @@ int main()
 	body5.push_back(make_unique<switch_statement>(*s3));
 	body5.push_back(make_unique<if_statement>(*s4));
 
-	cout << f1;
+	f1.write_declaration(cout);
+	f1.write_definition(cout);
 
 	auto udt = make_shared<user_defined_type>("udt");
 	member_function mf1("func2", make_unique<primitive_type>("int"), *udt);
@@ -128,12 +129,13 @@ int main()
 	body6.push_back(make_unique<switch_statement>(*s3));
 	body6.push_back(make_unique<if_statement>(*s4));
 
-	cout << mf1;
+	mf1.write_declaration(cout);
+	mf1.write_definition(cout);
 
 	primitive_expression copy(*a1);
 	copy = *a1;
 
-	udt->member_functions().emplace_back(make_unique<member_function>(mf1));
+	udt->member_functions().emplace_back(mf1);
 	cout << *udt;
 
 	char ch;

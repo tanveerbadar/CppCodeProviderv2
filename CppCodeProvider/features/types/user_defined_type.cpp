@@ -41,23 +41,27 @@ namespace
 		}
 	}
 
-	void write_members(const vector<unique_ptr<member_function>> &functions, ostringstream& default_stream, ostringstream& private_stream, ostringstream& protected_stream, ostringstream& public_streams)
+	void write_declaration(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
 	{
 		for (const auto &mf : functions)
 		{
-			switch (mf->accessibility())
+			switch (mf.accessibility())
 			{
 			case access_levels::private_access:
-				private_stream << *mf << endl;
+				mf.write_declaration(private_stream);
+				private_stream << endl;
 				break;
 			case access_levels::protected_access:
-				protected_stream << *mf << endl;
+				mf.write_declaration(protected_stream);
+				protected_stream << endl;
 				break;
 			case access_levels::public_access:
-				public_streams << *mf << endl;
+				mf.write_declaration(public_streams);
+				public_streams << endl;
 				break;
 			default:
-				default_stream << *mf << endl;
+				mf.write_declaration(default_stream);
+				default_stream << endl;
 				break;
 			}
 		}
@@ -73,7 +77,7 @@ user_defined_type::user_defined_type(const user_defined_type &other)
 	: type(other)
 {
 	for(auto& f: other.functions)
-		functions.push_back(make_unique<member_function>(*f));
+		functions.emplace_back(f);
 
 	for(auto& f:other.fields)
 		fields.push_back(make_pair(f.first, f.second->clone()));
@@ -88,7 +92,7 @@ user_defined_type& user_defined_type::operator=(const user_defined_type& other)
 	return *this;
 }
 
-vector<unique_ptr<member_function>> &user_defined_type::member_functions()
+vector<member_function> &user_defined_type::member_functions()
 {
 	return functions;
 }
@@ -122,7 +126,7 @@ void user_defined_type::write(ostream &os) const
 	os << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(fields, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
-	write_members(functions, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+	write_declaration(functions, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 	os << "private:" << endl;
 	os << private_stream.str() << endl;
 	os << "protected:" << endl;

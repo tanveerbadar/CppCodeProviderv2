@@ -36,8 +36,8 @@ namespace cpp::codeprovider::functions
 		function& return_type(std::unique_ptr<types::type>);
 		statements::block_statement& body();
 		const statements::block_statement& body() const;
-
-		friend std::ostream& operator<<(std::ostream&, const function&);
+		std::ostream &write_declaration(std::ostream &) const;
+		std::ostream &write_definition(std::ostream &) const;
 	};
 }
 
