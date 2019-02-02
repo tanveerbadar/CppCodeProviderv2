@@ -8,6 +8,7 @@
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::types;
 
@@ -41,6 +42,29 @@ BOOST_AUTO_TEST_CASE(user_defined_type_tests)
     BOOST_TEST(copy.member_functions().size() == 1);
     BOOST_TEST(copy.template_parameters().size() == 0);
     BOOST_TEST(copy.get_name() == "udt");
+}
+
+BOOST_AUTO_TEST_CASE(enumeration_tests)
+{
+    auto e = make_unique<enumeration>("e");
+
+    BOOST_TEST(e->enumerators().size() == 0);
+    BOOST_TEST(e->get_name() == "e");
+    BOOST_TEST(!e->is_scoped_enum());
+
+    e->enumerators().emplace_back(make_pair("e1", make_unique<primitive_expression>("5")));
+
+    auto copy(*e);
+
+    BOOST_TEST(copy.enumerators().size() == 1);
+    BOOST_TEST(copy.get_name() == "e");
+    BOOST_TEST(!copy.is_scoped_enum());
+
+    copy = *e;
+
+    BOOST_TEST(copy.enumerators().size() == 1);
+    BOOST_TEST(copy.get_name() == "e");
+    BOOST_TEST(!copy.is_scoped_enum());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
