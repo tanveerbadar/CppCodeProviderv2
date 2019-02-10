@@ -5,6 +5,7 @@
 
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
 {
@@ -26,8 +27,7 @@ namespace cpp::codeprovider::statements
 		while_loop(const while_loop&);
 		while_loop& operator=(const while_loop&);
 
-		const expressions::expression& condition() const;
-		while_loop& condition(std::unique_ptr<expressions::expression>);
+		ACCESSOR_DECLARATION_2(while_loop, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		while_loop_style style() const;
 		while_loop& style(while_loop_style);
 		statement_list &statements();

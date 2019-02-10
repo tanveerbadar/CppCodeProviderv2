@@ -5,6 +5,7 @@
 
 #include <memory>
 #include "access_levels.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::types
 {
@@ -25,8 +26,7 @@ namespace cpp::codeprovider::types
         base_type(access_levels, std::shared_ptr<user_defined_type>);
         base_type(access_levels, std::shared_ptr<templates::template_parameter>);
     
-        bool is_virtual() const;
-        base_type& is_virtual(bool);
+        ACCESSOR_DECLARATION(base_type, is_virtual, bool)
 
         friend std::ostream& operator<<(std::ostream&, const base_type&);
     };

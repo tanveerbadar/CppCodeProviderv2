@@ -8,6 +8,7 @@
 #include <vector>
 #include "../forward_declarations.h"
 #include "../types/access_levels.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::functions
 {
@@ -31,29 +32,18 @@ namespace cpp::codeprovider::functions
 		const template_parameter_list &template_parameters() const;
 		catch_list &catch_blocks();
 		const catch_list &catch_blocks() const;
-		bool is_inline() const;
-		member_function& is_inline(bool);
-		bool is_constexpr() const;
-		member_function& is_constexpr(bool);
-		bool is_virtual() const;
-		member_function& is_virtual(bool);
-		bool is_abstract() const;
-		member_function& is_abstract(bool);
-		bool is_override() const;
-		member_function& is_override(bool);
-		bool is_static() const;
-		member_function& is_static(bool);
-		bool is_constant() const;
-		member_function& is_constant(bool);
-		bool is_volatile() const;
-		member_function& is_volatile(bool);
-		bool has_try_block() const;
-		member_function &has_try_block(bool);
-		types::access_levels accessibility() const;
-		member_function& accessibility(types::access_levels);
+		ACCESSOR_DECLARATION(member_function, is_inline, bool)
+		ACCESSOR_DECLARATION(member_function, is_constexpr, bool)
+		ACCESSOR_DECLARATION(member_function, is_virtual, bool)
+		ACCESSOR_DECLARATION(member_function, is_abstract, bool)
+		ACCESSOR_DECLARATION(member_function, is_override, bool)
+		ACCESSOR_DECLARATION(member_function, is_static, bool)
+		ACCESSOR_DECLARATION(member_function, is_constant, bool)
+		ACCESSOR_DECLARATION(member_function, is_volatile, bool)
+		ACCESSOR_DECLARATION(member_function, has_try_block, bool)
+		ACCESSOR_DECLARATION(member_function, accessibility, types::access_levels)
+		ACCESSOR_DECLARATION_2(member_function, return_type, const types::type&, std::unique_ptr<types::type>)
 		types::type& return_type();
-		const types::type& return_type() const;
-		member_function& return_type(std::unique_ptr<types::type>);
 		statements::block_statement& body();
 		const statements::block_statement& body() const;
 		std::ostream &write_declaration(std::ostream &) const;

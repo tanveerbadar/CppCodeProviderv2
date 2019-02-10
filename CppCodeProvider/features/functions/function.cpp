@@ -70,49 +70,10 @@ namespace cpp::codeprovider::functions
 		return impl->catch_blocks;
 	}
 
-	bool function::is_inline() const
-	{
-		return impl->is_inline;
-	}
-
-	function& function::is_inline(bool flag)
-	{
-		impl->is_inline = flag;
-		return *this;
-	}
-
-	bool function::has_try_block() const
-	{
-		return impl->has_function_try_block;
-	}
-
-	function &function::has_try_block(bool flag)
-	{
-		impl->has_function_try_block = flag;
-		return *this;
-	}
-
-	bool function::is_static() const
-	{
-		return impl->is_static;
-	}
-
-	function& function::is_static(bool flag)
-	{
-		impl->is_static = flag;
-		return *this;
-	}
-
-	bool function::is_constexpr() const
-	{
-		return impl->is_const_expr;
-	}
-
-	function& function::is_constexpr(bool flag)
-	{
-		impl->is_const_expr = flag;
-		return *this;
-	}
+	ACCESSOR_IMPL(function, is_inline, bool, is_inline)
+	ACCESSOR_IMPL(function, has_try_block, bool, has_function_try_block)
+	ACCESSOR_IMPL(function, is_constexpr, bool, is_const_expr)
+	ACCESSOR_IMPL(function, is_static, bool, is_static)
 
 	block_statement& function::body()
 	{
@@ -124,7 +85,7 @@ namespace cpp::codeprovider::functions
 		return impl->statements;
 	}
 
-	type& function::return_type() const
+	const type& function::return_type() const
 	{
 		return *impl->return_type;
 	}

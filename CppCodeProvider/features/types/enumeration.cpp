@@ -42,16 +42,7 @@ namespace cpp::codeprovider::types
         return members;
     }
 
-    bool enumeration::is_scoped_enum() const
-    {
-        return is_scoped;
-    }
-
-    enumeration &enumeration::is_scoped_enum(bool flag)
-    {
-        is_scoped = flag;
-        return *this;
-    }
+    ACCESSOR_IMPL_2(enumeration, is_scoped_enum, bool, is_scoped)
 
     unique_ptr<type> enumeration::clone() const
     {

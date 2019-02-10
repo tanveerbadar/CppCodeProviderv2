@@ -6,6 +6,7 @@
 #include "common.h"
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
 {
@@ -18,12 +19,9 @@ namespace cpp::codeprovider::statements
 		for_loop(const for_loop&);
 		for_loop& operator=(const for_loop&);
 
-		const expressions::expression& initializer() const;
-		for_loop& initializer(std::unique_ptr<expressions::expression>);
-		const expressions::expression& condition() const;
-		for_loop& condition(std::unique_ptr<expressions::expression>);
-		const expressions::expression& loop() const;
-		for_loop& loop(std::unique_ptr<expressions::expression>);
+		ACCESSOR_DECLARATION_2(for_loop, initializer, const expressions::expression &, std::unique_ptr<expressions::expression>)
+		ACCESSOR_DECLARATION_2(for_loop, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
+		ACCESSOR_DECLARATION_2(for_loop, loop, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		statement_list &statements();
 		const statement_list &statements() const;
 

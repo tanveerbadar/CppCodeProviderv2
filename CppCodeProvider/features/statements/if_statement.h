@@ -5,6 +5,7 @@
 
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
 {
@@ -21,8 +22,7 @@ namespace cpp::codeprovider::statements
 		const statement_list &if_block() const;
 		statement_list &else_block();
 		const statement_list &else_block() const;
-		const expressions::expression& condition() const;
-		if_statement& condition(std::unique_ptr<expressions::expression>);
+		ACCESSOR_DECLARATION_2(if_statement, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

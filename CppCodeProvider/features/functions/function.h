@@ -8,6 +8,7 @@
 #include <vector>
 #include "../forward_declarations.h"
 #include "../namespaces/namespace_scope_entity.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::functions
 {
@@ -30,16 +31,11 @@ namespace cpp::codeprovider::functions
 		const template_parameter_list &template_parameters() const;
 		catch_list &catch_blocks();
 		const catch_list &catch_blocks() const;
-		bool is_inline() const;
-		function& is_inline(bool);
-		bool is_static() const;
-		function& is_static(bool);
-		bool is_constexpr() const;
-		function& is_constexpr(bool);
-		bool has_try_block() const;
-		function &has_try_block(bool);
-		types::type &return_type() const;
-		function& return_type(std::unique_ptr<types::type>);
+		ACCESSOR_DECLARATION(function, is_inline, bool);
+		ACCESSOR_DECLARATION(function, is_static, bool);
+		ACCESSOR_DECLARATION(function, is_constexpr, bool);
+		ACCESSOR_DECLARATION(function, has_try_block, bool);
+		ACCESSOR_DECLARATION_2(function, return_type, const types::type&, std::unique_ptr<types::type>);
 		statements::block_statement& body();
 		const statements::block_statement& body() const;
 		std::ostream &write_declaration(std::ostream &) const override;

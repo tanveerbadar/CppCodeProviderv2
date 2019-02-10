@@ -6,6 +6,7 @@
 #include <vector>
 #include "common.h"
 #include "../forward_declarations.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::expressions
 {
@@ -35,17 +36,14 @@ namespace cpp::codeprovider::expressions
         const parameter_list &parameters() const;
         capture_list &captured_variables();
         const capture_list &captured_variables() const;
-        std::unique_ptr<types::type>& return_type() const;
-        lambda_expression& return_type(std::unique_ptr<types::type>);
         statements::block_statement& body();
         const statements::block_statement& body() const;
-        capture_mode default_capture_mode() const;
-        lambda_expression& default_capture_mode(capture_mode);
-        bool is_mutable() const;
-        lambda_expression& is_mutable(bool);
+        ACCESSOR_DECLARATION_2(lambda_expression, return_type, std::unique_ptr<types::type> &, std::unique_ptr<types::type>)
+        ACCESSOR_DECLARATION(lambda_expression, default_capture_mode, capture_mode)
+        ACCESSOR_DECLARATION(lambda_expression, is_mutable, bool)
 
-		std::unique_ptr<expression> clone() const override;
-		void write(std::ostream&) const override;
+        std::unique_ptr<expression> clone() const override;
+        void write(std::ostream &) const override;
     };
 }
 

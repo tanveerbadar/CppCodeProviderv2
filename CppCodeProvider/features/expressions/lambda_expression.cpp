@@ -109,27 +109,8 @@ lambda_expression& lambda_expression::return_type(unique_ptr<type> t)
     return *this;
 }
 
-capture_mode lambda_expression::default_capture_mode() const
-{
-    return default_capture;
-}
-
-lambda_expression& lambda_expression::default_capture_mode(capture_mode mode)
-{
-    default_capture = mode;
-    return *this;
-}
-
-bool lambda_expression::is_mutable() const
-{
-    return impl->is_mutable;
-}
-
-lambda_expression& lambda_expression::is_mutable(bool flag)
-{
-    impl->is_mutable = flag;
-    return *this;
-}
+ACCESSOR_IMPL_2(lambda_expression, default_capture_mode, capture_mode, default_capture)
+ACCESSOR_IMPL(lambda_expression, is_mutable, bool, is_mutable)
 
 unique_ptr<expression> lambda_expression::clone() const
 {

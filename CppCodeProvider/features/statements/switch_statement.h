@@ -5,6 +5,7 @@
 
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
 {
@@ -37,8 +38,7 @@ namespace cpp::codeprovider::statements
 		switch_statement(const switch_statement&);
 		switch_statement& operator=(const switch_statement&);
 
-		const expressions::expression& condition() const;
-		switch_statement& condition(std::unique_ptr<expressions::expression>);
+		ACCESSOR_DECLARATION_2(switch_statement, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		case_list &cases();
 		const case_list &cases() const;
 

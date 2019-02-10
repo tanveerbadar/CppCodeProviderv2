@@ -100,103 +100,15 @@ namespace cpp::codeprovider::functions
 		return access;
 	}
 
-	bool member_function::is_inline() const
-	{
-		return impl->is_inline;
-	}
-	
-	member_function& member_function::is_inline(bool flag)
-	{
-		impl->is_inline = flag;
-		return *this;
-	}
-
-	bool member_function::has_try_block() const
-	{
-		return impl->has_function_try_block;
-	}
-
-	member_function &member_function::has_try_block(bool flag)
-	{
-		impl->has_function_try_block = flag;
-		return *this;
-	}
-
-	bool member_function::is_constexpr() const
-	{
-		return impl->is_const_expr;
-	}
-
-	member_function& member_function::is_constexpr(bool flag)
-	{
-		impl->is_const_expr = flag;
-		return *this;
-	}
-
-	bool member_function::is_virtual() const
-	{
-		return impl->is_virtual;
-	}
-
-	member_function& member_function::is_virtual(bool flag)
-	{
-		impl->is_virtual = flag;
-		return *this;
-	}
-
-	bool member_function::is_abstract() const
-	{
-		return impl->is_abstract;
-	}
-
-	member_function& member_function::is_abstract(bool flag)
-	{
-		impl->is_abstract = flag;
-		return *this;
-	}
-
-	bool member_function::is_static() const
-	{
-		return impl->is_static;
-	}
-	member_function& member_function::is_static(bool flag)
-	{
-		impl->is_static = flag;
-		return *this;
-	}
-
-	bool member_function::is_constant() const
-	{
-		return impl->is_constant;
-	}
-
-	member_function& member_function::is_constant(bool flag)
-	{
-		impl->is_constant = flag;
-		return *this;
-	}
-
-	bool member_function::is_volatile() const
-	{
-		return impl->is_volatile;
-	}
-	
-	member_function& member_function::is_volatile(bool flag)
-	{
-		impl->is_volatile = flag;
-		return *this;
-	}
-
-	bool member_function::is_override() const
-	{
-		return impl->is_override;
-	}
-	
-	member_function& member_function::is_override(bool flag)
-	{
-		impl->is_override = flag;
-		return *this;
-	}
+	ACCESSOR_IMPL(member_function, is_inline, bool, is_inline)
+	ACCESSOR_IMPL(member_function, has_try_block, bool, has_function_try_block)
+	ACCESSOR_IMPL(member_function, is_constexpr, bool, is_const_expr)
+	ACCESSOR_IMPL(member_function, is_virtual, bool, is_virtual)
+	ACCESSOR_IMPL(member_function, is_abstract, bool, is_abstract)
+	ACCESSOR_IMPL(member_function, is_static, bool, is_static)
+	ACCESSOR_IMPL(member_function, is_constant, bool, is_constant)
+	ACCESSOR_IMPL(member_function, is_volatile, bool, is_volatile)
+	ACCESSOR_IMPL(member_function, is_override, bool, is_override)
 
 	ostream &member_function::write_declaration(ostream &os) const
 	{
