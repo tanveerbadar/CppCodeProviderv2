@@ -11,13 +11,18 @@
 
 namespace cpp::codeprovider::types
 {
+	typedef std::vector<base_type> base_list;
+	typedef std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> member_field_list;
+	typedef std::vector<std::unique_ptr<templates::template_parameter>> template_parameter_list;
+	typedef std::vector<functions::member_function> member_function_list;
+
 	class user_defined_type : public type, public namespaces::namespace_scope_entity
 	{
 		bool is_class = true;
-		std::vector<functions::member_function> functions;
-		std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> fields;
-		std::vector<base_type> base_types;
-		std::vector<std::unique_ptr<templates::template_parameter>> template_parameter_list;
+		member_function_list functions;
+		member_field_list fields;
+		base_list base_types;
+		template_parameter_list template_params;
 	public:
 		user_defined_type(const std::string&);
 		user_defined_type(const user_defined_type&);
@@ -27,10 +32,10 @@ namespace cpp::codeprovider::types
 		std::ostream &write_definition(std::ostream &) const override;
 		std::unique_ptr<type> clone() const override;
 
-		std::vector<functions::member_function>& member_functions();
-		std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> &member_fields();
-		std::vector<base_type>& bases();
-		std::vector<std::unique_ptr<templates::template_parameter>>& template_parameters();
+		member_function_list& member_functions();
+		member_field_list &member_fields();
+		base_list& bases();
+		template_parameter_list& template_parameters();
 	};
 }
 

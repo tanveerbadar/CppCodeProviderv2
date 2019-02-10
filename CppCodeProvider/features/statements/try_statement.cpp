@@ -40,12 +40,12 @@ namespace cpp::codeprovider::statements
 		return catch_var ? *catch_var : placeholder;
 	}
 
-	vector<unique_ptr<statement>>& catch_clause::statements()
+	statement_list &catch_clause::statements()
 	{
 		return catch_body.statements();
 	}
 
-	const vector<unique_ptr<statement>>& catch_clause::statements() const
+	const statement_list &catch_clause::statements() const
 	{
 		return catch_body.statements();
 	}
@@ -62,22 +62,22 @@ namespace cpp::codeprovider::statements
 		return os;
 	}
 
-	vector<unique_ptr<statement>>& try_statement::statements()
+	statement_list &try_statement::statements()
 	{
 		return try_block.statements();
 	}
 
-	const vector<unique_ptr<statement>>& try_statement::statements() const
+	const statement_list &try_statement::statements() const
 	{
 		return try_block.statements();
 	}
 
-	vector<catch_clause>& try_statement::catch_clauses()
+	catch_list& try_statement::catch_clauses()
 	{
 		return catch_blocks;
 	}
 
-	const vector<catch_clause>& try_statement::catch_clauses() const
+	const catch_list& try_statement::catch_clauses() const
 	{
 		return catch_blocks;
 	}

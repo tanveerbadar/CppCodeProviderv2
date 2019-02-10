@@ -18,20 +18,23 @@ namespace cpp::codeprovider::expressions
 
     std::ostream& operator<<(std::ostream&, capture_mode);
 
+    typedef std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
+    typedef std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> capture_list;
+
     class lambda_expression : public expression
     {
         std::unique_ptr<functions::internals::callable> impl;
         capture_mode default_capture = capture_mode::none;
-        std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> captures;
-    public:
+        capture_list captures;
+      public:
         lambda_expression();
         lambda_expression(const lambda_expression&);
         lambda_expression& operator=(const lambda_expression&);
 
-        std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
-        const std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters() const;
-        std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> &captured_variables();
-        const std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> &captured_variables() const;
+        parameter_list &parameters();
+        const parameter_list &parameters() const;
+        capture_list &captured_variables();
+        const capture_list &captured_variables() const;
         std::unique_ptr<types::type>& return_type() const;
         lambda_expression& return_type(std::unique_ptr<types::type>);
         statements::block_statement& body();

@@ -10,20 +10,22 @@
 
 namespace cpp::codeprovider::types
 {
+    typedef std::vector<std::pair<std::string, std::unique_ptr<expressions::expression>>> enumerator_list;
+
     class enumeration : public type, public namespaces::namespace_scope_entity
     {
-        std::vector<std::pair<std::string, std::unique_ptr<expressions::expression>>> members;
+        enumerator_list members;
         bool is_scoped;
     public:
         explicit enumeration(const std::string&);
         enumeration(const enumeration&);
         enumeration& operator=(const enumeration&);
-        std::vector<std::pair<std::string, std::unique_ptr<expressions::expression>>> &enumerators();
-        const std::vector<std::pair<std::string, std::unique_ptr<expressions::expression>>> &enumerators() const;
+        enumerator_list &enumerators();
+        const enumerator_list &enumerators() const;
 
         bool is_scoped_enum() const;
         enumeration& is_scoped_enum(bool);
-        
+
         std::unique_ptr<type> clone() const override;
         std::ostream &write_declaration(std::ostream &) const override;
         std::ostream &write_definition(std::ostream &) const override;

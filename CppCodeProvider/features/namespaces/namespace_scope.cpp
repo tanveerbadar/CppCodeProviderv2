@@ -17,12 +17,12 @@ namespace cpp::codeprovider::namespaces
     {
     }
 
-    vector<unique_ptr<namespace_scope_entity>>& namespace_scope::entities()
+    entity_list &namespace_scope::entities()
     {
         return contained_entities;
     }
 
-    const vector<unique_ptr<namespace_scope_entity>>& namespace_scope::entities() const
+    const entity_list &namespace_scope::entities() const
     {
         return contained_entities;
     }

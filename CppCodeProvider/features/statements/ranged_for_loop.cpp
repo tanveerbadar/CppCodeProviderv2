@@ -58,12 +58,12 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	vector<unique_ptr<statement>>& ranged_for_loop::statements()
+	statement_list &ranged_for_loop::statements()
 	{
 		return body.statements();
 	}
 
-	const vector<unique_ptr<statement>>& ranged_for_loop::statements() const
+	const statement_list &ranged_for_loop::statements() const
 	{
 		return body.statements();
 	}

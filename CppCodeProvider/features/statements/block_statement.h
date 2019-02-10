@@ -10,15 +10,15 @@ namespace cpp::codeprovider::statements
 {
 	class block_statement : public namespaces::namespace_scope_entity
 	{
-		std::vector<std::unique_ptr<statement>> collection;
+		statement_list collection;
 	public:
 		block_statement() = default;
 		block_statement(const block_statement&);
 
 		block_statement& operator=(const block_statement&);
 
-		std::vector<std::unique_ptr<statement>>& statements();
-		const std::vector<std::unique_ptr<statement>>& statements() const;
+		statement_list& statements();
+		const statement_list& statements() const;
 
 		std::ostream &write_declaration(std::ostream &) const override;
 		std::ostream &write_definition(std::ostream &) const override;

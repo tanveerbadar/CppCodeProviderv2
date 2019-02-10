@@ -39,12 +39,12 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	const vector<unique_ptr<statement>>& case_statement::statements() const
+	const statement_list &case_statement::statements() const
 	{
 		return block.statements();
 	}
 
-	vector<unique_ptr<statement>>& case_statement::statements()
+	statement_list &case_statement::statements()
 	{
 		return block.statements();
 	}
@@ -128,12 +128,12 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	vector<case_statement>& switch_statement::cases()
+	case_list& switch_statement::cases()
 	{
 		return collection;
 	}
 
-	const vector<case_statement>& switch_statement::cases() const
+	const case_list& switch_statement::cases() const
 	{
 		return collection;
 	}

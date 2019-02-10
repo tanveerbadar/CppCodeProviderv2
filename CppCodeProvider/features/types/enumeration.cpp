@@ -32,12 +32,12 @@ namespace cpp::codeprovider::types
         return *this;
     }
 
-    vector<pair<string, unique_ptr<expression>>> & enumeration::enumerators()
+    enumerator_list &enumeration::enumerators()
     {
         return members;
     }
 
-    const vector<pair<string, unique_ptr<expression>>> &enumeration::enumerators() const
+    const enumerator_list &enumeration::enumerators() const
     {
         return members;
     }
@@ -46,7 +46,7 @@ namespace cpp::codeprovider::types
     {
         return is_scoped;
     }
-    
+
     enumeration &enumeration::is_scoped_enum(bool flag)
     {
         is_scoped = flag;

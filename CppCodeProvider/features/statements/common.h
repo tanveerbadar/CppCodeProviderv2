@@ -19,6 +19,8 @@ namespace cpp::codeprovider::statements
 		virtual ~statement() = 0;
 	};
 
+	typedef std::vector<std::unique_ptr<statement>> statement_list;
+
 	std::ostream& operator <<(std::ostream&, const statement&);
 }
 

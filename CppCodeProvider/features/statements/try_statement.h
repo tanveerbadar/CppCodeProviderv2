@@ -20,24 +20,26 @@ namespace cpp::codeprovider::statements
 		catch_clause& operator=(const catch_clause&);
 
 		const declarations::variable_declaration& variable() const;
-		std::vector<std::unique_ptr<statement>>& statements();
-		const std::vector<std::unique_ptr<statement>>& statements() const;
+		statement_list& statements();
+		const statement_list &statements() const;
 
 		friend std::ostream& operator<<(std::ostream&, const catch_clause&);
 	};
+
+	typedef std::vector<catch_clause> catch_list;
 
 	class try_statement : public statement
 	{
 		block_statement try_block;
 		std::vector<catch_clause> catch_blocks;
 	public:
-		std::vector<std::unique_ptr<statement>>& statements();
-		const std::vector<std::unique_ptr<statement>>& statements() const;
-		std::vector<catch_clause>& catch_clauses();
-		const std::vector<catch_clause>& catch_clauses() const;
+	  statement_list &statements();
+	  const statement_list &statements() const;
+	  catch_list &catch_clauses();
+	  const catch_list &catch_clauses() const;
 
-		std::unique_ptr<statement> clone() const override;
-		void write(std::ostream&) const override;
+	  std::unique_ptr<statement> clone() const override;
+	  void write(std::ostream &) const override;
 	};
 }
 

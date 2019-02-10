@@ -19,12 +19,14 @@ namespace cpp::codeprovider::statements
 		case_statement& operator=(const case_statement&);
 
 		expressions::expression& label() const;
-		std::vector<std::unique_ptr<statement>>& statements();
-		const std::vector<std::unique_ptr<statement>>& statements() const;
+		statement_list &statements();
+		const statement_list &statements() const;
 		bool has_label() const;
 
 		friend std::ostream& operator <<(std::ostream&, const case_statement&);
 	};
+
+	typedef std::vector<case_statement> case_list;
 
 	class switch_statement : public statement
 	{
@@ -37,8 +39,8 @@ namespace cpp::codeprovider::statements
 
 		const expressions::expression& condition() const;
 		switch_statement& condition(std::unique_ptr<expressions::expression>);
-		std::vector<case_statement>& cases();
-		const std::vector<case_statement>& cases() const;
+		case_list &cases();
+		const case_list &cases() const;
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

@@ -73,12 +73,12 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	vector<unique_ptr<statement>>& while_loop::statements()
+	statement_list &while_loop::statements()
 	{
 		return body.statements();
 	}
 
-	const vector<unique_ptr<statement>>& while_loop::statements() const
+	const statement_list &while_loop::statements() const
 	{
 		return body.statements();
 	}

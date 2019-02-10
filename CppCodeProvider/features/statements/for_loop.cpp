@@ -90,12 +90,12 @@ namespace cpp::codeprovider::statements
 		return *this;
 	}
 
-	vector<unique_ptr<statement>>& for_loop::statements()
+	statement_list &for_loop::statements()
 	{
 		return body.statements();
 	}
 
-	const vector<unique_ptr<statement>>& for_loop::statements() const
+	const statement_list &for_loop::statements() const
 	{
 		return body.statements();
 	}

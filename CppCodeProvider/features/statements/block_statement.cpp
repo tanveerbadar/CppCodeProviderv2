@@ -16,7 +16,7 @@ namespace cpp::codeprovider::statements
 	{
 		if (this != &other)
 		{
-			vector<unique_ptr<statement>> temp;
+			statement_list temp;
 
 			for (auto& stmt : other.collection)
 				temp.emplace_back(stmt->clone());
@@ -33,12 +33,12 @@ namespace cpp::codeprovider::statements
 		return os;
 	}
 
-	vector<unique_ptr<statement>>& block_statement::statements()
+	statement_list &block_statement::statements()
 	{
 		return collection;
 	}
 
-	const vector<unique_ptr<statement>>& block_statement::statements() const
+	const statement_list &block_statement::statements() const
 	{
 		return collection;
 	}

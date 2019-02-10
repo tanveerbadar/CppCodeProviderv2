@@ -19,8 +19,8 @@ namespace cpp::codeprovider::statements
 
 		const expressions::expression& initializer() const;
 		ranged_for_loop& initializer(std::unique_ptr<expressions::expression>);
-		std::vector<std::unique_ptr<statement>>& statements();
-		const std::vector<std::unique_ptr<statement>>& statements() const;
+		statement_list &statements();
+		const statement_list &statements() const;
 
 		std::unique_ptr<statement> clone() const override;
 		void write(std::ostream&) const override;

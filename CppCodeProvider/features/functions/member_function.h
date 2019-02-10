@@ -11,6 +11,10 @@
 
 namespace cpp::codeprovider::functions
 {
+    typedef std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
+	typedef std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
+	typedef std::vector<statements::catch_clause> catch_list;
+
 	class member_function
 	{
 		std::unique_ptr<internals::callable> impl;
@@ -21,12 +25,12 @@ namespace cpp::codeprovider::functions
 		member_function(const member_function&);
 		member_function& operator =(const member_function&);
 
-		std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters();
-		const std::vector<std::unique_ptr<declarations::variable_declaration>>& parameters() const;
-		std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters();
-		const std::vector<std::unique_ptr<types::templates::template_parameter>>& template_parameters() const;
-		std::vector<statements::catch_clause> &catch_blocks();
-		const std::vector<statements::catch_clause> &catch_blocks() const;
+		parameter_list &parameters();
+		const parameter_list &parameters() const;
+		template_parameter_list &template_parameters();
+		const template_parameter_list &template_parameters() const;
+		catch_list &catch_blocks();
+		const catch_list &catch_blocks() const;
 		bool is_inline() const;
 		member_function& is_inline(bool);
 		bool is_constexpr() const;

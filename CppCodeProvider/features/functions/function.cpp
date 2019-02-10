@@ -40,32 +40,32 @@ namespace cpp::codeprovider::functions
 	{		
 	}
 
-	vector<unique_ptr<variable_declaration>>& function::parameters()
+	parameter_list& function::parameters()
 	{
-		return impl->parameter_list;
+		return impl->parameters;
 	}
 
-	const vector<unique_ptr<variable_declaration>>& function::parameters() const
+	const parameter_list &function::parameters() const
 	{
-		return impl->parameter_list;
+		return impl->parameters;
 	}
 
-	vector<unique_ptr<template_parameter>>& function::template_parameters()
+	template_parameter_list& function::template_parameters()
 	{
-		return impl->template_parameter_list;
+		return impl->template_parameters;
 	}
 
-	const vector<unique_ptr<template_parameter>>& function::template_parameters() const
+	const template_parameter_list &function::template_parameters() const
 	{
-		return impl->template_parameter_list;
+		return impl->template_parameters;
 	}
 
-	vector<catch_clause> &function::catch_blocks()
+	catch_list &function::catch_blocks()
 	{
 		return impl->catch_blocks;
 	}
 
-	const vector<catch_clause> &function::catch_blocks() const
+	const catch_list &function::catch_blocks() const
 	{
 		return impl->catch_blocks;
 	}
@@ -137,10 +137,10 @@ namespace cpp::codeprovider::functions
 
 	ostream &function::write_declaration(ostream &os) const
 	{
-		if (impl->template_parameter_list.size() > 0)
+		if (impl->template_parameters.size() > 0)
 		{
 			os << "template<";
-			write_vector(os, impl->template_parameter_list);
+			write_vector(os, impl->template_parameters);
 			os << ">";
 		}
 
@@ -158,7 +158,7 @@ namespace cpp::codeprovider::functions
 
 		os << " " << impl->name << "(";
 
-		write_vector(os, impl->parameter_list);
+		write_vector(os, impl->parameters);
 
 		os << ")" << endl;
 
@@ -172,10 +172,10 @@ namespace cpp::codeprovider::functions
 
 	ostream &function::write_definition(ostream & os) const
 	{
-		if (impl->template_parameter_list.size() > 0)
+		if (impl->template_parameters.size() > 0)
 		{
 			os << "template<";
-			write_vector(os, impl->template_parameter_list);
+			write_vector(os, impl->template_parameters);
 			os << ">";
 		}
 
@@ -193,7 +193,7 @@ namespace cpp::codeprovider::functions
 
 		os << " " << impl->name << "(";
 
-		write_vector(os, impl->parameter_list);
+		write_vector(os, impl->parameters);
 
 		os << ")" << endl;
 

@@ -96,32 +96,32 @@ user_defined_type& user_defined_type::operator=(const user_defined_type& other)
 	return *this;
 }
 
-vector<member_function> &user_defined_type::member_functions()
+member_function_list &user_defined_type::member_functions()
 {
 	return functions;
 }
 
-vector<pair<access_levels, unique_ptr<declaration>>> &user_defined_type::member_fields()
+member_field_list &user_defined_type::member_fields()
 {
 	return fields;
 }
 
-vector<base_type> &user_defined_type::bases()
+base_list &user_defined_type::bases()
 {
 	return base_types;
 }
 
-vector<unique_ptr<template_parameter>> &user_defined_type::template_parameters()
+template_parameter_list &user_defined_type::template_parameters()
 {
-	return template_parameter_list;
+	return template_params;
 }
 
 ostream& user_defined_type::write_declaration(ostream &os) const
 {
-	if(template_parameter_list.size() > 0)
+	if (template_params.size() > 0)
 	{
 		os << "template<";
-		write_vector(os, template_parameter_list);
+		write_vector(os, template_params);
 		os << ">";
 	}
 

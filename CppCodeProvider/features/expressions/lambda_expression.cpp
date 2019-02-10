@@ -68,22 +68,22 @@ lambda_expression& lambda_expression::operator=(const lambda_expression& other)
     return *this;
 }
 
-vector<unique_ptr<variable_declaration>>& lambda_expression::parameters()
+parameter_list& lambda_expression::parameters()
 {
-    return impl->parameter_list;
+    return impl->parameters;
 }
 
-const vector<unique_ptr<variable_declaration>>& lambda_expression::parameters() const
+const parameter_list &lambda_expression::parameters() const
 {
-    return impl->parameter_list;
+    return impl->parameters;
 }
 
-vector<pair<capture_mode, unique_ptr<expression>>> &lambda_expression::captured_variables()
+capture_list &lambda_expression::captured_variables()
 {
     return captures;
 }
 
-const vector<pair<capture_mode, unique_ptr<expression>>> &lambda_expression::captured_variables() const
+const capture_list &lambda_expression::captured_variables() const
 {
     return captures;
 }
@@ -145,7 +145,7 @@ void lambda_expression::write(ostream& os) const
     write_vector(os, captures);
     os << "] (";
 
-    write_vector(os, impl->parameter_list);
+    write_vector(os, impl->parameters);
 
     os << ")" << endl;
 

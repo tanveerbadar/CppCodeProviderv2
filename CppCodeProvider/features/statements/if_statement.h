@@ -17,10 +17,10 @@ namespace cpp::codeprovider::statements
 		if_statement(const if_statement&);
 		if_statement& operator=(const if_statement&);
 
-		std::vector<std::unique_ptr<statement>>& if_block();
-		const std::vector<std::unique_ptr<statement>>& if_block() const;
-		std::vector<std::unique_ptr<statement>>& else_block();
-		const std::vector<std::unique_ptr<statement>>& else_block() const;
+		statement_list &if_block();
+		const statement_list &if_block() const;
+		statement_list &else_block();
+		const statement_list &else_block() const;
 		const expressions::expression& condition() const;
 		if_statement& condition(std::unique_ptr<expressions::expression>);
 

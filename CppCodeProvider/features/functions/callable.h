@@ -9,13 +9,17 @@
 
 namespace cpp::codeprovider::functions::internals
 {
+    typedef std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
+	typedef std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
+	typedef std::vector<statements::catch_clause> catch_list;
+
 	struct callable
 	{
 		statements::block_statement statements;
 		std::unique_ptr<types::type> return_type;
-		std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
+		parameter_list parameters;
 		std::string name;
-		std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
+		template_parameter_list template_parameters;
 		bool is_inline = false;
 		bool is_abstract = false;
 		bool is_override = false;
@@ -27,7 +31,7 @@ namespace cpp::codeprovider::functions::internals
 		bool is_const_expr = false;
 		bool is_mutable = false;
 		bool has_function_try_block = false;
-		std::vector<statements::catch_clause> catch_blocks;
+		catch_list catch_blocks;
 
 		callable() = default;
 		callable(const std::string&, std::unique_ptr<types::type>);
