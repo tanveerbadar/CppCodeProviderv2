@@ -2,8 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/CppCodeProvider/.vs/CppCodeProvider/v15
-/CppCodeProvider/.vs/CppCodeProvider/v15
+/CppCodeProvider/.vs
 /CppCodeProvider/CppCodeProvider.vcxproj.user
 /CppCodeProvider/CppCodeProvider.vcxproj.filters
 /CppCodeProvider/Debug
@@ -12,3 +11,4 @@ CppCodeProvider/vc140.idb
 CppCodeProvider/vc140.pdb
 .vscode/settings.json
 /CppCodeProvider/build
+CppCodeProvider/.vs/slnx.sqlite
