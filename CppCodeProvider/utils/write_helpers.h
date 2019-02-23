@@ -5,7 +5,9 @@
 
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <vector>
+#include "../features/forward_declarations.h"
 
 namespace cpp::codeprovider::utils
 {
@@ -70,6 +72,8 @@ namespace cpp::codeprovider::utils
 		   os << std::endl;
 	   }
    }
+
+	 void write_members(const std::vector<std::pair<types::access_levels, std::unique_ptr<declarations::declaration>>> &, std::ostringstream &, std::ostringstream &, std::ostringstream &, std::ostringstream &);
  } // namespace cpp::codeprovider::utils
 
 #endif

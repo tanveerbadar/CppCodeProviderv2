@@ -7,6 +7,7 @@
 #include "types/enumeration.h"
 #include "types/primitive_type.h"
 #include "types/template_parameter.h"
+#include "types/union_type.h"
 #include "types/user_defined_type.h"
 
 #endif // !TYPES_HEADER

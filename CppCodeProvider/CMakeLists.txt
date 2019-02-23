@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17" )
 FILE(GLOB_RECURSE SOURCES features/*.cpp)
 FILE(GLOB_RECURSE TEST_SOURCES tests/*.cpp)
 
-add_library(CppCodeProviderLib ${SOURCES})
+add_library(CppCodeProviderLib ${SOURCES} utils/write_helpers.cpp)
 add_executable(CppCodeProvider CppCodeProvider.cpp)
 add_executable(CppCodeProviderTests ${TEST_SOURCES})
 

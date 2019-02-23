@@ -17,34 +17,6 @@ using namespace cpp::codeprovider::utils;
 
 namespace
 {
-	void write_members(const vector<pair<access_levels, unique_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
-	{
-		for (const auto &t : variables)
-		{
-			auto &[access, v] = t;
-
-			switch (access)
-			{
-			case access_levels::private_access:
-				v->write_declaration(private_stream);
-				private_stream << endl;
-				break;
-			case access_levels::protected_access:
-				v->write_declaration(protected_stream);
-				protected_stream << endl;
-				break;
-			case access_levels::public_access:
-				v->write_declaration(public_streams);
-				public_streams << endl;
-				break;
-			default:
-				v->write_declaration(default_stream);
-				default_stream << endl;
-				break;
-			}
-		}
-	}
-
 	void write_declarations(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
 	{
 		for (const auto &mf : functions)

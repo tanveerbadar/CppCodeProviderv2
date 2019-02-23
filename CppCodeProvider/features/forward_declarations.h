@@ -12,6 +12,7 @@ namespace cpp::codeprovider
 
 	namespace types
 	{
+		enum class access_levels;
 		class type;
 
 		namespace templates
