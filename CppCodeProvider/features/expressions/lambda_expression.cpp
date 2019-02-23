@@ -52,7 +52,7 @@ lambda_expression::lambda_expression()
 }
 
 lambda_expression::lambda_expression(const lambda_expression &other)
-    : impl(make_unique<callable>(*other.impl))
+    : impl(make_unique<callable>(*other.impl)), default_capture(other.default_capture)
 {
     for(auto& vars: other.captures)
         captures.push_back(make_pair(vars.first, vars.second->clone()));
@@ -62,7 +62,13 @@ lambda_expression& lambda_expression::operator=(const lambda_expression& other)
 {
     if(this != &other)
     {
+        capture_list vars;
+        for (auto &var : other.captures)
+            vars.push_back(make_pair(var.first, var.second->clone()));
+
         impl = make_unique<callable>(*other.impl);
+        swap(captures, vars);
+        default_capture = other.default_capture;
     }
 
     return *this;
