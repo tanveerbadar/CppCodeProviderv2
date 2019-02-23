@@ -24,8 +24,10 @@ namespace cpp::codeprovider::types
         if(this != &other)
         {
             type::operator=(other);
-            members.empty();
-            for (auto &p : other.members)
+
+			members.clear();
+
+			for (auto &p : other.members)
                 members.emplace_back(make_pair(p.first, p.second->clone()));
         }
 

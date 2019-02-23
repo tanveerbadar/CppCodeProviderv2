@@ -7,11 +7,13 @@ using namespace cpp::codeprovider::types::templates;
 ostream &template_parameter::write_declaration(ostream &os) const
 {
 	os << "typename " << get_name();
+	return os;
 }
 
 ostream &template_parameter::write_definition(ostream &os) const
 {
 	os << "typename " << get_name();
+	return os;
 }
 
 unique_ptr<type> template_parameter::clone() const

@@ -47,6 +47,7 @@ unique_ptr<type> union_type::clone() const
 ostream &union_type::write_declaration(ostream &os) const
 {
     os << "union " << get_name() << ";" << endl;
+	return os;
 }
 
 ostream &union_type::write_definition(ostream & os) const
@@ -62,4 +63,5 @@ ostream &union_type::write_definition(ostream & os) const
     os << "public: " << endl;
     os << public_stream.str() << endl;
     os << "};" << endl;
+	return os;
 }

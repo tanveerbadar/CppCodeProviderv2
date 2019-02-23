@@ -30,10 +30,12 @@ namespace cpp::codeprovider::namespaces
     ostream& namespace_scope::write_declaration(ostream& os) const
     {
         write_declarations(os, contained_entities);
+		return os;
     }
 
     ostream &namespace_scope::write_definition(ostream &os) const
     {
         write_declarations(os, contained_entities);
+		return os;
     }
 } // namespace cpp::codeprovider::namespaces

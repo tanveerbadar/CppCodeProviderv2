@@ -29,11 +29,13 @@ namespace cpp::codeprovider::declarations
 	ostream& variable_declaration::write_declaration(ostream& os) const
 	{
 		os << var_specifier << var_decl;
+		return os;
 	}
 
 	ostream &variable_declaration::write_definition(ostream &os) const
 	{
 		os << var_specifier << var_decl;
+		return os;
 	}
 
 	const declarations::declarator& variable_declaration::var_declarator() const

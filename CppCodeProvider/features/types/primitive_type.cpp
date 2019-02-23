@@ -11,11 +11,13 @@ primitive_type::primitive_type(const string& name)
 ostream &primitive_type::write_declaration(ostream &os) const
 {
 	os << get_name();
+	return os;
 }
 
 ostream &primitive_type::write_definition(ostream &os) const
 {
 	os << get_name();
+	return os;
 }
 
 unique_ptr<type> primitive_type::clone() const

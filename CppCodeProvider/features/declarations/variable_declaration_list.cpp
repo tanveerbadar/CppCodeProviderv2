@@ -33,6 +33,7 @@ namespace cpp::codeprovider::declarations
 		os << var_specifier;
 
 		write_vector(os, var_decls);
+		return os;
 	}
 
 	ostream &variable_declaration_list::write_definition(ostream &os) const
@@ -40,6 +41,7 @@ namespace cpp::codeprovider::declarations
 		os << var_specifier;
 
 		write_vector(os, var_decls);
+		return os;
 	}
 
 	const declarator_specifier& variable_declaration_list::specifier() const

@@ -110,11 +110,14 @@ ostream& user_defined_type::write_declaration(ostream &os) const
 	os << "public: " << endl;
 	os << public_stream.str() << endl;
 	os << "};" << endl << endl;
+	return os;
 }
 
 ostream& user_defined_type::write_definition(ostream& os) const
 {
 	write_definitions(os, functions);
+
+	return os;
 }
 
 unique_ptr<type> user_defined_type::clone() const
