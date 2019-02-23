@@ -125,6 +125,18 @@ namespace cpp::codeprovider::expressions
 		case expression_type::not_exp:
 			os << "!";
 			break;
+		case expression_type::dereference:
+			os << "*";
+			break;
+		case expression_type::member_access_by_pointer:
+			os << "->";
+			break;
+		case expression_type::pointer_to_member_access:
+			os << ".*";
+			break;
+		case expression_type::pointer_to_member_access_by_pointer:
+			os << "->*";
+			break;
 		}
 		return os;
 	}

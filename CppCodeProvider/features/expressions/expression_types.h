@@ -210,6 +210,10 @@ namespace cpp::codeprovider::expressions
 		throw_exp,
 		decltype_exp,
 		lambda,
+		member_access_by_pointer,
+		typeid_op,
+		pointer_to_member_access,
+		pointer_to_member_access_by_pointer,
 	};
 
 	std::ostream& operator <<(std::ostream& os, expressions::expression_type type);

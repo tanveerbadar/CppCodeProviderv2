@@ -4,14 +4,6 @@ namespace cpp::codeprovider::expressions
 {
 	using namespace std;
 
-	namespace
-	{
-		bool is_postfix_operator(expression_type type)
-		{
-			return type == expression_type::postfix_decrement || type == expression_type::postfix_increment;
-		}
-	}
-
 	unary_expression::unary_expression(expression_type t, unique_ptr<expression> expr)
 		: e_type(t), e1(move(expr))
 	{
@@ -49,16 +41,30 @@ namespace cpp::codeprovider::expressions
 
 	void unary_expression::write(ostream& os) const
 	{
-		if (is_postfix_operator(e_type))
-			os << *e1 << e_type;
-		else if (e_type == expression_type::parenthesis)
+		switch(e_type)
+		{
+		case expression_type::parenthesis:
 			os << "(" << *e1 << ")";
-		else if (e_type == expression_type::size_of)
+			break;
+		case expression_type::size_of:
 			os << "sizeof(" << *e1 << ")";
-		else if (e_type == expression_type::decltype_exp)
+			break;
+		case expression_type::decltype_exp:
 			os << "decltype(" << *e1 << ")";
-		else
+			break;
+		case expression_type::typeid_op:
+			os << "typeid(" << *e1 << ")";
+			break;
+		case expression_type::postfix_decrement:
+			os << *e1 << "--";
+			break;
+		case expression_type::postfix_increment:
+			os << *e1 << "++";
+			break;
+		default:
 			os << e_type << *e1;
+			break;
+		}
 	}
 
 	primitive_expression::primitive_expression(const string& p)
