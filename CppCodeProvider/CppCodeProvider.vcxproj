@@ -178,6 +178,8 @@
     <ClCompile Include="features\functions\callable.cpp" />
     <ClCompile Include="features\functions\function.cpp" />
     <ClCompile Include="features\functions\member_function.cpp" />
+    <ClCompile Include="features\namespaces\namespace_scope.cpp" />
+    <ClCompile Include="features\namespaces\namespace_scope_entity.cpp" />
     <ClCompile Include="features\statements\block_statement.cpp" />
     <ClCompile Include="features\statements\for_loop.cpp" />
     <ClCompile Include="features\statements\if_statement.cpp" />
@@ -189,14 +191,17 @@
     <ClCompile Include="features\statements\try_statement.cpp" />
     <ClCompile Include="features\statements\while_loop.cpp" />
     <ClCompile Include="features\types\base_type.cpp" />
+    <ClCompile Include="features\types\enumeration.cpp" />
     <ClCompile Include="features\types\primitive_type.cpp" />
     <ClCompile Include="features\types\template_parameter.cpp" />
     <ClCompile Include="features\types\types_common.cpp" />
+    <ClCompile Include="features\types\union_type.cpp" />
     <ClCompile Include="features\types\user_defined_type.cpp" />
     <ClCompile Include="tests\features\expressions\expression_tests.cpp" />
     <ClCompile Include="tests\features\statements\statement_tests.cpp" />
     <ClCompile Include="tests\features\functions\function_tests.cpp" />
     <ClCompile Include="tests\features\types\type_tests.cpp" />
+    <ClCompile Include="utils\write_helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exceptions.h" />
@@ -218,6 +223,9 @@
     <ClInclude Include="features\functions\callable.h" />
     <ClInclude Include="features\functions\function.h" />
     <ClInclude Include="features\functions\member_function.h" />
+    <ClInclude Include="features\namespaces.h" />
+    <ClInclude Include="features\namespaces\namespace_scope.h" />
+    <ClInclude Include="features\namespaces\namespace_scope_entity.h" />
     <ClInclude Include="features\statements\for_loop.h" />
     <ClInclude Include="features\statements\if_statement.h" />
     <ClInclude Include="features\statements\jump_statements.h" />
@@ -229,10 +237,14 @@
     <ClInclude Include="features\types\access_levels.h" />
     <ClInclude Include="features\types\base_type.h" />
     <ClInclude Include="features\types\common.h" />
+    <ClInclude Include="features\types\enumeration.h" />
     <ClInclude Include="features\types\primitive_type.h" />
     <ClInclude Include="features\types\template_parameter.h" />
+    <ClInclude Include="features\types\union_type.h" />
     <ClInclude Include="features\types\user_defined_type.h" />
     <ClInclude Include="formatters\formatter_settings.h" />
+    <ClInclude Include="utils\dirty_macros.h" />
+    <ClInclude Include="utils\write_helpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="features\statements.h" />
