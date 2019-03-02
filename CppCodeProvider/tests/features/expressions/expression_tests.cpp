@@ -204,7 +204,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	BOOST_TEST(f1->body().statements().size() == 1);
 	BOOST_TEST(f1->parameters().size() == 1);
-	BOOST_TEST(!f1->return_type().get());
+	BOOST_TEST(!f1->return_type().operator->());
 	BOOST_TEST(f1->default_capture_mode() == capture_mode::none);
 	BOOST_TEST(f1->captured_variables().size() == 1);
 
@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	BOOST_TEST(copy1.body().statements().size() == 1);
 	BOOST_TEST(copy1.parameters().size() == 1);
-	BOOST_TEST(!copy1.return_type().get());
+	BOOST_TEST(!copy1.return_type().operator->());
 	BOOST_TEST(copy1.default_capture_mode() == capture_mode::by_ref);
 	BOOST_TEST(copy1.captured_variables().size() == 1);
 
@@ -249,7 +249,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	BOOST_TEST(copy2.body().statements().size() == 2);
 	BOOST_TEST(copy2.parameters().size() == 2);
-	BOOST_TEST(!copy2.return_type().get());
+	BOOST_TEST(!copy2.return_type().operator->());
 	BOOST_TEST(copy2.default_capture_mode() == capture_mode::none);
 	BOOST_TEST(copy2.captured_variables().size() == 2);
 

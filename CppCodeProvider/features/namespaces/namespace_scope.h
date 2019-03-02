@@ -7,10 +7,11 @@
 #include <string>
 #include <vector>
 #include "namespace_scope_entity.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::namespaces
 {
-    typedef std::vector<std::unique_ptr<namespace_scope_entity>> entity_list;
+    typedef std::vector<utils::copyable_ptr<namespace_scope_entity>> entity_list;
     
     class namespace_scope : public namespace_scope_entity
     {
@@ -18,8 +19,6 @@ namespace cpp::codeprovider::namespaces
         std::string name;
     public:
         namespace_scope(const std::string& = "");
-        namespace_scope(const namespace_scope&);
-        namespace_scope& operator=(const namespace_scope&);
 
         entity_list &entities();
         const entity_list &entities() const;

@@ -6,17 +6,18 @@
 #include <string>
 #include "../forward_declarations.h"
 #include "../statements/block_statement.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::functions::internals
 {
-    typedef std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
-	typedef std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
+    typedef std::vector<utils::copyable_ptr<declarations::variable_declaration>> parameter_list;
+	typedef std::vector<utils::copyable_ptr<types::templates::template_parameter>> template_parameter_list;
 	typedef std::vector<statements::catch_clause> catch_list;
 
 	struct callable
 	{
 		statements::block_statement statements;
-		std::unique_ptr<types::type> return_type;
+		utils::copyable_ptr<types::type> return_type;
 		parameter_list parameters;
 		std::string name;
 		template_parameter_list template_parameters;
@@ -35,8 +36,6 @@ namespace cpp::codeprovider::functions::internals
 
 		callable() = default;
 		callable(const std::string&, std::unique_ptr<types::type>);
-		callable(const callable&);
-		callable& operator=(const callable&);
 	};
 }
 

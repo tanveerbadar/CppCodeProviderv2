@@ -19,7 +19,7 @@ namespace cpp::codeprovider::expressions
 
     std::ostream& operator<<(std::ostream&, capture_mode);
 
-    typedef std::vector<std::pair<capture_mode, std::unique_ptr<expression>>> capture_list;
+    typedef std::vector<std::pair<capture_mode, utils::copyable_ptr<expression>>> capture_list;
 
     class lambda_expression : public expression
     {
@@ -28,8 +28,6 @@ namespace cpp::codeprovider::expressions
         capture_list captures;
       public:
         lambda_expression() = default;
-        lambda_expression(const lambda_expression&);
-        lambda_expression& operator=(const lambda_expression&);
 
         functions::internals::parameter_list &parameters();
         const functions::internals::parameter_list &parameters() const;
@@ -37,7 +35,7 @@ namespace cpp::codeprovider::expressions
         const capture_list &captured_variables() const;
         statements::block_statement& body();
         const statements::block_statement& body() const;
-        ACCESSOR_DECLARATION_2(lambda_expression, return_type, const std::unique_ptr<types::type> &, std::unique_ptr<types::type>)
+        ACCESSOR_DECLARATION_2(lambda_expression, return_type, const utils::copyable_ptr<types::type>&, std::unique_ptr<types::type>)
         ACCESSOR_DECLARATION(lambda_expression, default_capture_mode, capture_mode)
         ACCESSOR_DECLARATION(lambda_expression, is_mutable, bool)
 

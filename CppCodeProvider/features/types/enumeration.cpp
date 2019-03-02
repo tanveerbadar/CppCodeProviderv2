@@ -53,7 +53,7 @@ namespace cpp::codeprovider::types
 
         for(auto& e : impl.fields)
         {
-            auto member = dynamic_cast<variable_declaration&>(*e.second);
+            auto member = dynamic_cast<const variable_declaration&>(*e.second);
             os << member.var_declarator().name;
             if(member.var_declarator().initializer_exp)
                 os << " = " << *member.var_declarator().initializer_exp;

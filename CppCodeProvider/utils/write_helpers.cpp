@@ -11,7 +11,7 @@ namespace cpp::codeprovider::utils
     using namespace functions;
     using namespace types;
 
-    void write_members(const vector<pair<access_levels, unique_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream)
+    void write_members(const vector<pair<access_levels, copyable_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream)
     {
         for (const auto &t : variables)
         {

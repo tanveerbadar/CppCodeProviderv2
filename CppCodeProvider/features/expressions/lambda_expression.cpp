@@ -35,7 +35,7 @@ namespace cpp::codeprovider::expressions
 
 namespace
 {
-    template<typename T> void write_vector(std::ostream& os, const std::vector<std::pair<capture_mode, std::unique_ptr<T>>>& parameters)
+    template<typename T> void write_vector(std::ostream& os, const std::vector<std::pair<capture_mode, copyable_ptr<T>>>& parameters)
     {
 		if(parameters.size() > 0)
 		{
@@ -45,29 +45,6 @@ namespace
 			os << parameters[parameters.size() - 1].first << *parameters[parameters.size() - 1].second << std::endl;
 		}
    }
-}
-
-lambda_expression::lambda_expression(const lambda_expression &other)
-    : impl(other.impl), default_capture(other.default_capture)
-{
-    for(auto& vars: other.captures)
-        captures.push_back(make_pair(vars.first, vars.second->clone()));
-}
-
-lambda_expression& lambda_expression::operator=(const lambda_expression& other)
-{
-    if(this != &other)
-    {
-        capture_list vars;
-        for (auto &var : other.captures)
-            vars.push_back(make_pair(var.first, var.second->clone()));
-
-        impl = other.impl;
-        swap(captures, vars);
-        default_capture = other.default_capture;
-    }
-
-    return *this;
 }
 
 parameter_list& lambda_expression::parameters()
@@ -100,7 +77,7 @@ const block_statement& lambda_expression::body() const
     return impl.statements;
 }
 
-const unique_ptr<type>& lambda_expression::return_type() const
+const copyable_ptr<type>& lambda_expression::return_type() const
 {
     return impl.return_type;
 }

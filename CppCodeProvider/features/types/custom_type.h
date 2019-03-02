@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::types::internal
 {
@@ -20,8 +21,8 @@ namespace cpp::codeprovider::types::internal
     std::ostream& operator<<(std::ostream&, type_key);
 
     typedef std::vector<base_type> base_list;
-    typedef std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> member_field_list;
-    typedef std::vector<std::unique_ptr<templates::template_parameter>> template_parameter_list;
+    typedef std::vector<std::pair<access_levels, utils::copyable_ptr<declarations::declaration>>> member_field_list;
+    typedef std::vector<utils::copyable_ptr<templates::template_parameter>> template_parameter_list;
     typedef std::vector<functions::member_function> member_function_list;
 
     struct custom_type
@@ -34,8 +35,6 @@ namespace cpp::codeprovider::types::internal
         bool is_scoped_enum = false;
 
         custom_type(type_key);
-        custom_type(const custom_type&);
-        custom_type& operator=(const custom_type&);
 
         bool is_class() const;
     };
