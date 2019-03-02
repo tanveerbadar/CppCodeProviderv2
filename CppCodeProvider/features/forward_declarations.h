@@ -42,7 +42,7 @@ namespace cpp::codeprovider
 
 		namespace internals
 		{
-			class callable;
+			struct callable;
 		}
 	}
 }

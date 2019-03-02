@@ -74,6 +74,8 @@ namespace cpp::codeprovider::utils
    }
 
 	 void write_members(const std::vector<std::pair<types::access_levels, std::unique_ptr<declarations::declaration>>> &, std::ostringstream &, std::ostringstream &, std::ostringstream &, std::ostringstream &);
- } // namespace cpp::codeprovider::utils
+
+	 void write_declarations(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_streams);
+} // namespace cpp::codeprovider::utils
 
 #endif

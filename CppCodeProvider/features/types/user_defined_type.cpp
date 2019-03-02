@@ -15,35 +15,6 @@ using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
 using namespace cpp::codeprovider::utils;
 
-namespace
-{
-	void write_declarations(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_streams)
-	{
-		for (const auto &mf : functions)
-		{
-			switch (mf.accessibility())
-			{
-			case access_levels::private_access:
-				mf.write_declaration(private_stream);
-				private_stream << endl;
-				break;
-			case access_levels::protected_access:
-				mf.write_declaration(protected_stream);
-				protected_stream << endl;
-				break;
-			case access_levels::public_access:
-				mf.write_declaration(public_streams);
-				public_streams << endl;
-				break;
-			default:
-				mf.write_declaration(default_stream);
-				default_stream << endl;
-				break;
-			}
-		}
-	}
-}
-
 user_defined_type::user_defined_type(const string &name)
 	: type(name)
 {
