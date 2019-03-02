@@ -223,6 +223,7 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(stmt->if_block().size() == 0);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
 	BOOST_TEST(stmt->else_block().size() == 0);
+	BOOST_TEST(!stmt->is_constexpr());
 
 	auto& condition = stmt->condition();
 	auto& body2 = stmt->if_block();
@@ -248,6 +249,8 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	stream << *other;
 	other->write(stream);
 
+	stmt->is_constexpr(true);
+
 	auto copy2(*stmt);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "2");
 	BOOST_TEST(stmt->if_block().size() == 2);
@@ -255,11 +258,13 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(copy2.if_block().size() == 2);
 	BOOST_TEST(copy2.else_block().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "2");
+	BOOST_TEST(copy2.is_constexpr());
 
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("3")));
 	body4.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("3")));
 	stmt->condition(make_unique<binary_expression>(expression_type::not_equal, make_unique<primitive_expression>("1"), make_unique<primitive_expression>("3")));
 
+	stmt->is_constexpr(false);
 	copy2 = *stmt;
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(stmt->condition()).right()).expr() == "3");
 	BOOST_TEST(stmt->if_block().size() == 3);
@@ -267,6 +272,7 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(copy2.if_block().size() == 3);
 	BOOST_TEST(copy2.else_block().size() == 3);
 	BOOST_TEST(dynamic_cast<const primitive_expression&>(dynamic_cast<const binary_expression&>(copy2.condition()).right()).expr() == "3");
+	BOOST_TEST(!copy2.is_constexpr());
 
 	const auto& c_ref = copy2;
 	c_ref.clone();
@@ -274,6 +280,7 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	c_ref.else_block();
 	c_ref.if_block();
 	c_ref.write(stream);
+	c_ref.is_constexpr();
 }
 
 BOOST_AUTO_TEST_CASE(catch_block_tests)

@@ -15,7 +15,7 @@ namespace cpp::codeprovider::statements
 	}
 
 	if_statement::if_statement(const if_statement& other)
-		: condition_exp(other.condition_exp->clone()), if_collection(other.if_collection), else_collection(other.else_collection)
+		: condition_exp(other.condition_exp->clone()), if_collection(other.if_collection), else_collection(other.else_collection), is_const_expr(other.is_const_expr)
 	{
 	}
 
@@ -26,6 +26,7 @@ namespace cpp::codeprovider::statements
 			if_collection = other.if_collection;
 			else_collection = other.else_collection;
 			condition_exp = other.condition_exp->clone();
+			is_const_expr = other.is_const_expr;
 		}
 		return *this;
 	}
@@ -50,6 +51,8 @@ namespace cpp::codeprovider::statements
 		return else_collection.statements();
 	}
 
+	ACCESSOR_IMPL_2(if_statement, is_constexpr, bool, is_const_expr)
+
 	const expression& if_statement::condition() const
 	{
 		return *condition_exp;
@@ -69,7 +72,10 @@ namespace cpp::codeprovider::statements
 	void if_statement::write(ostream& os) const
 	{
 		auto indent = formatter_settings::settings.get_indent_string();
-		os << indent << "if( " << *condition_exp << " )" << endl;
+		os << indent << "if " ;
+		if(is_const_expr)
+			os << "constexpr ";
+		os << "( " << *condition_exp << " )" << endl;
 		os << if_collection;
 		if (else_collection.statements().size() > 0)
 		{
