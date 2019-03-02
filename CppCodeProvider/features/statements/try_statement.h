@@ -6,18 +6,17 @@
 #include <string>
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::statements
 {
 	class catch_clause
 	{
-		std::unique_ptr<declarations::variable_declaration> catch_var;
+		utils::copyable_ptr<declarations::variable_declaration> catch_var;
 		block_statement catch_body;
 	public:
 		catch_clause() = default;
 		catch_clause(std::unique_ptr<declarations::variable_declaration>);
-		catch_clause(const catch_clause&);
-		catch_clause& operator=(const catch_clause&);
 
 		const declarations::variable_declaration& variable() const;
 		statement_list& statements();

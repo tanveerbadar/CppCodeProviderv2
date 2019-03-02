@@ -16,6 +16,8 @@ namespace cpp::codeprovider::declarations
 	protected:
 		declaration(const declarator_specifier &);
 	public:
+		declaration(const declaration&) = default;
+
 		virtual std::unique_ptr<declaration> clone() const = 0;
 		const declarator_specifier &specifier() const;
 	};

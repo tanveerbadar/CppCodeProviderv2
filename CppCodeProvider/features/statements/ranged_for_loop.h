@@ -5,6 +5,7 @@
 
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
@@ -12,11 +13,9 @@ namespace cpp::codeprovider::statements
 	class ranged_for_loop : public statement
 	{
 		block_statement body;
-		std::unique_ptr<expressions::expression> init;
+		utils::copyable_ptr<expressions::expression> init;
 	public:
 		ranged_for_loop() = default;
-		ranged_for_loop(const ranged_for_loop&);
-		ranged_for_loop& operator=(const ranged_for_loop&);
 
 		ACCESSOR_DECLARATION_2(ranged_for_loop, initializer, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		statement_list &statements();

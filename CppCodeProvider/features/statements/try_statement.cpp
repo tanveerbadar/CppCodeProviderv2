@@ -20,21 +20,6 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
-	catch_clause::catch_clause(const catch_clause& other)
-		: catch_var(make_unique<variable_declaration>(other.catch_var ? *other.catch_var : placeholder)), catch_body(other.catch_body)
-	{
-	}
-
-	catch_clause& catch_clause::operator=(const catch_clause& other)
-	{
-		if (this != &other)
-		{
-			catch_body = other.catch_body;
-			catch_var = make_unique<variable_declaration>(other.catch_var ? *other.catch_var : placeholder);
-		}
-		return *this;
-	}
-
 	const variable_declaration& catch_clause::variable() const
 	{
 		return catch_var ? *catch_var : placeholder;

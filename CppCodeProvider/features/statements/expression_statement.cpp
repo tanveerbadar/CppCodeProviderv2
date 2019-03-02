@@ -13,21 +13,6 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
-	expression_statement::expression_statement(const expression_statement& other)
-		: e1(other.e1->clone()), label(other.label)
-	{
-	}
-
-	expression_statement& expression_statement::operator=(const expression_statement& other)
-	{
-		if (this != &other)
-		{
-			e1 = other.e1->clone();
-			label = other.label;
-		}
-		return *this;
-	}
-
 	const expressions::expression & expression_statement::expression() const
 	{
 		return *e1;

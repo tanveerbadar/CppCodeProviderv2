@@ -6,6 +6,7 @@
 #include "common.h"
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
@@ -13,12 +14,8 @@ namespace cpp::codeprovider::statements
 	class for_loop : public statement
 	{
 		block_statement body;
-		std::unique_ptr<expressions::expression> init, loop_exp, condition_exp;
+		utils::copyable_ptr<expressions::expression> init, loop_exp, condition_exp;
 	public:
-		for_loop() = default;
-		for_loop(const for_loop&);
-		for_loop& operator=(const for_loop&);
-
 		ACCESSOR_DECLARATION_2(for_loop, initializer, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		ACCESSOR_DECLARATION_2(for_loop, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		ACCESSOR_DECLARATION_2(for_loop, loop, const expressions::expression &, std::unique_ptr<expressions::expression>)

@@ -6,17 +6,16 @@
 #include <string>
 #include "common.h"
 #include "expression_types.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::expressions
 {
 	class unary_expression : public expression
 	{
-		std::unique_ptr<expression> e1;
+		utils::copyable_ptr<expression> e1;
 		expression_type e_type;
 	public:
 		unary_expression(expression_type, std::unique_ptr<expression>);
-		unary_expression(const unary_expression&);
-		unary_expression& operator=(const unary_expression&);
 
 		const expression& expr() const;
 		expression_type type() const;

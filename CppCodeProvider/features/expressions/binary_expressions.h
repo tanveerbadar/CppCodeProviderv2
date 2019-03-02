@@ -5,17 +5,16 @@
 #include <memory>
 #include "common.h"
 #include "expression_types.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::expressions
 {
 	class binary_expression : public expression
 	{
-		std::unique_ptr<expression> e1, e2;
+		utils::copyable_ptr<expression> e1, e2;
 		expression_type e_type;
 	public:
 		binary_expression(expression_type, std::unique_ptr<expression>, std::unique_ptr<expression>);
-		binary_expression(const binary_expression&);
-		binary_expression& operator=(const binary_expression&);
 
 		const expression& left() const;
 		const expression& right() const;

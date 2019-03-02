@@ -13,22 +13,6 @@ namespace cpp::codeprovider::statements
 		primitive_expression placeholder("");
 	}
 
-	ranged_for_loop::ranged_for_loop(const ranged_for_loop& other)
-		: init((other.init ? *other.init : placeholder).clone()), body(other.body)
-	{
-	}
-
-	ranged_for_loop& ranged_for_loop::operator=(const ranged_for_loop& other)
-	{
-		if (this != &other)
-		{
-			auto temp = other.initializer().clone();
-			body = other.body;
-			init = move(temp);
-		}
-		return *this;
-	}
-
 	unique_ptr<statement> ranged_for_loop::clone() const
 	{
 		return make_unique<ranged_for_loop>(*this);

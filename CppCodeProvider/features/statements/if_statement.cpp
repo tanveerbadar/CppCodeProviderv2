@@ -14,23 +14,6 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
-	if_statement::if_statement(const if_statement& other)
-		: condition_exp(other.condition_exp->clone()), if_collection(other.if_collection), else_collection(other.else_collection), is_const_expr(other.is_const_expr)
-	{
-	}
-
-	if_statement& if_statement::operator=(const if_statement& other)
-	{
-		if (this != &other)
-		{
-			if_collection = other.if_collection;
-			else_collection = other.else_collection;
-			condition_exp = other.condition_exp->clone();
-			is_const_expr = other.is_const_expr;
-		}
-		return *this;
-	}
-
 	statement_list &if_statement::if_block()
 	{
 		return if_collection.statements();

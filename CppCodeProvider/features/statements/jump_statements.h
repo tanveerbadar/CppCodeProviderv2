@@ -5,6 +5,7 @@
 
 #include "common.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::statements
 {
@@ -21,11 +22,9 @@ namespace cpp::codeprovider::statements
 	class jump_statement : public statement
 	{
 		jump_type j_type;
-		std::unique_ptr<expressions::expression>  e1;
+		utils::copyable_ptr<expressions::expression>  e1;
 	public:
 		jump_statement(jump_type);
-		jump_statement(const jump_statement&);
-		jump_statement& operator=(const jump_statement&);
 
 		jump_type type() const;
 

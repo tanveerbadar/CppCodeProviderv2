@@ -5,6 +5,7 @@
 
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
@@ -20,12 +21,10 @@ namespace cpp::codeprovider::statements
 	class while_loop : public statement
 	{
 		block_statement body;
-		std::unique_ptr<expressions::expression> condition_exp;
+		utils::copyable_ptr<expressions::expression> condition_exp;
 		while_loop_style loop_style = while_loop_style::while_loop;
 	public:
 		while_loop(std::unique_ptr<expressions::expression>);
-		while_loop(const while_loop&);
-		while_loop& operator=(const while_loop&);
 
 		ACCESSOR_DECLARATION_2(while_loop, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
 		while_loop_style style() const;

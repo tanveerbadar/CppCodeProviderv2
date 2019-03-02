@@ -9,24 +9,6 @@ namespace cpp::codeprovider::expressions
 	{
 	}
 
-	binary_expression::binary_expression(const binary_expression& other)
-		: binary_expression(other.e_type, other.e1->clone(), other.e2->clone())
-	{
-	}
-
-	binary_expression& binary_expression::operator=(const binary_expression& other)
-	{
-		if (this != &other)
-		{
-			auto temp1 = other.e1->clone();
-			auto temp2 = other.e2->clone();
-			e_type = other.e_type;
-			e1 = move(temp1);
-			e2 = move(temp2);
-		}
-		return *this;
-	}
-
 	const expression& binary_expression::left() const
 	{
 		return *e1;

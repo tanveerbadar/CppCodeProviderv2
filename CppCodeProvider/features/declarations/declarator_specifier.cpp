@@ -12,11 +12,6 @@ namespace cpp::codeprovider::declarations
 	{
 	}
 
-	declarator_specifier::declarator_specifier(const declarator_specifier& other)
-		: is_static(other.is_static), is_constant(other.is_constant), is_volatile(other.is_volatile), is_auto(other.is_auto), is_extern(other.is_extern), type(other.type->clone())
-	{
-	}
-
 	const type& declarator_specifier::get_type() const
 	{
 		return *type;

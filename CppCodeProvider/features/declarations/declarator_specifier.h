@@ -6,15 +6,15 @@
 #include <memory>
 #include <string>
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::declarations
 {
 	class declarator_specifier
 	{
-		std::unique_ptr<types::type> type;
+		utils::copyable_ptr<types::type> type;
 	public:
 		declarator_specifier(std::unique_ptr<types::type>);
-		declarator_specifier(const declarator_specifier&);
 
 		bool	is_static = false,
 					is_constant = false,

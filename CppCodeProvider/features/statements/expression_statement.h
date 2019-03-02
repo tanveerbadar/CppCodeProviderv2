@@ -5,17 +5,16 @@
 
 #include "common.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 
 namespace cpp::codeprovider::statements
 {
 	class expression_statement : public statement
 	{
-		std::unique_ptr<expressions::expression> e1;
+		utils::copyable_ptr<expressions::expression> e1;
 		std::string label;
 	public:
 		expression_statement(std::unique_ptr<expressions::expression>, const std::string& = "");
-		expression_statement(const expression_statement&);
-		expression_statement& operator=(const expression_statement&);
 
 		const expressions::expression& expression() const;
 

@@ -5,6 +5,7 @@
 
 #include "block_statement.h"
 #include "../forward_declarations.h"
+#include "../../utils/copyable_ptr.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::statements
@@ -12,12 +13,10 @@ namespace cpp::codeprovider::statements
 	class if_statement : public statement
 	{
 		block_statement if_collection, else_collection;
-		std::unique_ptr<expressions::expression> condition_exp;
+		utils::copyable_ptr<expressions::expression> condition_exp;
 		bool is_const_expr;
 	public:
 		if_statement(std::unique_ptr<expressions::expression>);
-		if_statement(const if_statement&);
-		if_statement& operator=(const if_statement&);
 
 		statement_list &if_block();
 		const statement_list &if_block() const;

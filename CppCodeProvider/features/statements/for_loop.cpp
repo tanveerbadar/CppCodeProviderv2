@@ -13,26 +13,6 @@ namespace cpp::codeprovider::statements
 		primitive_expression placeholder("");
 	}
 
-	for_loop::for_loop(const for_loop& other)
-		: init((other.init ? *other.init : placeholder).clone()), condition_exp((other.condition_exp ? *other.condition_exp : placeholder).clone()), loop_exp((other.loop_exp ? *other.loop_exp : placeholder).clone()), body(other.body)
-	{
-	}
-
-	for_loop& for_loop::operator=(const for_loop& other)
-	{
-		if (this != &other)
-		{
-			auto temp1 = other.initializer().clone();
-			auto temp2 = other.condition().clone();
-			auto temp3 = other.loop().clone();
-			body = other.body;
-			init = move(temp1);
-			condition_exp = move(temp2);
-			loop_exp = move(temp3);
-		}
-		return *this;
-	}
-
 	unique_ptr<statement> for_loop::clone() const
 	{
 		return make_unique<for_loop>(*this);

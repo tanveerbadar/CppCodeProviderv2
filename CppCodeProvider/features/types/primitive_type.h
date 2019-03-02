@@ -12,6 +12,7 @@ namespace cpp::codeprovider::types
 	public:
 		primitive_type(const std::string&);
 		primitive_type(const primitive_type&) = default;
+		
 		std::ostream &write_declaration(std::ostream &) const override;
 		std::ostream &write_definition(std::ostream &) const override;
 		std::unique_ptr<type> clone() const override;

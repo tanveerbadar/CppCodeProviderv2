@@ -9,21 +9,6 @@ namespace cpp::codeprovider::expressions
 	{
 	}
 
-	unary_expression::unary_expression(const unary_expression& other)
-		: unary_expression(other.e_type, other.e1->clone())
-	{
-	}
-
-	unary_expression& unary_expression::operator=(const unary_expression& other)
-	{
-		if (this != &other)
-		{
-			e1 = other.e1->clone();
-			e_type = other.e_type;
-		}
-		return *this;
-	}
-
 	unique_ptr<expression> unary_expression::clone() const
 	{
 		return make_unique<unary_expression>(*this);

@@ -23,22 +23,6 @@ namespace cpp::codeprovider::statements
 	{
 	}
 
-	case_statement::case_statement(const case_statement& other)
-		: e((other.e ? *other.e : placeholder).clone()), block(other.block)
-	{
-	}
-
-	case_statement& case_statement::operator=(const case_statement& other)
-	{
-		if (this != &other)
-		{
-			auto e1 = e->clone();
-			block = other.block;
-			e = move(e1);
-		}
-		return *this;
-	}
-
 	const statement_list &case_statement::statements() const
 	{
 		return block.statements();
@@ -49,14 +33,14 @@ namespace cpp::codeprovider::statements
 		return block.statements();
 	}
 
-	expression& case_statement::label() const
+	const expression& case_statement::label() const
 	{
 		return *e;
 	}
 
 	bool case_statement::has_label() const
 	{
-		auto ptr = dynamic_cast<primitive_expression*>(e.get());
+		auto ptr = dynamic_cast<const primitive_expression*>(e.operator->());
 		return ptr && ptr->expr().size() > 0;
 	}
 
@@ -76,24 +60,6 @@ namespace cpp::codeprovider::statements
 	switch_statement::switch_statement(unique_ptr<expression> c)
 		:condition_exp(move(c))
 	{
-	}
-
-	switch_statement::switch_statement(const switch_statement& other)
-		: condition_exp(other.condition_exp->clone())
-	{
-		for (auto& stmt : other.collection)
-			collection.emplace_back(stmt);
-	}
-
-	switch_statement& switch_statement::operator=(const switch_statement& other)
-	{
-		if (this != &other)
-		{
-			auto e = other.condition_exp->clone();
-			collection = other.collection;
-			condition_exp = move(e);
-		}
-		return *this;
 	}
 
 	unique_ptr<statement> switch_statement::clone() const
