@@ -4,7 +4,7 @@
 #include "../expressions/common.h"
 #include "../statements/try_statement.h"
 #include "../types/user_defined_type.h"
-#include "../types/template_parameter.h"
+#include "../types/template_parameters.h"
 #include "../../utils/write_helpers.h"
 
 using namespace std;

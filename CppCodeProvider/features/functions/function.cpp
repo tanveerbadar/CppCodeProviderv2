@@ -3,7 +3,7 @@
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../statements/try_statement.h"
-#include "../types/template_parameter.h"
+#include "../types/template_parameters.h"
 #include "../../utils/write_helpers.h"
 
 using namespace std;
