@@ -21,6 +21,7 @@ namespace cpp::codeprovider
 		}
 
 		class user_defined_type;
+		class base_type;
 	}
 
 	namespace declarations

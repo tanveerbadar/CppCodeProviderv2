@@ -1,29 +1,25 @@
 #ifndef ENUMERATION_HEADER
 #define ENUMERATION_HEADER
 
-#include <memory>
 #include <string>
-#include <vector>
 #include "common.h"
+#include "custom_type.h"
 #include "../forward_declarations.h"
 #include "../namespaces/namespace_scope_entity.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::types
 {
-    typedef std::vector<std::pair<std::string, std::unique_ptr<expressions::expression>>> enumerator_list;
+	using namespace internal;
 
     class enumeration : public type, public namespaces::namespace_scope_entity
     {
-        enumerator_list members;
-        bool is_scoped;
+        custom_type impl;
     public:
         explicit enumeration(const std::string&);
-        enumeration(const enumeration&);
-        enumeration& operator=(const enumeration&);
-        enumerator_list &enumerators();
-        const enumerator_list &enumerators() const;
-
+ 
+        member_field_list &enumerators();
+        const member_field_list &enumerators() const;
         ACCESSOR_DECLARATION(enumeration, is_scoped_enum, bool)
 
         std::unique_ptr<type> clone() const override;

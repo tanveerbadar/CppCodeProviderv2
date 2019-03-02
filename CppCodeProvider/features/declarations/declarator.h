@@ -13,7 +13,6 @@ namespace cpp::codeprovider::declarations
 {
 	class declarator
 	{
-		std::unique_ptr<expressions::expression> initializer_exp;
 	public:
 		declarator() = default;
 		declarator(const declarator&);
@@ -25,6 +24,7 @@ namespace cpp::codeprovider::declarations
 					is_rvalue_ref = false;
 		int pointer_level = 0;
 		std::vector<int> array_dimensions;
+		std::unique_ptr<expressions::expression> initializer_exp;
 
 		friend std::ostream& operator <<(std::ostream& os, const declarator&);
 	};

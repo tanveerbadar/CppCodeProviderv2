@@ -3,28 +3,22 @@
 
 #pragma once
 
-#include <vector>
 #include "access_levels.h"
 #include "common.h"
+#include "custom_type.h"
 #include "../forward_declarations.h"
 #include "../namespaces/namespace_scope_entity.h"
 
 namespace cpp::codeprovider::types
 {
-	typedef std::vector<std::pair<access_levels, std::unique_ptr<declarations::declaration>>> member_field_list;
-    typedef std::vector<functions::member_function> member_function_list;
-    typedef std::vector<std::unique_ptr<templates::template_parameter>> template_parameter_list;
+    using namespace internal;
 
-    class union_type : public type
+    class union_type : public type, public namespaces::namespace_scope_entity
     {
-        member_function_list functions;
-        member_field_list fields;
-        template_parameter_list template_params;
-      public:
-        explicit union_type(const std::string&);
-        union_type(const union_type&);
-        union_type& operator=(const union_type&);
-        
+        custom_type impl;
+    public:
+        explicit union_type(const std::string &);
+
         std::ostream &write_declaration(std::ostream &) const override;
         std::ostream &write_definition(std::ostream &) const override;
         std::unique_ptr<type> clone() const override;

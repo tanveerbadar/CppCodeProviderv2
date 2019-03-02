@@ -6,14 +6,9 @@ namespace cpp::codeprovider::declarations
 {
 	using namespace std;
 
-	variable_declaration::variable_declaration(const declarator_specifier& specifier)
-		:var_specifier(specifier)
+	variable_declaration::variable_declaration(const declarator_specifier &ds)
+		: declaration(ds)
 	{
-	}
-
-	const declarator_specifier& variable_declaration::specifier() const
-	{
-		return var_specifier;
 	}
 
 	declarations::declarator& variable_declaration::var_declarator()
@@ -28,13 +23,13 @@ namespace cpp::codeprovider::declarations
 
 	ostream& variable_declaration::write_declaration(ostream& os) const
 	{
-		os << var_specifier << var_decl;
+		os << specifier() << var_decl;
 		return os;
 	}
 
 	ostream &variable_declaration::write_definition(ostream &os) const
 	{
-		os << var_specifier << var_decl;
+		os << specifier() << var_decl;
 		return os;
 	}
 

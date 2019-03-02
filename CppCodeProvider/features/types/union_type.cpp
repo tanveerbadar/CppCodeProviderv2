@@ -1,11 +1,12 @@
 #include <sstream>
+#include "base_type.h"
+#include "template_parameters.h"
 #include "union_type.h"
 #include "../../features/declarations/variable_declaration.h"
 #include "../../features/expressions/common.h"
 #include "../../features/statements/try_statement.h"
 #include "../../features/functions/callable.h"
 #include "../../features/functions/member_function.h"
-#include "../../features/types/template_parameters.h"
 #include "../../utils/write_helpers.h"
 
 using namespace std;
@@ -15,45 +16,28 @@ using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::utils;
 
 union_type::union_type(const string& str)
-    :type(str)
+    :type(str), impl(type_key::union_type)
 {
-
-}
-
-union_type::union_type(const union_type &other)
-    : type(other)
-{
-    for (auto &f : other.fields)
-        fields.push_back(make_pair(f.first, f.second->clone()));
-}
-
-union_type &union_type::operator=(const union_type &other)
-{
-    if (this != &other)
-    {
-        type::operator=(other);
-    }
-    return *this;
 }
 
 member_function_list &union_type::member_functions()
 {
-    return functions;
+    return impl.functions;
 }
 
 const member_field_list& union_type::member_fields() const
 {
-    return fields;
+    return impl.fields;
 }
 
 member_field_list &union_type::member_fields()
 {
-    return fields;
+    return impl.fields;
 }
 
 template_parameter_list &union_type::template_parameters()
 {
-    return template_params;
+    return impl.template_params;
 }
 
 unique_ptr<type> union_type::clone() const
@@ -63,10 +47,10 @@ unique_ptr<type> union_type::clone() const
 
 ostream &union_type::write_declaration(ostream &os) const
 {
-    if (template_params.size() > 0)
+    if (impl.template_params.size() > 0)
     {
         os << "template<";
-        write_vector(os, template_params);
+        write_vector(os, impl.template_params);
         os << ">";
     }
     os << "union " << get_name() << ";" << endl;
@@ -75,17 +59,17 @@ ostream &union_type::write_declaration(ostream &os) const
 
 ostream &union_type::write_definition(ostream & os) const
 {
-    if (template_params.size() > 0)
+    if (impl.template_params.size() > 0)
     {
         os << "template<";
-        write_vector(os, template_params);
+        write_vector(os, impl.template_params);
         os << ">";
     }
     os << "union " << get_name() << endl;
     os << "{" << endl;
     ostringstream private_stream, protected_stream, public_stream;
-    write_members(fields, public_stream, private_stream, protected_stream, public_stream);
-    write_declarations(functions, public_stream, private_stream, protected_stream, public_stream);
+    write_members(impl.fields, public_stream, private_stream, protected_stream, public_stream);
+    write_declarations(impl.functions, public_stream, private_stream, protected_stream, public_stream);
     os << "private:" << endl;
     os << private_stream.str() << endl;
     os << "protected:" << endl;

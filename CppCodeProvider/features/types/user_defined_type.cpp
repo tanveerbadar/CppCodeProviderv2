@@ -16,64 +16,45 @@ using namespace cpp::codeprovider::types::templates;
 using namespace cpp::codeprovider::utils;
 
 user_defined_type::user_defined_type(const string &name)
-	: type(name)
+	: type(name), impl(type_key::class_type)
 {
-}
-
-user_defined_type::user_defined_type(const user_defined_type &other)
-	: type(other)
-{
-	for(auto& f: other.functions)
-		functions.emplace_back(f);
-
-	for(auto& f:other.fields)
-		fields.push_back(make_pair(f.first, f.second->clone()));
-}
-
-user_defined_type& user_defined_type::operator=(const user_defined_type& other)
-{
-	if(this!=&other)
-	{
-		type::operator=(other);
-	}
-	return *this;
 }
 
 member_function_list &user_defined_type::member_functions()
 {
-	return functions;
+	return impl.functions;
 }
 
 member_field_list &user_defined_type::member_fields()
 {
-	return fields;
+	return impl.fields;
 }
 
 base_list &user_defined_type::bases()
 {
-	return base_types;
+	return impl.base_types;
 }
 
 template_parameter_list &user_defined_type::template_parameters()
 {
-	return template_params;
+	return impl.template_params;
 }
 
 ostream& user_defined_type::write_declaration(ostream &os) const
 {
-	if (template_params.size() > 0)
+	if (impl.template_params.size() > 0)
 	{
 		os << "template<";
-		write_vector(os, template_params);
+		write_vector(os, impl.template_params);
 		os << ">";
 	}
 
-	os << (this->is_class ? "class " : "struct ") << get_name() << endl;
-	write_vector(os, base_types);
+	os << impl.key << get_name() << endl;
+	write_vector(os, impl.base_types);
 	os << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
-	write_members(fields, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
-	write_declarations(functions, this->is_class ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+	write_members(impl.fields, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+	write_declarations(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 	os << "private:" << endl;
 	os << private_stream.str() << endl;
 	os << "protected:" << endl;
@@ -86,7 +67,7 @@ ostream& user_defined_type::write_declaration(ostream &os) const
 
 ostream& user_defined_type::write_definition(ostream& os) const
 {
-	write_definitions(os, functions);
+	write_definitions(os, impl.functions);
 
 	return os;
 }

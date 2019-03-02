@@ -11,13 +11,11 @@ namespace cpp::codeprovider::declarations
 {
 	class variable_declaration : public declaration
 	{
-		declarator_specifier var_specifier;
 		declarator var_decl;
 	public:
 		variable_declaration(const declarator_specifier&);
 		variable_declaration(const variable_declaration&) = default;
 
-		const declarator_specifier & specifier() const;
 		const declarations::declarator& var_declarator() const;
 		declarations::declarator& var_declarator();
 

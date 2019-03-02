@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE(enumeration_tests)
     BOOST_TEST(e->get_name() == "e");
     BOOST_TEST(!e->is_scoped_enum());
 
-    e->enumerators().emplace_back(make_pair("e1", make_unique<primitive_expression>("5")));
+    e->enumerators().emplace_back(make_pair(access_levels::public_access, make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")))));
 
     auto copy(*e);
 

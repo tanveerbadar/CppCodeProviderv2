@@ -11,12 +11,10 @@ namespace cpp::codeprovider::declarations
 {
 	class variable_declaration_list : public declaration
 	{
-		declarator_specifier var_specifier;
 		std::vector<declarator> var_decls;
 	public:
 		variable_declaration_list(const declarator_specifier&);
 
-		const declarator_specifier & specifier() const;
 		std::vector<declarator>& declarations();
 		const std::vector<declarator>& declarations() const;
 

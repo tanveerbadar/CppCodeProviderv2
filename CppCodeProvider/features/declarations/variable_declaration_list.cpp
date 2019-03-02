@@ -9,7 +9,7 @@ using namespace cpp::codeprovider::utils;
 namespace cpp::codeprovider::declarations
 {
 	variable_declaration_list::variable_declaration_list(const declarator_specifier& specifier)
-		:var_specifier(specifier)
+		:declaration(specifier)
 	{
 	}
 
@@ -30,7 +30,7 @@ namespace cpp::codeprovider::declarations
 
 	ostream& variable_declaration_list::write_declaration(ostream &os) const
 	{
-		os << var_specifier;
+		os << specifier();
 
 		write_vector(os, var_decls);
 		return os;
@@ -38,14 +38,9 @@ namespace cpp::codeprovider::declarations
 
 	ostream &variable_declaration_list::write_definition(ostream &os) const
 	{
-		os << var_specifier;
+		os << specifier();
 
 		write_vector(os, var_decls);
 		return os;
-	}
-
-	const declarator_specifier& variable_declaration_list::specifier() const
-	{
-		return var_specifier;
 	}
 }
