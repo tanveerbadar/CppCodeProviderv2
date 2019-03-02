@@ -6,23 +6,19 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "../forward_declarations.h"
+#include "callable.h"
 #include "../namespaces/namespace_scope_entity.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::functions
 {
-    typedef std::vector<std::unique_ptr<declarations::variable_declaration>> parameter_list;
-	typedef std::vector<std::unique_ptr<types::templates::template_parameter>> template_parameter_list;
-	typedef std::vector<statements::catch_clause> catch_list;
+	using namespace internals;
 
 	class function : public namespaces::namespace_scope_entity
 	{
-		std::unique_ptr<internals::callable> impl;
+		callable impl;
 	public:
 		function(const std::string&, std::unique_ptr<types::type>);
-		function(const function&);
-		function& operator=(const function&);
 		~function() override;
 
 		parameter_list &parameters();

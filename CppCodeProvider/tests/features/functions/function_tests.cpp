@@ -6,6 +6,8 @@
 #include "../../../features/statements.h"
 #include "../../../features/types.h"
 
+BOOST_AUTO_TEST_SUITE(function_tests)
+
 using namespace std;
 
 using f = cpp::codeprovider::functions::function;
@@ -205,3 +207,5 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	c_ref.template_parameters();
 	c_ref.catch_blocks();
 }
+
+BOOST_AUTO_TEST_SUITE_END()

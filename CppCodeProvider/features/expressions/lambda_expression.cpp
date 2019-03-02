@@ -1,6 +1,7 @@
 #include "lambda_expression.h"
 #include "unary_expressions.h"
 #include "../declarations/variable_declaration.h"
+#include "../expressions/common.h"
 #include "../functions/callable.h"
 #include "../statements/try_statement.h"
 #include "../types/template_parameters.h"
@@ -46,13 +47,8 @@ namespace
    }
 }
 
-lambda_expression::lambda_expression()
-    : impl(make_unique<callable>())
-{
-}
-
 lambda_expression::lambda_expression(const lambda_expression &other)
-    : impl(make_unique<callable>(*other.impl)), default_capture(other.default_capture)
+    : impl(other.impl), default_capture(other.default_capture)
 {
     for(auto& vars: other.captures)
         captures.push_back(make_pair(vars.first, vars.second->clone()));
@@ -66,7 +62,7 @@ lambda_expression& lambda_expression::operator=(const lambda_expression& other)
         for (auto &var : other.captures)
             vars.push_back(make_pair(var.first, var.second->clone()));
 
-        impl = make_unique<callable>(*other.impl);
+        impl = other.impl;
         swap(captures, vars);
         default_capture = other.default_capture;
     }
@@ -76,12 +72,12 @@ lambda_expression& lambda_expression::operator=(const lambda_expression& other)
 
 parameter_list& lambda_expression::parameters()
 {
-    return impl->parameters;
+    return impl.parameters;
 }
 
 const parameter_list &lambda_expression::parameters() const
 {
-    return impl->parameters;
+    return impl.parameters;
 }
 
 capture_list &lambda_expression::captured_variables()
@@ -96,27 +92,27 @@ const capture_list &lambda_expression::captured_variables() const
 
 block_statement& lambda_expression::body()
 {
-    return impl->statements;
+    return impl.statements;
 }
 
 const block_statement& lambda_expression::body() const
 {
-    return impl->statements;
+    return impl.statements;
 }
 
-unique_ptr<type>& lambda_expression::return_type() const
+const unique_ptr<type>& lambda_expression::return_type() const
 {
-    return impl->return_type;
+    return impl.return_type;
 }
 
 lambda_expression& lambda_expression::return_type(unique_ptr<type> t)
 {
-    impl->return_type = move(t);
+    impl.return_type = move(t);
     return *this;
 }
 
 ACCESSOR_IMPL_2(lambda_expression, default_capture_mode, capture_mode, default_capture)
-ACCESSOR_IMPL(lambda_expression, is_mutable, bool, is_mutable)
+ACCESSOR_IMPL_2(lambda_expression, is_mutable, bool, impl.is_mutable)
 
 unique_ptr<expression> lambda_expression::clone() const
 {
@@ -132,15 +128,15 @@ void lambda_expression::write(ostream& os) const
     write_vector(os, captures);
     os << "] (";
 
-    write_vector(os, impl->parameters);
+    write_vector(os, impl.parameters);
 
     os << ")" << endl;
 
-    if(impl->return_type)
-        os << " -> " << impl->return_type->get_name() << endl;
+    if(impl.return_type)
+        os << " . " << impl.return_type->get_name() << endl;
 
-    if(impl->is_mutable)
+    if(impl.is_mutable)
         os << " mutable";
 
-    os << impl->statements;
+    os << impl.statements;
 }

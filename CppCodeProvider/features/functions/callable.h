@@ -36,6 +36,7 @@ namespace cpp::codeprovider::functions::internals
 		callable() = default;
 		callable(const std::string&, std::unique_ptr<types::type>);
 		callable(const callable&);
+		callable& operator=(const callable&);
 	};
 }
 
