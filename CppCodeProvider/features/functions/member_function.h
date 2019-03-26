@@ -14,11 +14,19 @@ namespace cpp::codeprovider::functions
 {
 	using namespace internals;
 
+	enum class ref_qualifier
+	{
+		none,
+		lvalue,
+		rvalue
+	};
+
 	class member_function
 	{
 		callable impl;
 		const types::user_defined_type* container;
 		types::access_levels access;
+		ref_qualifier qualifier = ref_qualifier::none;
 	public:
 		member_function(const std::string&, std::unique_ptr<types::type>, const types::user_defined_type&);
 
@@ -37,6 +45,7 @@ namespace cpp::codeprovider::functions
 		ACCESSOR_DECLARATION(member_function, is_constant, bool)
 		ACCESSOR_DECLARATION(member_function, is_volatile, bool)
 		ACCESSOR_DECLARATION(member_function, has_try_block, bool)
+		ACCESSOR_DECLARATION(member_function, reference_qualifier, ref_qualifier)
 		ACCESSOR_DECLARATION(member_function, accessibility, types::access_levels)
 		ACCESSOR_DECLARATION_2(member_function, return_type, const types::type&, std::unique_ptr<types::type>)
 		types::type& return_type();
