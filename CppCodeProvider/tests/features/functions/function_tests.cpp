@@ -20,7 +20,7 @@ using namespace cpp::codeprovider::types;
 
 BOOST_AUTO_TEST_CASE(function_tests)
 {
-	f f1("something", make_unique<primitive_type>("int"));
+	f f1("something", make_shared<primitive_type>("int"));
 
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(!f1.is_static());
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
-	BOOST_TEST(f1.return_type().get_name() == "int");
+	BOOST_TEST(f1.return_type()->get_name() == "int");
 	BOOST_TEST(f1.catch_blocks().size() == 0);
 
 	catch_clause block;
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(copy1.body().statements().size() == 1);
 	BOOST_TEST(copy1.parameters().size() == 1);
 	BOOST_TEST(copy1.template_parameters().size() == 1);
-	BOOST_TEST(copy1.return_type().get_name() == "int");
+	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 1);
 
 	copy1.write_declaration(stream);
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(copy1.body().statements().size() == 2);
 	BOOST_TEST(copy1.parameters().size() == 2);
 	BOOST_TEST(copy1.template_parameters().size() == 2);
-	BOOST_TEST(copy1.return_type().get_name() == "int");
+	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 2);
 
 	copy1.write_declaration(stream);
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 BOOST_AUTO_TEST_CASE(member_function_tests)
 {
 	auto udt = make_shared<user_defined_type>("udt");
-	member_function f1("something", make_unique<primitive_type>("int"), *udt);
+	member_function f1("something", make_shared<primitive_type>("int"), udt);
 
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(!f1.is_static());
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
-	BOOST_TEST(f1.return_type().get_name() == "int");
+	BOOST_TEST(f1.return_type()->get_name() == "int");
 	BOOST_TEST(f1.catch_blocks().size() == 0);
 
 	catch_clause block;
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(copy1.body().statements().size() == 1);
 	BOOST_TEST(copy1.parameters().size() == 1);
 	BOOST_TEST(copy1.template_parameters().size() == 1);
-	BOOST_TEST(copy1.return_type().get_name() == "int");
+	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 1);
 
 	copy1.write_declaration(stream);
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(copy1.body().statements().size() == 2);
 	BOOST_TEST(copy1.parameters().size() == 2);
 	BOOST_TEST(copy1.template_parameters().size() == 2);
-	BOOST_TEST(copy1.return_type().get_name() == "int");
+	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 2);
 
 	copy1.write_declaration(stream);

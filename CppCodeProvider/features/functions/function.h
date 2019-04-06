@@ -18,7 +18,7 @@ namespace cpp::codeprovider::functions
 	{
 		callable impl;
 	public:
-		function(const std::string&, std::unique_ptr<types::type>);
+		function(const std::string&, std::shared_ptr<types::type>);
 		~function() override;
 
 		parameter_list &parameters();
@@ -31,7 +31,7 @@ namespace cpp::codeprovider::functions
 		ACCESSOR_DECLARATION(function, is_static, bool);
 		ACCESSOR_DECLARATION(function, is_constexpr, bool);
 		ACCESSOR_DECLARATION(function, has_try_block, bool);
-		ACCESSOR_DECLARATION_2(function, return_type, const types::type&, std::unique_ptr<types::type>);
+		ACCESSOR_DECLARATION(function, return_type, std::shared_ptr<types::type>);
 		statements::block_statement& body();
 		const statements::block_statement& body() const;
 		std::ostream &write_declaration(std::ostream &) const override;

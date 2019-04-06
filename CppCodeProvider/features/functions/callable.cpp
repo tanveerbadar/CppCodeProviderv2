@@ -11,11 +11,9 @@ namespace cpp::codeprovider::functions::internals
 {
 	using namespace std;
 	using namespace types;
-	using namespace declarations;
-	using namespace templates;
 
-	callable::callable(const string &n, unique_ptr<type> returns)
-		: name(n), return_type(move(returns))
+	callable::callable(const string &n, shared_ptr<type> returns)
+		: name(n), return_type(returns)
 	{
 	}
 } // namespace cpp::codeprovider::functions::internals

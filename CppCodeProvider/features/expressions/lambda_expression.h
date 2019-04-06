@@ -35,7 +35,7 @@ namespace cpp::codeprovider::expressions
         const capture_list &captured_variables() const;
         statements::block_statement& body();
         const statements::block_statement& body() const;
-        ACCESSOR_DECLARATION_2(lambda_expression, return_type, const utils::copyable_ptr<types::type>&, std::unique_ptr<types::type>)
+        ACCESSOR_DECLARATION(lambda_expression, return_type, std::shared_ptr<types::type>)
         ACCESSOR_DECLARATION(lambda_expression, default_capture_mode, capture_mode)
         ACCESSOR_DECLARATION(lambda_expression, is_mutable, bool)
 

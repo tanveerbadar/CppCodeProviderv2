@@ -77,17 +77,7 @@ const block_statement& lambda_expression::body() const
     return impl.statements;
 }
 
-const copyable_ptr<type>& lambda_expression::return_type() const
-{
-    return impl.return_type;
-}
-
-lambda_expression& lambda_expression::return_type(unique_ptr<type> t)
-{
-    impl.return_type = move(t);
-    return *this;
-}
-
+ACCESSOR_IMPL_2(lambda_expression, return_type, shared_ptr<type>, impl.return_type)
 ACCESSOR_IMPL_2(lambda_expression, default_capture_mode, capture_mode, default_capture)
 ACCESSOR_IMPL_2(lambda_expression, is_mutable, bool, impl.is_mutable)
 

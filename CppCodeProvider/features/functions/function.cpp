@@ -17,8 +17,8 @@ namespace cpp::codeprovider::functions
 	using namespace types;
 	using namespace templates;
 
-	function::function(const string& n, unique_ptr<type> returns)
-		:impl(n,move(returns))
+	function::function(const string& n, shared_ptr<type> returns)
+		:impl(n, returns)
 	{
 	}
 
@@ -60,6 +60,7 @@ namespace cpp::codeprovider::functions
 	ACCESSOR_IMPL_2(function, has_try_block, bool, impl.has_function_try_block)
 	ACCESSOR_IMPL_2(function, is_constexpr, bool, impl.is_const_expr)
 	ACCESSOR_IMPL_2(function, is_static, bool, impl.is_static)
+	ACCESSOR_IMPL_2(function, return_type, shared_ptr<type>, impl.return_type)
 
 	block_statement& function::body()
 	{
@@ -69,17 +70,6 @@ namespace cpp::codeprovider::functions
 	const block_statement& function::body() const
 	{
 		return impl.statements;
-	}
-
-	const type& function::return_type() const
-	{
-		return *impl.return_type;
-	}
-
-	function& function::return_type(unique_ptr<type> t)
-	{
-		impl.return_type = move(t);
-		return *this;
 	}
 
 	ostream &function::write_declaration(ostream &os) const

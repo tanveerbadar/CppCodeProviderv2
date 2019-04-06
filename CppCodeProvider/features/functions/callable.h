@@ -17,7 +17,7 @@ namespace cpp::codeprovider::functions::internals
 	struct callable
 	{
 		statements::block_statement statements;
-		utils::copyable_ptr<types::type> return_type;
+		std::shared_ptr<types::type> return_type;
 		parameter_list parameters;
 		std::string name;
 		template_parameter_list template_parameters;
@@ -35,7 +35,7 @@ namespace cpp::codeprovider::functions::internals
 		catch_list catch_blocks;
 
 		callable() = default;
-		callable(const std::string&, std::unique_ptr<types::type>);
+		callable(const std::string&, std::shared_ptr<types::type>);
 	};
 }
 

@@ -18,8 +18,8 @@ using namespace types;
 using namespace templates;
 using namespace utils;
 
-member_function::member_function(const string &n, unique_ptr<type> returns, const user_defined_type &udt)
-	: impl(n, move(returns)), container(&udt)
+member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<user_defined_type> udt)
+	: impl(n, returns), container(udt)
 {
 }
 
@@ -31,22 +31,6 @@ const block_statement &member_function::body() const
 block_statement &member_function::body()
 {
 	return impl.statements;
-}
-
-const type &member_function::return_type() const
-{
-	return *impl.return_type;
-}
-
-type &member_function::return_type()
-{
-	return *impl.return_type;
-}
-
-member_function &member_function::return_type(unique_ptr<type> t)
-{
-	impl.return_type = move(t);
-	return *this;
 }
 
 parameter_list &member_function::parameters()
@@ -94,6 +78,7 @@ ACCESSOR_IMPL_2(member_function, is_constant, bool, impl.is_constant)
 ACCESSOR_IMPL_2(member_function, is_volatile, bool, impl.is_volatile)
 ACCESSOR_IMPL_2(member_function, is_override, bool, impl.is_override)
 ACCESSOR_IMPL_2(member_function, reference_qualifier, ref_qualifier, qualifier)
+ACCESSOR_IMPL_2(member_function, return_type, shared_ptr<type>, impl.return_type)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
