@@ -110,7 +110,7 @@ void lambda_expression::write(ostream& os) const
     os << ")" << endl;
 
     if(impl.return_type)
-        os << " . " << impl.return_type->get_name() << endl;
+        os << " -> " << impl.return_type->get_name() << endl;
 
     if(impl.is_mutable)
         os << " mutable";

@@ -110,7 +110,7 @@ namespace cpp::codeprovider::functions
 		os << ")" << endl;
 
 		if (impl.has_trailing_return_type)
-			os << " . " << impl.return_type->get_name();
+			os << " -> " << impl.return_type->get_name();
 
 		os << ";" << endl;
 
@@ -145,7 +145,7 @@ namespace cpp::codeprovider::functions
 		os << ")" << endl;
 
 		if (impl.has_trailing_return_type)
-			os << " . " << impl.return_type->get_name() << endl;
+			os << " -> " << impl.return_type->get_name() << endl;
 
 		if (impl.has_function_try_block)
 			os << "try" << endl;
