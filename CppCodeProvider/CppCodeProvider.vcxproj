@@ -191,9 +191,10 @@
     <ClCompile Include="features\statements\try_statement.cpp" />
     <ClCompile Include="features\statements\while_loop.cpp" />
     <ClCompile Include="features\types\base_type.cpp" />
+    <ClCompile Include="features\types\custom_type.cpp" />
     <ClCompile Include="features\types\enumeration.cpp" />
     <ClCompile Include="features\types\primitive_type.cpp" />
-    <ClCompile Include="features\types\template_parameter.cpp" />
+    <ClCompile Include="features\types\template_parameters.cpp" />
     <ClCompile Include="features\types\types_common.cpp" />
     <ClCompile Include="features\types\union_type.cpp" />
     <ClCompile Include="features\types\user_defined_type.cpp" />
@@ -237,9 +238,10 @@
     <ClInclude Include="features\types\access_levels.h" />
     <ClInclude Include="features\types\base_type.h" />
     <ClInclude Include="features\types\common.h" />
+    <ClInclude Include="features\types\custom_type.h" />
     <ClInclude Include="features\types\enumeration.h" />
     <ClInclude Include="features\types\primitive_type.h" />
-    <ClInclude Include="features\types\template_parameter.h" />
+    <ClInclude Include="features\types\template_parameters.h" />
     <ClInclude Include="features\types\union_type.h" />
     <ClInclude Include="features\types\user_defined_type.h" />
     <ClInclude Include="formatters\formatter_settings.h" />
