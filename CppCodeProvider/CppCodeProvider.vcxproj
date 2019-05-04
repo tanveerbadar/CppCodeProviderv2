@@ -178,6 +178,7 @@
     <ClCompile Include="features\functions\callable.cpp" />
     <ClCompile Include="features\functions\function.cpp" />
     <ClCompile Include="features\functions\member_function.cpp" />
+    <ClCompile Include="features\internals\write_backlog_entry.cpp" />
     <ClCompile Include="features\namespaces\namespace_scope.cpp" />
     <ClCompile Include="features\namespaces\namespace_scope_entity.cpp" />
     <ClCompile Include="features\statements\block_statement.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="features\functions\callable.h" />
     <ClInclude Include="features\functions\function.h" />
     <ClInclude Include="features\functions\member_function.h" />
+    <ClInclude Include="features\internals\write_backlog_entry.h" />
     <ClInclude Include="features\namespaces.h" />
     <ClInclude Include="features\namespaces\namespace_scope.h" />
     <ClInclude Include="features\namespaces\namespace_scope_entity.h" />
