@@ -79,6 +79,7 @@ ACCESSOR_IMPL_2(member_function, is_volatile, bool, impl.is_volatile)
 ACCESSOR_IMPL_2(member_function, is_override, bool, impl.is_override)
 ACCESSOR_IMPL_2(member_function, reference_qualifier, ref_qualifier, qualifier)
 ACCESSOR_IMPL_2(member_function, return_type, shared_ptr<type>, impl.return_type)
+ACCESSOR_IMPL_2(member_function, is_final, bool, final)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
@@ -113,10 +114,12 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << " const";
 	if (impl.is_volatile)
 		os << " volatile";
-	if (impl.is_abstract)
-		os << " = 0";
 	if (impl.is_override)
 		os << " override";
+	if (final)
+		os << " final";
+	if (impl.is_abstract)
+		os << " = 0";
 
 	switch (qualifier)
 	{

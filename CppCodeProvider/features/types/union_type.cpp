@@ -7,6 +7,7 @@
 #include "../../features/statements/try_statement.h"
 #include "../../features/functions/function.h"
 #include "../../features/functions/member_function.h"
+#include "../../utils/dirty_macros.h"
 #include "../../utils/write_helpers.h"
 
 using namespace std;
@@ -50,12 +51,14 @@ friend_types_list &union_type::friend_types()
     return impl.friend_types;
 }
 
+ACCESSOR_IMPL_2(union_type, is_final, bool, final)
+
 unique_ptr<type> union_type::clone() const
 {
     return make_unique<union_type>(*this);
 }
 
-ostream& union_type::write_forward_declaration(ostream& os) const
+ostream &union_type::write_forward_declaration(ostream &os) const
 {
     if (impl.template_params.size() > 0)
     {
@@ -76,12 +79,15 @@ ostream &union_type::write_declaration(ostream &os) const
         write_vector(os, impl.template_params);
         os << ">";
     }
-    os << "union " << get_name() << endl;
+    os << "union " << get_name();
+    if (final)
+        os << " final";
+    os << endl;
     os << "{" << endl;
     ostringstream private_stream, protected_stream, public_stream;
     write_members(impl.fields, public_stream, private_stream, protected_stream, public_stream);
 
-    vector<const cpp::codeprovider::internals::write_backlog_entry*> write_backlog;
+    vector<const cpp::codeprovider::internals::write_backlog_entry *> write_backlog;
 
     if (impl.template_params.size() > 0)
         write_definitions(impl.functions, public_stream, private_stream, protected_stream, public_stream, write_backlog);
@@ -108,6 +114,6 @@ ostream &union_type::write_declaration(ostream &os) const
 ostream &union_type::write_definition(ostream &os) const
 {
     write_definitions(os, impl.functions);
-    
+
     return os;
 }

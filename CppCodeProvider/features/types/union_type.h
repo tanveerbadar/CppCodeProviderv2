@@ -16,6 +16,7 @@ namespace cpp::codeprovider::types
     class union_type : public type, public namespaces::namespace_scope_entity
     {
         custom_type impl;
+        bool final = false;
     public:
         explicit union_type(const std::string &);
 
@@ -31,6 +32,7 @@ namespace cpp::codeprovider::types
         friend_functions_list &friend_functions();
         friend_types_list &friend_types();
         ACCESSOR_DECLARATION(union_type, container, std::shared_ptr<nested_type>)
+        ACCESSOR_DECLARATION(union_type, is_final, bool)
     };
 }
 

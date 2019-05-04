@@ -28,6 +28,7 @@ namespace cpp::codeprovider::functions
 		std::shared_ptr<types::user_defined_type> container;
 		types::access_levels access;
 		ref_qualifier qualifier = ref_qualifier::none;
+		bool final = false;
 	public:
 		member_function(const std::string&, std::shared_ptr<types::type>, std::shared_ptr<types::user_defined_type>);
 
@@ -49,7 +50,8 @@ namespace cpp::codeprovider::functions
 		ACCESSOR_DECLARATION(member_function, reference_qualifier, ref_qualifier)
 		ACCESSOR_DECLARATION(member_function, accessibility, types::access_levels)
 		ACCESSOR_DECLARATION(member_function, return_type, std::shared_ptr<types::type>)
-		statements::block_statement& body();
+		ACCESSOR_DECLARATION(member_function, is_final, bool)
+		statements::block_statement &body();
 		const statements::block_statement& body() const;
 		std::ostream &write_declaration(std::ostream &) const;
 		std::ostream &write_definition(std::ostream &) const override;

@@ -52,6 +52,8 @@ template_parameter_list &user_defined_type::template_parameters()
 	return impl.template_params;
 }
 
+ACCESSOR_IMPL_2(user_defined_type, is_final, bool, final)
+
 ostream &user_defined_type::write_forward_declaration(ostream &os) const
 {
 	if (impl.template_params.size() > 0)
@@ -76,12 +78,14 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 	}
 
 	os << impl.key << get_name() << endl;
+	if (final)
+		os << " final";
 	write_vector(os, impl.base_types);
 	os << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(impl.fields, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 
-	vector<const cpp::codeprovider::internals::write_backlog_entry*> write_backlog;
+	vector<const cpp::codeprovider::internals::write_backlog_entry *> write_backlog;
 
 	if (impl.template_params.size() > 0)
 		write_definitions(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream, write_backlog);
