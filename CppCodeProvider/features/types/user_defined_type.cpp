@@ -77,11 +77,16 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 		os << ">";
 	}
 
-	os << impl.key << get_name() << endl;
+	os << impl.key << get_name();
 	if (final)
 		os << " final";
-	write_vector(os, impl.base_types);
-	os << "{" << endl;
+	if (impl.base_types.size())
+	{
+		os << " : ";
+		write_vector(os, impl.base_types);
+	}
+	os << endl
+	   << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(impl.fields, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 
