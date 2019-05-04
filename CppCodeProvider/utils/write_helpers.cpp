@@ -39,7 +39,7 @@ void write_members(const vector<pair<access_levels, copyable_ptr<declaration>>> 
     }
 }
 
-void write_definition_helper(const member_function &mf, ostringstream &stream, vector<cpp::codeprovider::internals::write_backlog_entry> &write_backlog)
+void write_definition_helper(const member_function &mf, ostringstream &stream, vector<const cpp::codeprovider::internals::write_backlog_entry*> &write_backlog)
 {
     if (!mf.is_abstract())
         mf.write_definition(stream);
@@ -47,12 +47,12 @@ void write_definition_helper(const member_function &mf, ostringstream &stream, v
     {
         mf.write_declaration(stream);
         if (mf.body().statements().size())
-            write_backlog.push_back(mf);
+            write_backlog.push_back(&mf);
     }
     stream << endl;
 }
 
-void write_definitions(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream, vector<cpp::codeprovider::internals::write_backlog_entry> &write_backlog)
+void write_definitions(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream, vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog)
 {
     for (const auto &mf : functions)
     {

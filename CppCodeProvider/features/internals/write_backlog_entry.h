@@ -11,8 +11,8 @@ class write_backlog_entry
 {
 public:
     virtual ~write_backlog_entry() = 0;
-    virtual std::ostream& write_definition(std::ostream&) const;
+    virtual std::ostream &write_definition(std::ostream &) const = 0;
 };
-} // namespace cpp::codeprovider::internal
+} // namespace cpp::codeprovider::internals
 
 #endif

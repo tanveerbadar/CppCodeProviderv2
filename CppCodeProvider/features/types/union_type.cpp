@@ -81,7 +81,7 @@ ostream &union_type::write_declaration(ostream &os) const
     ostringstream private_stream, protected_stream, public_stream;
     write_members(impl.fields, public_stream, private_stream, protected_stream, public_stream);
 
-    vector<cpp::codeprovider::internals::write_backlog_entry> write_backlog;
+    vector<const cpp::codeprovider::internals::write_backlog_entry*> write_backlog;
 
     if (impl.template_params.size() > 0)
         write_definitions(impl.functions, public_stream, private_stream, protected_stream, public_stream, write_backlog);

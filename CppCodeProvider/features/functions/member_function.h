@@ -52,7 +52,7 @@ namespace cpp::codeprovider::functions
 		statements::block_statement& body();
 		const statements::block_statement& body() const;
 		std::ostream &write_declaration(std::ostream &) const;
-		std::ostream &write_definition(std::ostream &) const;
+		std::ostream &write_definition(std::ostream &) const override;
 	};
 }
 

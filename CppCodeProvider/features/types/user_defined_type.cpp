@@ -8,6 +8,7 @@
 #include "../functions/member_function.h"
 #include "../statements/try_statement.h"
 #include "../../utils/write_helpers.h"
+#include "../internals/write_backlog_entry.h"
 
 using namespace std;
 using namespace cpp::codeprovider::functions;
@@ -80,7 +81,7 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(impl.fields, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 
-	vector<cpp::codeprovider::internals::write_backlog_entry> write_backlog;
+	vector<const cpp::codeprovider::internals::write_backlog_entry*> write_backlog;
 
 	if (impl.template_params.size() > 0)
 		write_definitions(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream, write_backlog);
@@ -104,7 +105,7 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 	   << endl;
 
 	for (auto &entry : write_backlog)
-		entry.write_definition(os);
+		entry->write_definition(os);
 
 	return os;
 }
