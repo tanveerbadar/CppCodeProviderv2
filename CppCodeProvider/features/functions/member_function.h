@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "callable.h"
+#include "../internals/write_backlog_entry.h"
 #include "../types/access_levels.h"
 #include "../../utils/dirty_macros.h"
 
@@ -21,7 +22,7 @@ namespace cpp::codeprovider::functions
 		rvalue
 	};
 
-	class member_function
+	class member_function : public cpp::codeprovider::internals::write_backlog_entry
 	{
 		callable impl;
 		std::shared_ptr<types::user_defined_type> container;

@@ -40,7 +40,7 @@ template_parameter_list &user_defined_type::template_parameters()
 	return impl.template_params;
 }
 
-ostream& user_defined_type::write_declaration(ostream &os) const
+ostream &user_defined_type::write_declaration(ostream &os) const
 {
 	if (impl.template_params.size() > 0)
 	{
@@ -54,18 +54,30 @@ ostream& user_defined_type::write_declaration(ostream &os) const
 	os << "{" << endl;
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(impl.fields, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
-	write_declarations(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+
+	vector<cpp::codeprovider::internals::write_backlog_entry> write_backlog;
+
+	if (impl.template_params.size() > 0)
+		write_definitions(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream, write_backlog);
+	else
+		write_declarations(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+
 	os << "private:" << endl;
 	os << private_stream.str() << endl;
 	os << "protected:" << endl;
 	os << protected_stream.str() << endl;
 	os << "public: " << endl;
 	os << public_stream.str() << endl;
-	os << "};" << endl << endl;
+	os << "};" << endl
+	   << endl;
+
+	for (auto &entry : write_backlog)
+		entry.write_definition(os);
+
 	return os;
 }
 
-ostream& user_defined_type::write_definition(ostream& os) const
+ostream &user_defined_type::write_definition(ostream &os) const
 {
 	write_definitions(os, impl.functions);
 
