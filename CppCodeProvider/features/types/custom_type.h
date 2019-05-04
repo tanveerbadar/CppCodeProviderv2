@@ -8,6 +8,10 @@
 #include "../forward_declarations.h"
 #include "../../utils/copyable_ptr.h"
 
+namespace cpp::codeprovider::types
+{
+class nested_type;
+}
 namespace cpp::codeprovider::types::internal
 {
     enum class type_key
@@ -33,6 +37,7 @@ namespace cpp::codeprovider::types::internal
         base_list base_types;
         template_parameter_list template_params;
         bool is_scoped_enum = false;
+        std::shared_ptr<types::nested_type> container;
 
         custom_type(type_key);
 

@@ -6,14 +6,16 @@
 #include "base_type.h"
 #include "common.h"
 #include "custom_type.h"
+#include "nested_type.h"
 #include "../forward_declarations.h"
 #include "../namespaces/namespace_scope_entity.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp::codeprovider::types
 {
 	using namespace internal;
 
-	class user_defined_type : public type, public namespaces::namespace_scope_entity
+	class user_defined_type : public type, public namespaces::namespace_scope_entity, public nested_type
 	{
 		custom_type impl;
 	public:
@@ -27,6 +29,7 @@ namespace cpp::codeprovider::types
 		member_field_list &member_fields();
 		base_list& bases();
 		template_parameter_list& template_parameters();
+		ACCESSOR_DECLARATION(user_defined_type, container, std::shared_ptr<nested_type>)
 	};
 }
 

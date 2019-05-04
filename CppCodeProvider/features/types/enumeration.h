@@ -21,6 +21,7 @@ namespace cpp::codeprovider::types
         member_field_list &enumerators();
         const member_field_list &enumerators() const;
         ACCESSOR_DECLARATION(enumeration, is_scoped_enum, bool)
+        ACCESSOR_DECLARATION(enumeration, container, std::shared_ptr<nested_type>)
 
         std::unique_ptr<type> clone() const override;
         std::ostream &write_declaration(std::ostream &) const override;
