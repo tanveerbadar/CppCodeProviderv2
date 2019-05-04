@@ -5,11 +5,11 @@
 
 #define ACCESSOR_DECLARATION(typeName, accessor_name, accessor_type) \
     accessor_type accessor_name() const;                             \
-    typeName &accessor_name(accessor_type flag);
+    typeName &accessor_name(accessor_type obj);
 
 #define ACCESSOR_DECLARATION_2(typeName, accessor_name, accessor_type, parameter_type) \
     accessor_type accessor_name() const;                                               \
-    typeName &accessor_name(parameter_type flag);
+    typeName &accessor_name(parameter_type obj);
 
 #define ACCESSOR_IMPL(typeName, accessor_name, accessor_type, field_name) \
     typeName &typeName::accessor_name(accessor_type val)                  \
