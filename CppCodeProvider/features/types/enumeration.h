@@ -26,6 +26,7 @@ namespace cpp::codeprovider::types
         std::unique_ptr<type> clone() const override;
         std::ostream &write_declaration(std::ostream &) const override;
         std::ostream &write_definition(std::ostream &) const override;
+        std::ostream &write_forward_declaration(std::ostream &) const override;
     };
 } // namespace cpp::codeprovider::types
 #endif

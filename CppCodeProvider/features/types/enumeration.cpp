@@ -36,6 +36,11 @@ namespace cpp::codeprovider::types
         return make_unique<enumeration>(*this);
     }
 
+    ostream& enumeration::write_forward_declaration(ostream& os) const
+    {
+        return write_declaration(os);
+    }
+
     ostream& enumeration::write_declaration(ostream& os) const
     {
         os << (impl.is_scoped_enum ? "enum class " : "enum ");

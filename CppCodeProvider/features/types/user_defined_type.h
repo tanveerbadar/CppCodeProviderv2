@@ -23,6 +23,7 @@ namespace cpp::codeprovider::types
 
 		std::ostream &write_declaration(std::ostream &) const override;
 		std::ostream &write_definition(std::ostream &) const override;
+		std::ostream &write_forward_declaration(std::ostream &) const override;
 		std::unique_ptr<type> clone() const override;
 
 		member_function_list& member_functions();

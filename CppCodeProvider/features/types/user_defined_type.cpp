@@ -40,6 +40,20 @@ template_parameter_list &user_defined_type::template_parameters()
 	return impl.template_params;
 }
 
+ostream& user_defined_type::write_forward_declaration(ostream& os) const
+{
+	if (impl.template_params.size() > 0)
+	{
+		os << "template<";
+		write_vector(os, impl.template_params);
+		os << ">";
+	}
+
+	os << impl.key << get_name() << ";" << endl;
+
+	return os;
+}
+
 ostream &user_defined_type::write_declaration(ostream &os) const
 {
 	if (impl.template_params.size() > 0)

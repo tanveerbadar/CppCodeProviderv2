@@ -8,6 +8,11 @@ primitive_type::primitive_type(const string& name)
 {
 }
 
+ostream& primitive_type::write_forward_declaration(ostream& os) const
+{
+	return write_declaration(os);
+}
+
 ostream &primitive_type::write_declaration(ostream &os) const
 {
 	os << get_name();

@@ -10,6 +10,11 @@ template_parameter::template_parameter(const string& n)
 	
 }
 
+ostream& template_parameter::write_forward_declaration(ostream& os) const
+{
+	return os;
+}
+
 ostream &template_parameter::write_declaration(ostream &os) const
 {
 	os << "typename " << get_name();

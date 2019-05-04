@@ -45,6 +45,19 @@ unique_ptr<type> union_type::clone() const
     return make_unique<union_type>(*this);
 }
 
+ostream& union_type::write_forward_declaration(ostream& os) const
+{
+    if (impl.template_params.size() > 0)
+    {
+        os << "template<";
+        write_vector(os, impl.template_params);
+        os << ">";
+    }
+    os << "union " << get_name() << ";" << endl;
+
+    return os;
+}
+
 ostream &union_type::write_declaration(ostream &os) const
 {
     if (impl.template_params.size() > 0)
