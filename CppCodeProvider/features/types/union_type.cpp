@@ -15,8 +15,8 @@ using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::utils;
 
-union_type::union_type(const string& str)
-    :type(str), impl(type_key::union_type)
+union_type::union_type(const string &str)
+    : type(str), impl(type_key::union_type)
 {
 }
 
@@ -25,7 +25,7 @@ member_function_list &union_type::member_functions()
     return impl.functions;
 }
 
-const member_field_list& union_type::member_fields() const
+const member_field_list &union_type::member_fields() const
 {
     return impl.fields;
 }
@@ -53,23 +53,18 @@ ostream &union_type::write_declaration(ostream &os) const
         write_vector(os, impl.template_params);
         os << ">";
     }
-    os << "union " << get_name() << ";" << endl;
-    return os;
-}
-
-ostream &union_type::write_definition(ostream & os) const
-{
-    if (impl.template_params.size() > 0)
-    {
-        os << "template<";
-        write_vector(os, impl.template_params);
-        os << ">";
-    }
     os << "union " << get_name() << endl;
     os << "{" << endl;
     ostringstream private_stream, protected_stream, public_stream;
     write_members(impl.fields, public_stream, private_stream, protected_stream, public_stream);
-    write_declarations(impl.functions, public_stream, private_stream, protected_stream, public_stream);
+
+    vector<cpp::codeprovider::internals::write_backlog_entry> write_backlog;
+
+    if (impl.template_params.size() > 0)
+        write_definitions(impl.functions, public_stream, private_stream, protected_stream, public_stream, write_backlog);
+    else
+        write_declarations(impl.functions, public_stream, private_stream, protected_stream, public_stream);
+
     os << "private:" << endl;
     os << private_stream.str() << endl;
     os << "protected:" << endl;
@@ -77,5 +72,12 @@ ostream &union_type::write_definition(ostream & os) const
     os << "public: " << endl;
     os << public_stream.str() << endl;
     os << "};" << endl;
-	return os;
+    return os;
+}
+
+ostream &union_type::write_definition(ostream &os) const
+{
+    write_definitions(os, impl.functions);
+    
+    return os;
 }
