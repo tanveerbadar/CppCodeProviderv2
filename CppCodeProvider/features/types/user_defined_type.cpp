@@ -4,6 +4,7 @@
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../functions/callable.h"
+#include "../functions/function.h"
 #include "../functions/member_function.h"
 #include "../statements/try_statement.h"
 #include "../../utils/write_helpers.h"
@@ -30,6 +31,16 @@ member_field_list &user_defined_type::member_fields()
 	return impl.fields;
 }
 
+friend_functions_list &user_defined_type::friend_functions()
+{
+	return impl.friend_functions;
+}
+
+friend_types_list &user_defined_type::friend_types()
+{
+	return impl.friend_types;
+}
+
 base_list &user_defined_type::bases()
 {
 	return impl.base_types;
@@ -40,7 +51,7 @@ template_parameter_list &user_defined_type::template_parameters()
 	return impl.template_params;
 }
 
-ostream& user_defined_type::write_forward_declaration(ostream& os) const
+ostream &user_defined_type::write_forward_declaration(ostream &os) const
 {
 	if (impl.template_params.size() > 0)
 	{
@@ -82,6 +93,13 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 	os << protected_stream.str() << endl;
 	os << "public: " << endl;
 	os << public_stream.str() << endl;
+
+	for (auto &ff : impl.friend_functions)
+		ff->write_declaration(os);
+
+	for (auto &ft : impl.friend_types)
+		ft->write_forward_declaration(os);
+
 	os << "};" << endl
 	   << endl;
 

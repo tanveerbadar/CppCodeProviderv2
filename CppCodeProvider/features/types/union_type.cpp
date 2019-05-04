@@ -5,7 +5,7 @@
 #include "../../features/declarations/variable_declaration.h"
 #include "../../features/expressions/common.h"
 #include "../../features/statements/try_statement.h"
-#include "../../features/functions/callable.h"
+#include "../../features/functions/function.h"
 #include "../../features/functions/member_function.h"
 #include "../../utils/write_helpers.h"
 
@@ -38,6 +38,16 @@ member_field_list &union_type::member_fields()
 template_parameter_list &union_type::template_parameters()
 {
     return impl.template_params;
+}
+
+friend_functions_list &union_type::friend_functions()
+{
+    return impl.friend_functions;
+}
+
+friend_types_list &union_type::friend_types()
+{
+    return impl.friend_types;
 }
 
 unique_ptr<type> union_type::clone() const
@@ -84,6 +94,13 @@ ostream &union_type::write_declaration(ostream &os) const
     os << protected_stream.str() << endl;
     os << "public: " << endl;
     os << public_stream.str() << endl;
+
+    for (auto &ff : impl.friend_functions)
+        ff->write_declaration(os);
+
+    for (auto &ft : impl.friend_types)
+        ft->write_forward_declaration(os);
+
     os << "};" << endl;
     return os;
 }

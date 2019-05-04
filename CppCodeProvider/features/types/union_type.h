@@ -28,6 +28,8 @@ namespace cpp::codeprovider::types
         member_field_list &member_fields();
         const member_field_list &member_fields() const;
         template_parameter_list &template_parameters();
+        friend_functions_list &friend_functions();
+        friend_types_list &friend_types();
         ACCESSOR_DECLARATION(union_type, container, std::shared_ptr<nested_type>)
     };
 }

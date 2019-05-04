@@ -28,6 +28,8 @@ namespace cpp::codeprovider::types::internal
     typedef std::vector<std::pair<access_levels, utils::copyable_ptr<declarations::declaration>>> member_field_list;
     typedef std::vector<utils::copyable_ptr<templates::template_parameter>> template_parameter_list;
     typedef std::vector<functions::member_function> member_function_list;
+    typedef std::vector<std::shared_ptr<type>> friend_types_list;
+    typedef std::vector<std::shared_ptr<functions::function>> friend_functions_list;
 
     struct custom_type
     {
@@ -38,6 +40,8 @@ namespace cpp::codeprovider::types::internal
         template_parameter_list template_params;
         bool is_scoped_enum = false;
         std::shared_ptr<types::nested_type> container;
+        friend_functions_list friend_functions;
+        friend_types_list friend_types;
 
         custom_type(type_key);
 
