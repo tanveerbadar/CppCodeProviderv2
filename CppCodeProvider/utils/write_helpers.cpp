@@ -2,6 +2,7 @@
 #include "../features/declarations/common.h"
 #include "../features/functions/member_function.h"
 #include "../features/types/access_levels.h"
+#include "../features/types/template_parameters.h"
 
 using namespace std;
 
@@ -109,6 +110,16 @@ void write_declarations(const vector<member_function> &functions, ostringstream 
             default_stream << endl;
             break;
         }
+    }
+}
+
+void write_template_parameters(ostream& os, const template_parameter_list& params)
+{
+    if (params.size() > 0)
+    {
+        os << "template<";
+        write_vector(os, params);
+        os << "> ";
     }
 }
 } // namespace cpp::codeprovider::utils

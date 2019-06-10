@@ -66,6 +66,10 @@ void write_members(const std::vector<std::pair<types::access_levels, utils::copy
 void write_definitions(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream, std::vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog);
 
 void write_declarations(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream);
+
+typedef std::vector<utils::copyable_ptr<types::templates::template_parameter>> template_parameter_list;
+
+void write_template_parameters(std::ostream &, const template_parameter_list&);
 } // namespace cpp::codeprovider::utils
 
 #endif

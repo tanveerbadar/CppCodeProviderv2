@@ -101,6 +101,8 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 {
 	auto udt = make_shared<user_defined_type>("udt");
 	member_function f1("something", make_shared<primitive_type>("int"), udt);
+	auto ut = make_shared<union_type>("udt");
+	member_function f2("something2", make_shared<primitive_type>("int"), ut);
 
 	BOOST_TEST(!f1.is_inline());
 	BOOST_TEST(!f1.is_static());
@@ -136,8 +138,11 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	f1.write_declaration(stream);
 	f1.write_definition(stream);
+	f2.write_declaration(stream);
+	f2.write_definition(stream);
 
 	auto copy1(f1);
+	auto copy2(f2);
 
 	BOOST_TEST(copy1.is_inline());
 	BOOST_TEST(copy1.is_static());
@@ -156,6 +161,8 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	copy1.write_declaration(stream);
 	copy1.write_definition(stream);
+	copy2.write_declaration(stream);
+	copy2.write_definition(stream);
 
 	f1.is_inline(false);
 	f1.is_static(false);
@@ -172,6 +179,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	f1.parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int"))));
 
 	copy1 = f1;
+	copy2 = f2;
 
 	BOOST_TEST(!copy1.is_inline());
 	BOOST_TEST(!copy1.is_static());
@@ -190,6 +198,8 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	copy1.write_declaration(stream);
 	copy1.write_definition(stream);
+	copy2.write_declaration(stream);
+	copy2.write_definition(stream);
 
 	const auto& c_ref = copy1;
 	c_ref.body();
@@ -206,6 +216,10 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	c_ref.return_type();
 	c_ref.template_parameters();
 	c_ref.catch_blocks();
+
+	auto copy3(copy1);
+	copy3 = copy2;
+	copy3 = copy1;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

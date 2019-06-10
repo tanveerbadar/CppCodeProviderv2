@@ -74,12 +74,7 @@ namespace cpp::codeprovider::functions
 
 	ostream &function::write_declaration(ostream &os) const
 	{
-		if (impl.template_parameters.size() > 0)
-		{
-			os << "template<";
-			write_vector(os, impl.template_parameters);
-			os << ">";
-		}
+		write_template_parameters(os, impl.template_parameters);
 
 		if (impl.is_const_expr)
 			os << "constexpr ";

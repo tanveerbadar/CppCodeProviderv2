@@ -60,25 +60,33 @@ unique_ptr<type> union_type::clone() const
 
 ostream &union_type::write_forward_declaration(ostream &os) const
 {
-    if (impl.template_params.size() > 0)
-    {
-        os << "template<";
-        write_vector(os, impl.template_params);
-        os << ">";
-    }
+    utils::write_template_parameters(os, impl.template_params);
     os << "union " << get_name() << ";" << endl;
 
     return os;
 }
 
-ostream &union_type::write_declaration(ostream &os) const
+ostream &union_type::write_template_parameters(ostream &os) const
 {
+    utils::write_template_parameters(os, impl.template_params);
+    return os;
+}
+
+ostream &union_type::write_elaborated_name(ostream &os) const
+{
+    os << get_name();
     if (impl.template_params.size() > 0)
     {
-        os << "template<";
+        os << "<";
         write_vector(os, impl.template_params);
         os << ">";
     }
+    return os;
+}
+
+ostream &union_type::write_declaration(ostream &os) const
+{
+    utils::write_template_parameters(os, impl.template_params);
     os << "union " << get_name();
     if (final)
         os << " final";

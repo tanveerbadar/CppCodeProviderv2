@@ -20,6 +20,7 @@ namespace cpp::codeprovider
 			class template_parameter;
 		}
 
+		class union_type;
 		class user_defined_type;
 		class base_type;
 	}

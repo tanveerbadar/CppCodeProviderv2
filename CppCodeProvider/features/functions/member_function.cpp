@@ -9,6 +9,13 @@
 
 using namespace std;
 
+namespace
+{
+const short qualifier_mask = 0x03;
+const short final_mask = 0x04;
+const short container_mask = 0x08;
+} // namespace
+
 namespace cpp::codeprovider::functions
 {
 using namespace declarations;
@@ -19,8 +26,53 @@ using namespace templates;
 using namespace utils;
 
 member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<user_defined_type> udt)
-	: impl(n, returns), container(udt)
+	: impl(n, returns), udt(udt)
 {
+}
+
+member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<union_type> ut)
+	: impl(n, returns), ut(ut), flags(1 << container_mask)
+{
+}
+
+member_function::member_function(const member_function &other)
+	: impl(other.impl), flags(other.flags), access(other.access)
+{
+	if ((other.flags & container_mask) == container_mask)
+		ut = other.ut;
+	else
+		udt = other.udt;
+}
+
+member_function &member_function::operator=(const member_function &other)
+{
+	if (this != &other)
+	{
+		impl = other.impl;
+		if ((flags & container_mask) == container_mask)
+			ut.~shared_ptr();
+		else
+		{
+			udt.~shared_ptr();
+		}
+		if ((other.flags & container_mask) == container_mask)
+			ut = other.ut;
+		else
+			udt = other.udt;
+		flags = other.flags;
+		access = other.access;
+	}
+	return *this;
+}
+
+member_function::~member_function()
+{
+	if ((flags & container_mask) == container_mask)
+		ut.~shared_ptr();
+	else
+	{
+		udt.~shared_ptr();
+	}
 }
 
 const block_statement &member_function::body() const
@@ -68,6 +120,29 @@ access_levels member_function::accessibility() const
 	return access;
 }
 
+member_function &member_function::is_final(bool flag)
+{
+	flags = flag ? flags | final_mask : flags & ~final_mask;
+	return *this;
+}
+
+bool member_function::is_final() const
+{
+	return flags & final_mask;
+}
+
+member_function &member_function::reference_qualifier(ref_qualifier flag)
+{
+	flags &= ~qualifier_mask;
+	flags |= ((short)(flag) & ~qualifier_mask);
+	return *this;
+}
+
+ref_qualifier member_function::reference_qualifier() const
+{
+	return (ref_qualifier)(flags & qualifier_mask);
+}
+
 ACCESSOR_IMPL_2(member_function, is_inline, bool, impl.is_inline)
 ACCESSOR_IMPL_2(member_function, has_try_block, bool, impl.has_function_try_block)
 ACCESSOR_IMPL_2(member_function, is_constexpr, bool, impl.is_const_expr)
@@ -77,9 +152,7 @@ ACCESSOR_IMPL_2(member_function, is_static, bool, impl.is_static)
 ACCESSOR_IMPL_2(member_function, is_constant, bool, impl.is_constant)
 ACCESSOR_IMPL_2(member_function, is_volatile, bool, impl.is_volatile)
 ACCESSOR_IMPL_2(member_function, is_override, bool, impl.is_override)
-ACCESSOR_IMPL_2(member_function, reference_qualifier, ref_qualifier, qualifier)
 ACCESSOR_IMPL_2(member_function, return_type, shared_ptr<type>, impl.return_type)
-ACCESSOR_IMPL_2(member_function, is_final, bool, final)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
@@ -116,12 +189,12 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << " volatile";
 	if (impl.is_override)
 		os << " override";
-	if (final)
+	if (is_final())
 		os << " final";
 	if (impl.is_abstract)
 		os << " = 0";
 
-	switch (qualifier)
+	switch (reference_qualifier())
 	{
 	case ref_qualifier::lvalue:
 		os << " &";
@@ -141,12 +214,14 @@ ostream &member_function::write_declaration(ostream &os) const
 
 ostream &member_function::write_definition(ostream &os) const
 {
-	if (impl.template_parameters.size() > 0)
+	const auto &containers = ((flags & container_mask) ? (nested_type *)udt.get() : (nested_type *)ut.get())->get_containers();
+
+	for (auto ptr : containers)
 	{
-		os << "template<";
-		write_vector(os, impl.template_parameters);
-		os << ">";
+		ptr->write_template_parameters(os);
 	}
+
+	write_template_parameters(os, impl.template_parameters);
 
 	if (impl.is_const_expr)
 		os << "constexpr ";
@@ -160,9 +235,10 @@ ostream &member_function::write_definition(ostream &os) const
 	if (impl.has_trailing_return_type)
 		os << "auto ";
 	else
-		os << impl.return_type->get_name();
+		os << impl.return_type->get_name() << " ";
 
-	os << " " << impl.name << "(";
+	containers.back()->write_qualified_name(os);
+	os << impl.name << "(";
 
 	write_vector(os, impl.parameters);
 
