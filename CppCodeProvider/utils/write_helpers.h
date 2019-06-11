@@ -11,7 +11,11 @@
 #include "../features/forward_declarations.h"
 #include "../features/internals/write_backlog_entry.h"
 
-namespace cpp::codeprovider::utils
+namespace cpp
+{
+namespace codeprovider
+{
+namespace utils
 {
 template <typename T>
 void write_vector(std::ostream &os, const std::vector<utils::copyable_ptr<T>> &parameters)
@@ -69,7 +73,9 @@ void write_declarations(const std::vector<functions::member_function> &functions
 
 typedef std::vector<utils::copyable_ptr<types::templates::template_parameter>> template_parameter_list;
 
-void write_template_parameters(std::ostream &, const template_parameter_list&);
-} // namespace cpp::codeprovider::utils
+void write_template_parameters(std::ostream &, const template_parameter_list &);
+} // namespace utils
+} // namespace codeprovider
+} // namespace cpp
 
 #endif

@@ -3,50 +3,53 @@
 
 #pragma once
 
-namespace cpp::codeprovider
+namespace cpp
 {
-	namespace expressions
-	{
-		class expression;
-	}
-
-	namespace types
-	{
-		enum class access_levels;
-		class type;
-
-		namespace templates
-		{
-			class template_parameter;
-		}
-
-		class union_type;
-		class user_defined_type;
-		class base_type;
-	}
-
-	namespace declarations
-	{
-		class declaration;
-		class variable_declaration;
-	}
-
-	namespace statements
-	{
-		class block_statement;
-		class catch_clause;
-	}
-
-	namespace functions
-	{
-		class function;
-		class member_function;
-
-		namespace internals
-		{
-			struct callable;
-		}
-	}
+namespace codeprovider
+{
+namespace expressions
+{
+class expression;
 }
+
+namespace types
+{
+enum class access_levels;
+class type;
+
+namespace templates
+{
+class template_parameter;
+}
+
+class union_type;
+class user_defined_type;
+class base_type;
+} // namespace types
+
+namespace declarations
+{
+class declaration;
+class variable_declaration;
+} // namespace declarations
+
+namespace statements
+{
+class block_statement;
+class catch_clause;
+} // namespace statements
+
+namespace functions
+{
+class function;
+class member_function;
+
+namespace internals
+{
+struct callable;
+}
+} // namespace functions
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !FORWARD_DECLARATIONS_HEADER

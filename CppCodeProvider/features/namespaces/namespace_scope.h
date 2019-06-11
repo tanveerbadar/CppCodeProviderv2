@@ -9,25 +9,32 @@
 #include "namespace_scope_entity.h"
 #include "../../utils/copyable_ptr.h"
 
-namespace cpp::codeprovider::namespaces
+namespace cpp
 {
-    typedef std::vector<utils::copyable_ptr<namespace_scope_entity>> entity_list;
-    
-    class namespace_scope : public namespace_scope_entity
-    {
-        entity_list contained_entities;
-        std::string name;
-    public:
-        namespace_scope(const std::string& = "");
+namespace codeprovider
+{
+namespace namespaces
+{
+typedef std::vector<utils::copyable_ptr<namespace_scope_entity>> entity_list;
 
-        entity_list &entities();
-        const entity_list &entities() const;
+class namespace_scope : public namespace_scope_entity
+{
+    entity_list contained_entities;
+    std::string name;
 
-        std::ostream &write_declaration(std::ostream &) const override;
-        std::ostream &write_definition(std::ostream &) const override;
-    };
+public:
+    namespace_scope(const std::string & = "");
 
-    std::ostream& operator<<(std::ostream&, const namespace_scope&);
-} // cpp::codeprovider::namespaces
+    entity_list &entities();
+    const entity_list &entities() const;
+
+    std::ostream &write_declaration(std::ostream &) const override;
+    std::ostream &write_definition(std::ostream &) const override;
+};
+
+std::ostream &operator<<(std::ostream &, const namespace_scope &);
+} // namespace namespaces
+} // namespace codeprovider
+} // namespace cpp
 
 #endif

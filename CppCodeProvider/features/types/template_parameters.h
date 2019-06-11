@@ -5,7 +5,13 @@
 
 #include "common.h"
 
-namespace cpp::codeprovider::types::templates
+namespace cpp
+{
+namespace codeprovider
+{
+namespace types
+{
+namespace templates
 {
 class template_parameter : public type
 {
@@ -41,6 +47,9 @@ public:
 	std::ostream &write_definition(std::ostream &) const override;
 	std::unique_ptr<type> clone() const override;
 };
-} // namespace cpp::codeprovider::types::templates
+} // namespace templates
+} // namespace types
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !TEMPLATE_PARAMETER_HEADER

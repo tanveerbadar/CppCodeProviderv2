@@ -5,18 +5,23 @@
 #include "../features/types/template_parameters.h"
 
 using namespace std;
+using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::functions;
+using namespace cpp::codeprovider::types;
 
-namespace cpp::codeprovider::utils
+namespace cpp
 {
-using namespace declarations;
-using namespace functions;
-using namespace types;
+namespace codeprovider
+{
+namespace utils
+{
 
 void write_members(const vector<pair<access_levels, copyable_ptr<declaration>>> &variables, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream)
 {
     for (const auto &t : variables)
     {
-        auto &[access, v] = t;
+        auto access = t.first;
+        auto &v = t.second;
 
         switch (access)
         {
@@ -40,7 +45,7 @@ void write_members(const vector<pair<access_levels, copyable_ptr<declaration>>> 
     }
 }
 
-void write_definition_helper(const member_function &mf, ostringstream &stream, vector<const cpp::codeprovider::internals::write_backlog_entry*> &write_backlog)
+void write_definition_helper(const member_function &mf, ostringstream &stream, vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog)
 {
     if (!mf.is_abstract())
         mf.write_definition(stream);
@@ -113,7 +118,7 @@ void write_declarations(const vector<member_function> &functions, ostringstream 
     }
 }
 
-void write_template_parameters(ostream& os, const template_parameter_list& params)
+void write_template_parameters(ostream &os, const template_parameter_list &params)
 {
     if (params.size() > 0)
     {
@@ -122,4 +127,6 @@ void write_template_parameters(ostream& os, const template_parameter_list& param
         os << "> ";
     }
 }
-} // namespace cpp::codeprovider::utils
+} // namespace utils
+} // namespace codeprovider
+} // namespace cpp

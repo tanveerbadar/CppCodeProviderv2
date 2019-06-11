@@ -1,23 +1,15 @@
 #include "common.h"
-#include "../../formatters/formatter_settings.h"
 
-namespace cpp::codeprovider::formatting
+using namespace std;
+using namespace cpp::codeprovider::statements;
+
+statement::~statement()
 {
-	formatter_settings formatter_settings::settings;
 }
 
-namespace cpp::codeprovider::statements
+ostream &cpp::codeprovider::statements::operator<<(ostream &os, const statement &expr)
 {
-	using namespace std;
+	expr.write(os);
 
-	statement::~statement()
-	{
-	}
-
-	ostream& operator <<(ostream& os, const statement& expr)
-	{
-		expr.write(os);
-
-		return os;
-	}
+	return os;
 }

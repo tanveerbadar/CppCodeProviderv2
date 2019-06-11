@@ -16,38 +16,36 @@ using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::utils;
 
-namespace cpp::codeprovider::expressions
+ostream &cpp::codeprovider::expressions::operator << (ostream & os, capture_mode capture)
 {
-    ostream& operator<<(ostream& os, capture_mode capture)
+    switch (capture)
     {
-        switch(capture)
-        {
-        case capture_mode::by_ref:
-            os << "&";
-            break;
-        case capture_mode::by_val:
-            os << "=";
-            break;
-        }
-        return os;
+    case capture_mode::by_ref:
+        os << "&";
+        break;
+    case capture_mode::by_val:
+        os << "=";
+        break;
     }
+    return os;
 }
 
 namespace
 {
-    template<typename T> void write_vector(std::ostream& os, const std::vector<std::pair<capture_mode, copyable_ptr<T>>>& parameters)
+template <typename T>
+void write_vector(std::ostream &os, const std::vector<std::pair<capture_mode, copyable_ptr<T>>> &parameters)
+{
+    if (parameters.size() > 0)
     {
-		if(parameters.size() > 0)
-		{
-			if (parameters.size() > 1)
-				for (auto i = 1; i < parameters.size() - 1; ++i)
-					os << parameters[i].first << *parameters[i].second << ", ";
-			os << parameters[parameters.size() - 1].first << *parameters[parameters.size() - 1].second << std::endl;
-		}
-   }
+        if (parameters.size() > 1)
+            for (auto i = 1; i < parameters.size() - 1; ++i)
+                os << parameters[i].first << *parameters[i].second << ", ";
+        os << parameters[parameters.size() - 1].first << *parameters[parameters.size() - 1].second << std::endl;
+    }
 }
+} // namespace
 
-parameter_list& lambda_expression::parameters()
+parameter_list &lambda_expression::parameters()
 {
     return impl.parameters;
 }
@@ -67,12 +65,12 @@ const capture_list &lambda_expression::captured_variables() const
     return captures;
 }
 
-block_statement& lambda_expression::body()
+block_statement &lambda_expression::body()
 {
     return impl.statements;
 }
 
-const block_statement& lambda_expression::body() const
+const block_statement &lambda_expression::body() const
 {
     return impl.statements;
 }
@@ -86,11 +84,11 @@ unique_ptr<expression> lambda_expression::clone() const
     return make_unique<lambda_expression>(*this);
 }
 
-void lambda_expression::write(ostream& os) const
+void lambda_expression::write(ostream &os) const
 {
     os << "[ ";
     os << default_capture;
-    if(captures.size() > 0)
+    if (captures.size() > 0)
         os << ", ";
     write_vector(os, captures);
     os << "] (";
@@ -99,10 +97,10 @@ void lambda_expression::write(ostream& os) const
 
     os << ")" << endl;
 
-    if(impl.return_type)
+    if (impl.return_type)
         os << " -> " << impl.return_type->get_name() << endl;
 
-    if(impl.is_mutable)
+    if (impl.is_mutable)
         os << " mutable";
 
     os << impl.statements;

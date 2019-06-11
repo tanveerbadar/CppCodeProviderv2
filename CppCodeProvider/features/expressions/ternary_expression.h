@@ -8,22 +8,29 @@
 #include "expression_types.h"
 #include "../../utils/copyable_ptr.h"
 
-namespace cpp::codeprovider::expressions
+namespace cpp
 {
-	class ternary_expression : public expression
-	{
-		utils::copyable_ptr<expression> e1, e2, e3;
-	public:
-		ternary_expression(std::unique_ptr<expression>, std::unique_ptr<expression>, std::unique_ptr<expression>);
+namespace codeprovider
+{
+namespace expressions
+{
+class ternary_expression : public expression
+{
+	utils::copyable_ptr<expression> e1, e2, e3;
 
-		const expression& left() const;
-		const expression& right() const;
-		const expression& condition() const;
-		expression_type type() const;
+public:
+	ternary_expression(std::unique_ptr<expression>, std::unique_ptr<expression>, std::unique_ptr<expression>);
 
-		std::unique_ptr<expression> clone() const override;
-		void write(std::ostream&) const override;
-	};
-}
+	const expression &left() const;
+	const expression &right() const;
+	const expression &condition() const;
+	expression_type type() const;
+
+	std::unique_ptr<expression> clone() const override;
+	void write(std::ostream &) const override;
+};
+} // namespace expressions
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !

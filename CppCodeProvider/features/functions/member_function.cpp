@@ -7,8 +7,6 @@
 #include "../types/template_parameters.h"
 #include "../../utils/write_helpers.h"
 
-using namespace std;
-
 namespace
 {
 const short qualifier_mask = 0x03;
@@ -16,14 +14,14 @@ const short final_mask = 0x04;
 const short container_mask = 0x08;
 } // namespace
 
-namespace cpp::codeprovider::functions
-{
-using namespace declarations;
-using namespace internals;
-using namespace statements;
-using namespace types;
-using namespace templates;
-using namespace utils;
+using namespace std;
+using namespace cpp::codeprovider::functions;
+using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::functions::internals;
+using namespace cpp::codeprovider::statements;
+using namespace cpp::codeprovider::types;
+using namespace cpp::codeprovider::types::templates;
+using namespace cpp::codeprovider::utils;
 
 member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<user_defined_type> udt)
 	: impl(n, returns), udt(udt)
@@ -267,4 +265,3 @@ ostream &member_function::write_definition(ostream &os) const
 
 	return os;
 }
-} // namespace cpp::codeprovider::functions

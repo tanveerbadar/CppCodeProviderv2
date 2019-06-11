@@ -8,19 +8,27 @@
 #include "declarator_specifier.h"
 #include "../namespaces/namespace_scope_entity.h"
 
-namespace cpp::codeprovider::declarations
+namespace cpp
 {
-	class declaration : public namespaces::namespace_scope_entity
-	{
-		declarator_specifier var_specifier;
-	protected:
-		declaration(const declarator_specifier &);
-	public:
-		declaration(const declaration&) = default;
+namespace codeprovider
+{
+namespace declarations
+{
+class declaration : public namespaces::namespace_scope_entity
+{
+	declarator_specifier var_specifier;
 
-		virtual std::unique_ptr<declaration> clone() const = 0;
-		const declarator_specifier &specifier() const;
-	};
-} // namespace cpp::codeprovider::declarations
+protected:
+	declaration(const declarator_specifier &);
+
+public:
+	declaration(const declaration &) = default;
+
+	virtual std::unique_ptr<declaration> clone() const = 0;
+	const declarator_specifier &specifier() const;
+};
+} // namespace declarations
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !COMMON_DECLARATION_HEADER

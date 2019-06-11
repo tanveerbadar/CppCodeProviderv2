@@ -5,21 +5,27 @@
 
 #include <string>
 
-namespace cpp::codeprovider::formatting
+namespace cpp
 {
-	struct formatter_settings
+namespace codeprovider
+{
+namespace formatting
+{
+struct formatter_settings
+{
+	static formatter_settings settings;
+
+	int indent_amount = 4;
+	int indent_level = 1;
+	char indent_char = ' ';
+
+	std::string get_indent_string() const
 	{
-		static formatter_settings settings;
-
-		int indent_amount = 4;
-		int indent_level = 1;
-		char indent_char = ' ';
-
-		std::string get_indent_string() const
-		{
-			return std::string(indent_level * indent_amount, indent_char);
-		}
-	};
-}
+		return std::string(indent_level * indent_amount, indent_char);
+	}
+};
+} // namespace formatting
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !FORMATTER_SETTINGS_HEADER

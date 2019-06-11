@@ -11,7 +11,11 @@
 #include "../types/access_levels.h"
 #include "../../utils/dirty_macros.h"
 
-namespace cpp::codeprovider::functions
+namespace cpp
+{
+namespace codeprovider
+{
+namespace functions
 {
 using namespace internals;
 
@@ -63,6 +67,8 @@ public:
 	std::ostream &write_declaration(std::ostream &) const;
 	std::ostream &write_definition(std::ostream &) const override;
 };
-} // namespace cpp::codeprovider::functions
+} // namespace functions
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !MEMBER_FUNCTION_HEADER

@@ -7,13 +7,10 @@
 
 using namespace std;
 
-namespace cpp::codeprovider::functions::internals
-{
-	using namespace std;
-	using namespace types;
+using namespace cpp::codeprovider::functions::internals;
+using namespace cpp::codeprovider::types;
 
-	callable::callable(const string &n, shared_ptr<type> returns)
-		: name(n), return_type(returns)
-	{
-	}
-} // namespace cpp::codeprovider::functions::internals
+callable::callable(const string &n, shared_ptr<type> returns)
+	: name(n), return_type(returns)
+{
+}

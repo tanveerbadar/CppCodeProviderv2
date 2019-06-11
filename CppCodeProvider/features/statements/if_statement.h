@@ -8,26 +8,33 @@
 #include "../../utils/copyable_ptr.h"
 #include "../../utils/dirty_macros.h"
 
-namespace cpp::codeprovider::statements
+namespace cpp
 {
-	class if_statement : public statement
-	{
-		block_statement if_collection, else_collection;
-		utils::copyable_ptr<expressions::expression> condition_exp;
-		bool is_const_expr;
-	public:
-		if_statement(std::unique_ptr<expressions::expression>);
+namespace codeprovider
+{
+namespace statements
+{
+class if_statement : public statement
+{
+	block_statement if_collection, else_collection;
+	utils::copyable_ptr<expressions::expression> condition_exp;
+	bool is_const_expr;
 
-		statement_list &if_block();
-		const statement_list &if_block() const;
-		statement_list &else_block();
-		const statement_list &else_block() const;
-		ACCESSOR_DECLARATION_2(if_statement, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
-		ACCESSOR_DECLARATION(if_statement, is_constexpr, bool);
+public:
+	if_statement(std::unique_ptr<expressions::expression>);
 
-		std::unique_ptr<statement> clone() const override;
-		void write(std::ostream&) const override;
-	};
-}
+	statement_list &if_block();
+	const statement_list &if_block() const;
+	statement_list &else_block();
+	const statement_list &else_block() const;
+	ACCESSOR_DECLARATION_2(if_statement, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
+	ACCESSOR_DECLARATION(if_statement, is_constexpr, bool);
+
+	std::unique_ptr<statement> clone() const override;
+	void write(std::ostream &) const override;
+};
+} // namespace statements
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !IF_STATEMENT_HEADER

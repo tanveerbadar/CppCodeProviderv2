@@ -10,33 +10,38 @@
 #include "../forward_declarations.h"
 #include "../namespaces/namespace_scope_entity.h"
 
-namespace cpp::codeprovider::types
+namespace cpp
 {
-    using namespace internal;
+namespace codeprovider
+{
+namespace types
+{
+class union_type : public type, public namespaces::namespace_scope_entity, public nested_type
+{
+    internals::custom_type impl;
+    bool final = false;
 
-    class union_type : public type, public namespaces::namespace_scope_entity, public nested_type
-    {
-        custom_type impl;
-        bool final = false;
-    public:
-        explicit union_type(const std::string &);
+public:
+    explicit union_type(const std::string &);
 
-        std::ostream &write_declaration(std::ostream &) const override;
-        std::ostream &write_definition(std::ostream &) const override;
-        std::ostream &write_forward_declaration(std::ostream &) const override;
-        std::ostream &write_template_parameters(std::ostream &) const override;
-        std::ostream &write_elaborated_name(std::ostream &) const override;
-        std::unique_ptr<type> clone() const override;
+    std::ostream &write_declaration(std::ostream &) const override;
+    std::ostream &write_definition(std::ostream &) const override;
+    std::ostream &write_forward_declaration(std::ostream &) const override;
+    std::ostream &write_template_parameters(std::ostream &) const override;
+    std::ostream &write_elaborated_name(std::ostream &) const override;
+    std::unique_ptr<type> clone() const override;
 
-        member_function_list &member_functions();
-        member_field_list &member_fields();
-        const member_field_list &member_fields() const;
-        template_parameter_list &template_parameters();
-        friend_functions_list &friend_functions();
-        friend_types_list &friend_types();
-        ACCESSOR_DECLARATION(union_type, container, std::shared_ptr<nested_type>)
-        ACCESSOR_DECLARATION(union_type, is_final, bool)
-    };
-}
+    internals::member_function_list &member_functions();
+    internals::member_field_list &member_fields();
+    const internals::member_field_list &member_fields() const;
+    internals::template_parameter_list &template_parameters();
+    internals::friend_functions_list &friend_functions();
+    internals::friend_types_list &friend_types();
+    ACCESSOR_DECLARATION(union_type, container, std::shared_ptr<nested_type>)
+    ACCESSOR_DECLARATION(union_type, is_final, bool)
+};
+} // namespace types
+} // namespace codeprovider
+} // namespace cpp
 
 #endif

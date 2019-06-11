@@ -5,14 +5,19 @@
 
 #include <memory>
 
-namespace cpp::codeprovider::utils
+namespace cpp
 {
+namespace codeprovider
+{
+namespace utils
+{
+
 template <typename T>
 class copyable_ptr
 {
     std::unique_ptr<T> ptr;
 
-  public:
+public:
     copyable_ptr() = default;
 
     copyable_ptr(std::unique_ptr<T> &&p)
@@ -21,7 +26,7 @@ class copyable_ptr
     }
 
     copyable_ptr(const copyable_ptr &other)
-        : ptr(other.ptr ? (T*)other.ptr->clone().release() : 0)
+        : ptr(other.ptr ? (T *)other.ptr->clone().release() : 0)
     {
     }
 
@@ -29,7 +34,7 @@ class copyable_ptr
     {
         if (this != &other)
         {
-			ptr.reset(other.ptr ? (T*)other.ptr->clone().release() : 0);
+            ptr.reset(other.ptr ? (T *)other.ptr->clone().release() : 0);
         }
         return *this;
     }
@@ -54,11 +59,13 @@ class copyable_ptr
         return *ptr;
     }
 
-    explicit operator bool () const
+    explicit operator bool() const
     {
         return ptr.operator bool();
     }
 };
-} // namespace cpp::codeprovider::utils
+} // namespace utils
+} // namespace codeprovider
+} // namespace cpp
 
 #endif

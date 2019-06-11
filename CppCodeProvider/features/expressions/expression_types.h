@@ -3,7 +3,11 @@
 
 #pragma once
 
-namespace cpp::codeprovider::expressions
+namespace cpp
+{
+namespace codeprovider
+{
+namespace expressions
 {
 enum class expression_type
 {
@@ -220,6 +224,8 @@ enum class expression_type
 };
 
 std::ostream &operator<<(std::ostream &os, expressions::expression_type type);
-}
+} // namespace expressions
+} // namespace codeprovider
+} // namespace cpp
 
 #endif

@@ -11,13 +11,15 @@
 #include "../namespaces/namespace_scope_entity.h"
 #include "../../utils/dirty_macros.h"
 
-namespace cpp::codeprovider::types
+namespace cpp
 {
-using namespace internal;
-
+namespace codeprovider
+{
+namespace types
+{
 class user_defined_type : public type, public namespaces::namespace_scope_entity, public nested_type
 {
-	custom_type impl;
+	internals::custom_type impl;
 	bool final = false;
 
 public:
@@ -30,15 +32,17 @@ public:
 	std::ostream &write_elaborated_name(std::ostream &) const override;
 	std::unique_ptr<type> clone() const override;
 
-	member_function_list &member_functions();
-	member_field_list &member_fields();
-	base_list &bases();
-	template_parameter_list &template_parameters();
-	friend_functions_list &friend_functions();
-	friend_types_list &friend_types();
+	internals::member_function_list &member_functions();
+	internals::member_field_list &member_fields();
+	internals::base_list &bases();
+	internals::template_parameter_list &template_parameters();
+	internals::friend_functions_list &friend_functions();
+	internals::friend_types_list &friend_types();
 	ACCESSOR_DECLARATION(user_defined_type, container, std::shared_ptr<nested_type>)
 	ACCESSOR_DECLARATION(user_defined_type, is_final, bool)
 };
-} // namespace cpp::codeprovider::types
+} // namespace types
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !USER_DEFINED_TYPE_HEADER

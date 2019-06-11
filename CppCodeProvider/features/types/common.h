@@ -7,7 +7,11 @@
 #include <memory>
 #include <string>
 
-namespace cpp::codeprovider::types
+namespace cpp
+{
+namespace codeprovider
+{
+namespace types
 {
 class type
 {
@@ -24,6 +28,8 @@ public:
 	virtual std::unique_ptr<type> clone() const = 0;
 	virtual ~type() = 0;
 };
-} // namespace cpp::codeprovider::types
+} // namespace types
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // ! TYPES_COMMON_HEADER

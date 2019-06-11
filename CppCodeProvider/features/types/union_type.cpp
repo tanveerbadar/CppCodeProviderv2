@@ -14,6 +14,7 @@ using namespace std;
 using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::types;
+using namespace cpp::codeprovider::types::internals;
 using namespace cpp::codeprovider::utils;
 
 union_type::union_type(const string &str)

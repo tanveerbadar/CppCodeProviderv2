@@ -1,17 +1,15 @@
 #include "common.h"
 
-namespace cpp::codeprovider::expressions
+using namespace std;
+using namespace cpp::codeprovider::expressions;
+
+expression::~expression()
 {
-	using namespace std;
+}
 
-	expression::~expression()
-	{
-	}
+ostream &cpp::codeprovider::expressions::operator<<(ostream &os, const expression &expr)
+{
+	expr.write(os);
 
-	ostream& operator <<(ostream& os, const expression& expr)
-	{
-		expr.write(os);
-
-		return os;
-	}
+	return os;
 }

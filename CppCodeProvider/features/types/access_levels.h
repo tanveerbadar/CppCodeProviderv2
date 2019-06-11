@@ -3,14 +3,21 @@
 
 #pragma once
 
-namespace cpp::codeprovider::types
+namespace cpp
 {
-	enum class access_levels
-	{
-		default_access,
-		public_access,
-		protected_access,
-		private_access,
-	};
+namespace codeprovider
+{
+namespace types
+{
+enum class access_levels
+{
+	default_access,
+	public_access,
+	protected_access,
+	private_access,
+};
 }
+} // namespace codeprovider
+} // namespace cpp
+
 #endif // ! ACCESS_LEVELS_HEADER

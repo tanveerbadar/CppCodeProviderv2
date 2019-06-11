@@ -8,34 +8,42 @@
 #include "expression_types.h"
 #include "../../utils/copyable_ptr.h"
 
-namespace cpp::codeprovider::expressions
+namespace cpp
 {
-	class unary_expression : public expression
-	{
-		utils::copyable_ptr<expression> e1;
-		expression_type e_type;
-	public:
-		unary_expression(expression_type, std::unique_ptr<expression>);
+namespace codeprovider
+{
+namespace expressions
+{
+class unary_expression : public expression
+{
+	utils::copyable_ptr<expression> e1;
+	expression_type e_type;
 
-		const expression& expr() const;
-		expression_type type() const;
+public:
+	unary_expression(expression_type, std::unique_ptr<expression>);
 
-		std::unique_ptr<expression> clone() const override;
-		void write(std::ostream&) const override;
-	};
+	const expression &expr() const;
+	expression_type type() const;
 
-	class primitive_expression : public expression
-	{
-		std::string e1;
-	public:
-		primitive_expression(const std::string&);
+	std::unique_ptr<expression> clone() const override;
+	void write(std::ostream &) const override;
+};
 
-		const std::string& expr() const;
-		expression_type type() const;
+class primitive_expression : public expression
+{
+	std::string e1;
 
-		std::unique_ptr<expression> clone() const override;
-		void write(std::ostream&) const override;
-	};
-}
+public:
+	primitive_expression(const std::string &);
+
+	const std::string &expr() const;
+	expression_type type() const;
+
+	std::unique_ptr<expression> clone() const override;
+	void write(std::ostream &) const override;
+};
+} // namespace expressions
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !PRIMITIVE_EXPRESSION_HEADER

@@ -5,15 +5,20 @@
 
 #include <ostream>
 
-namespace cpp::codeprovider::namespaces
+namespace cpp
 {
-    class namespace_scope_entity
-    {
-    public:
-      virtual std::ostream &write_declaration(std::ostream &) const = 0;
-      virtual std::ostream &write_definition(std::ostream &) const = 0;
-      virtual ~namespace_scope_entity() = 0;
-    };
-} // namespace cpp::codeprovider::namespaces
-
+namespace codeprovider
+{
+namespace namespaces
+{
+class namespace_scope_entity
+{
+public:
+  virtual std::ostream &write_declaration(std::ostream &) const = 0;
+  virtual std::ostream &write_definition(std::ostream &) const = 0;
+  virtual ~namespace_scope_entity() = 0;
+};
+} // namespace namespaces
+} // namespace codeprovider
+} // namespace cpp
 #endif

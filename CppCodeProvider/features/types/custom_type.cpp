@@ -10,30 +10,27 @@
 
 using namespace std;
 using namespace cpp::codeprovider::types::templates;
-using namespace cpp::codeprovider::types::internal;
+using namespace cpp::codeprovider::types::internals;
 
-namespace cpp::codeprovider::types::internal
+std::ostream &cpp::codeprovider::types::internals::operator<<(std::ostream &os, type_key key)
 {
-    std::ostream & operator<<(std::ostream &os, type_key key)
+    switch (key)
     {
-        switch (key)
-        {
-        case type_key::class_type:
-            os << "class ";
-            break;
-        case type_key::enum_type:
-            os << "enum ";
-            break;
-        case type_key::struct_type:
-            os << "struct ";
-            break;
-        case type_key::union_type:
-            os << "union ";
-            break;
-        }
-        return os;
+    case type_key::class_type:
+        os << "class ";
+        break;
+    case type_key::enum_type:
+        os << "enum ";
+        break;
+    case type_key::struct_type:
+        os << "struct ";
+        break;
+    case type_key::union_type:
+        os << "union ";
+        break;
     }
-} // namespace cpp::codeprovider::types::internal
+    return os;
+}
 
 custom_type::custom_type(type_key k)
     : key(k)

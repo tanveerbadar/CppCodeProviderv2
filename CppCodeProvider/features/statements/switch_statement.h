@@ -8,40 +8,48 @@
 #include "../../utils/copyable_ptr.h"
 #include "../../utils/dirty_macros.h"
 
-namespace cpp::codeprovider::statements
+namespace cpp
 {
-	class case_statement
-	{
-		utils::copyable_ptr<expressions::expression> e;
-		block_statement block;
-	public:
-		case_statement(bool);
-		case_statement(std::unique_ptr<expressions::expression>);
+namespace codeprovider
+{
+namespace statements
+{
+class case_statement
+{
+	utils::copyable_ptr<expressions::expression> e;
+	block_statement block;
 
-		const expressions::expression& label() const;
-		statement_list &statements();
-		const statement_list &statements() const;
-		bool has_label() const;
+public:
+	case_statement(bool);
+	case_statement(std::unique_ptr<expressions::expression>);
 
-		friend std::ostream& operator <<(std::ostream&, const case_statement&);
-	};
+	const expressions::expression &label() const;
+	statement_list &statements();
+	const statement_list &statements() const;
+	bool has_label() const;
 
-	typedef std::vector<case_statement> case_list;
+	friend std::ostream &operator<<(std::ostream &, const case_statement &);
+};
 
-	class switch_statement : public statement
-	{
-		utils::copyable_ptr<expressions::expression> condition_exp;
-		std::vector<case_statement> collection;
-	public:
-		switch_statement(std::unique_ptr<expressions::expression>);
+typedef std::vector<case_statement> case_list;
 
-		ACCESSOR_DECLARATION_2(switch_statement, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
-		case_list &cases();
-		const case_list &cases() const;
+class switch_statement : public statement
+{
+	utils::copyable_ptr<expressions::expression> condition_exp;
+	std::vector<case_statement> collection;
 
-		std::unique_ptr<statement> clone() const override;
-		void write(std::ostream&) const override;
-	};
-}
+public:
+	switch_statement(std::unique_ptr<expressions::expression>);
+
+	ACCESSOR_DECLARATION_2(switch_statement, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
+	case_list &cases();
+	const case_list &cases() const;
+
+	std::unique_ptr<statement> clone() const override;
+	void write(std::ostream &) const override;
+};
+} // namespace statements
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !SWITCH_STATEMENT_HEADER

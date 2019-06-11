@@ -7,20 +7,27 @@
 #include "../forward_declarations.h"
 #include "../../utils/copyable_ptr.h"
 
-namespace cpp::codeprovider::statements
+namespace cpp
 {
-	class expression_statement : public statement
-	{
-		utils::copyable_ptr<expressions::expression> e1;
-		std::string label;
-	public:
-		expression_statement(std::unique_ptr<expressions::expression>, const std::string& = "");
+namespace codeprovider
+{
+namespace statements
+{
+class expression_statement : public statement
+{
+	utils::copyable_ptr<expressions::expression> e1;
+	std::string label;
 
-		const expressions::expression& expression() const;
+public:
+	expression_statement(std::unique_ptr<expressions::expression>, const std::string & = "");
 
-		std::unique_ptr<statement> clone() const override;
-		void write(std::ostream&) const override;
-	};
-}
+	const expressions::expression &expression() const;
+
+	std::unique_ptr<statement> clone() const override;
+	void write(std::ostream &) const override;
+};
+} // namespace statements
+} // namespace codeprovider
+} // namespace cpp
 
 #endif // !EXPRESSION_STATEMENT_HEADER
