@@ -137,6 +137,11 @@ namespace cpp::codeprovider::expressions
 		case expression_type::pointer_to_member_access_by_pointer:
 			os << "->*";
 			break;
+		case expression_type::binary_fold:
+		case expression_type::left_unary_fold:
+		case expression_type::right_unary_fold:
+			os << "...";
+			break;
 		}
 		return os;
 	}

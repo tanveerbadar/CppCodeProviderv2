@@ -269,4 +269,55 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	c_ref.captured_variables();
 }
 
+BOOST_AUTO_TEST_CASE(fold_expression_tests)
+{
+	expression_type fold_expressions[] = {
+		expression_type::binary_fold,
+		expression_type::left_unary_fold,
+		expression_type::right_unary_fold,
+	};
+
+	for (auto expr : fold_expressions)
+	{
+		auto e = make_unique<fold_expression>(expression_type::add_assign, expr, make_unique<primitive_expression>("a"), make_unique<primitive_expression>("b"));
+		BOOST_TEST(e->fold_type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(e->left()).expr() == "a");
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(e->right()).expr() == "b");
+
+		auto other = e->clone();
+
+		boost::test_tools::output_test_stream stream;
+
+		stream << *e;
+		other->write(stream);
+
+		auto copy(*e);
+
+		BOOST_TEST(e->fold_type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(e->left()).expr() == "a");
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(e->right()).expr() == "b");
+		BOOST_TEST(copy.fold_type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(copy.left()).expr() == "a");
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(copy.right()).expr() == "b");
+
+		auto copy2(*e);
+		copy2 = *e;
+
+		BOOST_TEST(e->fold_type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(e->left()).expr() == "a");
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(e->right()).expr() == "b");
+		BOOST_TEST(copy2.fold_type() == expr);
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.left()).expr() == "a");
+		BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.right()).expr() == "b");
+
+		const auto &c_ref = copy;
+		c_ref.clone();
+		c_ref.left();
+		c_ref.right();
+		c_ref.type();
+		c_ref.fold_type();
+		c_ref.write(stream);
+	}
+}
+
 BOOST_AUTO_TEST_SUITE_END()
