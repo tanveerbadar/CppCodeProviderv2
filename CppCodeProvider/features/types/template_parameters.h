@@ -4,6 +4,7 @@
 #pragma once
 
 #include "common.h"
+#include "../../utils/dirty_macros.h"
 
 namespace cpp
 {
@@ -15,6 +16,7 @@ namespace templates
 {
 class template_parameter : public type
 {
+	bool pack;
 public:
 	template_parameter(const std::string &);
 
@@ -22,6 +24,8 @@ public:
 	std::ostream &write_definition(std::ostream &) const override;
 	std::ostream &write_forward_declaration(std::ostream &) const override final;
 	std::unique_ptr<type> clone() const override;
+
+	ACCESSOR_DECLARATION(template_parameter, is_parameter_pack, bool)
 };
 
 class non_type_template_parameter : public template_parameter
