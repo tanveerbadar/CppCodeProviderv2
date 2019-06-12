@@ -45,6 +45,9 @@ void unary_expression::write(ostream &os) const
 	case expression_type::postfix_increment:
 		os << *e1 << "++";
 		break;
+	case expression_type::pack_size_of:
+		os << "sizeof...(" << *e1 << ")";
+		break;
 	default:
 		os << e_type << *e1;
 		break;

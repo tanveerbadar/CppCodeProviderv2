@@ -221,6 +221,7 @@ enum class expression_type
 	left_unary_fold,
 	right_unary_fold,
 	binary_fold,
+	pack_size_of,
 };
 
 std::ostream &operator<<(std::ostream &os, expressions::expression_type type);
