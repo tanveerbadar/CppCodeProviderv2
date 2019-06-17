@@ -141,6 +141,9 @@ ostream &cpp::codeprovider::expressions::operator<<(ostream &os, expression_type
 	case expression_type::right_unary_fold:
 		os << "...";
 		break;
+	case expression_type::member_access:
+		os << ".";
+		break;
 	}
 	return os;
 }
