@@ -1,5 +1,5 @@
-#ifndef PRIMITIVE_EXPRESSION_HEADER
-#define PRIMITIVE_EXPRESSION_HEADER
+#ifndef UNARY_EXPRESSION_HEADER
+#define UNARY_EXPRESSION_HEADER
 
 #pragma once
 #include <memory>
@@ -28,22 +28,8 @@ public:
 	std::unique_ptr<expression> clone() const override;
 	void write(std::ostream &) const override;
 };
-
-class primitive_expression : public expression
-{
-	std::string e1;
-
-public:
-	primitive_expression(const std::string &);
-
-	const std::string &expr() const;
-	expression_type type() const;
-
-	std::unique_ptr<expression> clone() const override;
-	void write(std::ostream &) const override;
-};
 } // namespace expressions
 } // namespace codeprovider
 } // namespace cpp
 
-#endif // !PRIMITIVE_EXPRESSION_HEADER
+#endif // !UNARY_EXPRESSION_HEADER
