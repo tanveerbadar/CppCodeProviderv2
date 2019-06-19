@@ -14,7 +14,7 @@ namespace codeprovider
 {
 namespace expressions
 {
-class function_invoke_expression : public expression
+class invoke_expression : public expression
 {
     utils::copyable_ptr<expression> target;
     std::vector<utils::copyable_ptr<expression>> arguments;
