@@ -8,5 +8,5 @@
 CppCodeProvider/vc140.idb
 CppCodeProvider/vc140.pdb
 .vscode
-CppCodeProvider/.vs
+.vs
 build
