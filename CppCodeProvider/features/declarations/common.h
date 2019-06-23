@@ -24,7 +24,6 @@ protected:
 public:
 	declaration(const declaration &) = default;
 
-	virtual std::unique_ptr<declaration> clone() const = 0;
 	const declarator_specifier &specifier() const;
 };
 } // namespace declarations

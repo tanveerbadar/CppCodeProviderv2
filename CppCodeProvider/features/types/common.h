@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "../forward_declarations.h"
 #include <iostream>
 #include <memory>
 #include <string>
@@ -25,7 +26,7 @@ public:
 	virtual std::ostream &write_forward_declaration(std::ostream &) const = 0;
 	virtual std::ostream &write_declaration(std::ostream &) const = 0;
 	virtual std::ostream &write_definition(std::ostream &) const = 0;
-	virtual std::unique_ptr<type> clone() const = 0;
+	virtual std::unique_ptr<namespaces::namespace_scope_entity> clone() const = 0;
 	virtual ~type() = 0;
 };
 } // namespace types

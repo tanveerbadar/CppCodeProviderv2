@@ -25,6 +25,7 @@ public:
 	statement_list &statements();
 	const statement_list &statements() const;
 
+	std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 	std::ostream &write_declaration(std::ostream &) const override;
 	std::ostream &write_definition(std::ostream &) const override;
 };

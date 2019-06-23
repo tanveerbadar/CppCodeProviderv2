@@ -1,6 +1,7 @@
 #include "template_parameters.h"
 
 using namespace std;
+using namespace cpp::codeprovider::namespaces;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
 
@@ -26,9 +27,10 @@ ostream &template_parameter::write_definition(ostream &os) const
 	return os;
 }
 
-unique_ptr<type> template_parameter::clone() const
+unique_ptr<namespace_scope_entity> template_parameter::clone() const
 {
-	return make_unique<template_parameter>(*this);
+	auto ptr(make_unique<template_parameter>(*this));
+	return unique_ptr<namespace_scope_entity>(ptr.release());
 }
 
 ACCESSOR_IMPL_2(template_parameter, is_parameter_pack, bool, pack)
@@ -50,9 +52,10 @@ ostream &non_type_template_parameter::write_definition(ostream &os) const
 	return os;
 }
 
-unique_ptr<type> non_type_template_parameter::clone() const
+unique_ptr<namespace_scope_entity> non_type_template_parameter::clone() const
 {
-	return make_unique<non_type_template_parameter>(*this);
+	auto ptr(make_unique<non_type_template_parameter>(*this));
+	return unique_ptr<namespace_scope_entity>(ptr.release());
 }
 
 template_template_parameter::template_template_parameter(const string &type, int n)
@@ -85,7 +88,8 @@ ostream &template_template_parameter::write_definition(ostream &os) const
 	return os;
 }
 
-unique_ptr<type> template_template_parameter::clone() const
+unique_ptr<namespace_scope_entity> template_template_parameter::clone() const
 {
-	return make_unique<template_template_parameter>(*this);
+	auto ptr(make_unique<template_template_parameter>(*this));
+	return unique_ptr<namespace_scope_entity>(ptr.release());
 }

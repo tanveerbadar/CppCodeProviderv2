@@ -4,6 +4,7 @@
 #pragma once
 
 #include "common.h"
+#include "../namespaces/namespace_scope_entity.h"
 #include "../../utils/dirty_macros.h"
 
 namespace cpp
@@ -14,7 +15,7 @@ namespace types
 {
 namespace templates
 {
-class template_parameter : public type
+class template_parameter : public type, protected namespaces::namespace_scope_entity
 {
 	bool pack;
 public:
@@ -23,7 +24,7 @@ public:
 	std::ostream &write_declaration(std::ostream &) const override;
 	std::ostream &write_definition(std::ostream &) const override;
 	std::ostream &write_forward_declaration(std::ostream &) const override final;
-	std::unique_ptr<type> clone() const override;
+	std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 
 	ACCESSOR_DECLARATION(template_parameter, is_parameter_pack, bool)
 };
@@ -37,7 +38,7 @@ public:
 
 	std::ostream &write_declaration(std::ostream &) const override;
 	std::ostream &write_definition(std::ostream &) const override;
-	std::unique_ptr<type> clone() const override;
+	std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 };
 
 class template_template_parameter : public template_parameter
@@ -49,7 +50,7 @@ public:
 
 	std::ostream &write_declaration(std::ostream &) const override;
 	std::ostream &write_definition(std::ostream &) const override;
-	std::unique_ptr<type> clone() const override;
+	std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 };
 } // namespace templates
 } // namespace types

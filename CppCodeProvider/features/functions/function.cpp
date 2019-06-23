@@ -7,9 +7,10 @@
 #include "../../utils/write_helpers.h"
 
 using namespace std;
+using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::functions::internals;
-using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::namespaces;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
@@ -22,6 +23,11 @@ function::function(const string &n, shared_ptr<type> returns)
 
 function::~function()
 {
+}
+
+unique_ptr<namespace_scope_entity> function::clone() const
+{
+	return make_unique<function>(*this);
 }
 
 parameter_list &function::parameters()

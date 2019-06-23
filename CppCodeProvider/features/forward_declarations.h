@@ -49,6 +49,11 @@ namespace internals
 struct callable;
 }
 } // namespace functions
+
+namespace namespaces
+{
+class namespace_scope_entity;
+}
 } // namespace codeprovider
 } // namespace cpp
 

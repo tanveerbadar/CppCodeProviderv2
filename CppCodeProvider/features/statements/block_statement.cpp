@@ -2,8 +2,9 @@
 #include "../../formatters/formatter_settings.h"
 
 using namespace std;
-using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::formatting;
+using namespace cpp::codeprovider::namespaces;
+using namespace cpp::codeprovider::statements;
 
 block_statement::block_statement(const block_statement &other)
 {
@@ -24,6 +25,11 @@ block_statement &block_statement::operator=(const block_statement &other)
 	}
 
 	return *this;
+}
+
+unique_ptr<namespace_scope_entity> block_statement::clone() const
+{
+	return make_unique<block_statement>(*this);
 }
 
 ostream &cpp::codeprovider::statements::operator<<(ostream &os, const block_statement &block)

@@ -4,6 +4,7 @@
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::namespaces;
 
 variable_declaration::variable_declaration(const declarator_specifier &ds)
 	: declaration(ds)
@@ -15,7 +16,7 @@ declarator &variable_declaration::var_declarator()
 	return var_decl;
 }
 
-unique_ptr<declaration> variable_declaration::clone() const
+unique_ptr<namespace_scope_entity> variable_declaration::clone() const
 {
 	return make_unique<variable_declaration>(*this);
 }

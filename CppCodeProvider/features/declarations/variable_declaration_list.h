@@ -23,7 +23,7 @@ public:
 	std::vector<declarator> &declarations();
 	const std::vector<declarator> &declarations() const;
 
-	std::unique_ptr<declaration> clone() const override;
+	std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 	std::ostream &write_declaration(std::ostream &) const override;
 	std::ostream &write_definition(std::ostream &) const override;
 };

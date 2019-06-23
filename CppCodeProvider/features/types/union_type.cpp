@@ -13,6 +13,7 @@
 using namespace std;
 using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::functions;
+using namespace cpp::codeprovider::namespaces;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::internals;
 using namespace cpp::codeprovider::utils;
@@ -54,7 +55,7 @@ friend_types_list &union_type::friend_types()
 
 ACCESSOR_IMPL_2(union_type, is_final, bool, final)
 
-unique_ptr<type> union_type::clone() const
+unique_ptr<namespace_scope_entity> union_type::clone() const
 {
     return make_unique<union_type>(*this);
 }

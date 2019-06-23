@@ -23,6 +23,7 @@ class function : public namespaces::namespace_scope_entity
 public:
 	function(const std::string &, std::shared_ptr<types::type>);
 	~function() override;
+	std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 
 	internals::parameter_list &parameters();
 	const internals::parameter_list &parameters() const;

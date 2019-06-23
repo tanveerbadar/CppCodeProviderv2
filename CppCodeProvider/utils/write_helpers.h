@@ -45,12 +45,14 @@ void write_vector(std::ostream &os, const std::vector<T> &parameters)
 	}
 }
 
+void write_definitions(std::ostream &os, const std::vector<functions::member_function> &entities);
+
 template <typename T>
 void write_definitions(std::ostream &os, const std::vector<T> &entities)
 {
 	for (const auto &e : entities)
 	{
-		e.write_definition(os);
+		e->write_definition(os);
 		os << std::endl;
 	}
 }

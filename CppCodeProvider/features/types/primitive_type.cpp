@@ -1,6 +1,7 @@
 #include "primitive_type.h"
 
 using namespace std;
+using namespace cpp::codeprovider::namespaces;
 using namespace cpp::codeprovider::types;
 
 primitive_type::primitive_type(const string& name)
@@ -25,7 +26,8 @@ ostream &primitive_type::write_definition(ostream &os) const
 	return os;
 }
 
-unique_ptr<type> primitive_type::clone() const
+unique_ptr<namespace_scope_entity> primitive_type::clone() const
 {
-	return make_unique<primitive_type>(*this);
+	auto ptr(make_unique<primitive_type>(*this));
+	return unique_ptr<namespace_scope_entity>(ptr.release());
 }

@@ -29,7 +29,7 @@ public:
     std::ostream &write_forward_declaration(std::ostream &) const override;
     std::ostream &write_template_parameters(std::ostream &) const override;
     std::ostream &write_elaborated_name(std::ostream &) const override;
-    std::unique_ptr<type> clone() const override;
+    std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 
     internals::member_function_list &member_functions();
     internals::member_field_list &member_fields();

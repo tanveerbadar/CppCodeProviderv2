@@ -127,6 +127,16 @@ void write_template_parameters(ostream &os, const template_parameter_list &param
         os << "> ";
     }
 }
+
+void write_definitions(std::ostream &os, const std::vector<member_function> &entities)
+{
+    for (const auto &mf : entities)
+    {
+        mf.write_definition(os);
+        os << endl;
+    }
+}
+
 } // namespace utils
 } // namespace codeprovider
 } // namespace cpp

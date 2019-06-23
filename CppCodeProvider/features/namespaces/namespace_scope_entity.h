@@ -14,6 +14,7 @@ namespace namespaces
 class namespace_scope_entity
 {
 public:
+  virtual std::unique_ptr<namespace_scope_entity> clone() const = 0;
   virtual std::ostream &write_declaration(std::ostream &) const = 0;
   virtual std::ostream &write_definition(std::ostream &) const = 0;
   virtual ~namespace_scope_entity() = 0;

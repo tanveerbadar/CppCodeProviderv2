@@ -13,6 +13,7 @@
 using namespace std;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::namespaces;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::internals;
 using namespace cpp::codeprovider::types::templates;
@@ -134,7 +135,7 @@ ostream &user_defined_type::write_definition(ostream &os) const
 	return os;
 }
 
-unique_ptr<type> user_defined_type::clone() const
+unique_ptr<namespace_scope_entity> user_defined_type::clone() const
 {
 	return make_unique<user_defined_type>(*this);
 }

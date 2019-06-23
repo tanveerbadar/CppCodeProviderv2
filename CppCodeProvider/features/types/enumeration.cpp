@@ -10,6 +10,7 @@
 using namespace std;
 using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::expressions;
+using namespace cpp::codeprovider::namespaces;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::internals;
 
@@ -30,7 +31,7 @@ const member_field_list &enumeration::enumerators() const
 
 ACCESSOR_IMPL_2(enumeration, is_scoped_enum, bool, impl.is_scoped_enum)
 
-unique_ptr<type> enumeration::clone() const
+unique_ptr<namespace_scope_entity> enumeration::clone() const
 {
     return make_unique<enumeration>(*this);
 }

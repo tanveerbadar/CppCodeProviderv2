@@ -5,8 +5,9 @@
 
 using namespace std;
 using namespace cpp::codeprovider::utils;
-
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::namespaces;
+
 variable_declaration_list::variable_declaration_list(const declarator_specifier &specifier)
 	: declaration(specifier)
 {
@@ -22,7 +23,7 @@ const vector<declarator> &variable_declaration_list::declarations() const
 	return var_decls;
 }
 
-unique_ptr<declaration> variable_declaration_list::clone() const
+unique_ptr<namespace_scope_entity> variable_declaration_list::clone() const
 {
 	return make_unique<variable_declaration_list>(*this);
 }
