@@ -10,10 +10,12 @@ nested_type::~nested_type()
 
 ostream &nested_type::write_qualified_name(ostream &os) const
 {
-    if (container.get() != nullptr)
+    if (container != nullptr)
+    {
         container->write_qualified_name(os);
-    write_elaborated_name(os);
-    os << "::";
+        write_elaborated_name(os);
+        os << "::";
+    }
     return os;
 }
 
@@ -25,7 +27,7 @@ vector<const nested_type *> nested_type::get_containers() const
     {
         containers.push_back(c);
         c = c->container.get();
-    } while (c != nullptr);
+    } while (c->container != nullptr);
 
     reverse(begin(containers), end(containers));
 

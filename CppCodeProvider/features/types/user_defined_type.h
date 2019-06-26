@@ -38,7 +38,6 @@ public:
 	internals::template_parameter_list &template_parameters();
 	internals::friend_functions_list &friend_functions();
 	internals::friend_types_list &friend_types();
-	ACCESSOR_DECLARATION(user_defined_type, container, std::shared_ptr<nested_type>)
 	ACCESSOR_DECLARATION(user_defined_type, is_final, bool)
 };
 } // namespace types

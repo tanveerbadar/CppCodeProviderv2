@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <memory>
 #include <ostream>
 
 namespace cpp

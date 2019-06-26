@@ -23,18 +23,18 @@ using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
 using namespace cpp::codeprovider::utils;
 
-member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<user_defined_type> udt)
-	: impl(n, returns), udt(udt)
+member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<user_defined_type> t)
+	: impl(n, returns), udt(t)
 {
 }
 
-member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<union_type> ut)
-	: impl(n, returns), ut(ut), flags(1 << container_mask)
+member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<union_type> t)
+	: impl(n, returns), ut(t), flags(1 << container_mask)
 {
 }
 
 member_function::member_function(const member_function &other)
-	: impl(other.impl), flags(other.flags), access(other.access)
+	: impl(other.impl), flags(other.flags), access(other.access), ut(0)
 {
 	if ((other.flags & container_mask) == container_mask)
 		ut = other.ut;

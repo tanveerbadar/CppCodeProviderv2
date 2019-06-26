@@ -18,7 +18,7 @@ class if_statement : public statement
 {
 	block_statement if_collection, else_collection;
 	utils::copyable_ptr<expressions::expression> condition_exp;
-	bool is_const_expr;
+	bool is_const_expr = false;
 
 public:
 	if_statement(std::unique_ptr<expressions::expression>);

@@ -16,7 +16,7 @@ namespace types
 class nested_type
 {
 public:
-    std::shared_ptr<nested_type> container;
+    std::shared_ptr<nested_type> container = 0;
     std::vector<const nested_type *> get_containers() const;
     virtual std::ostream &write_template_parameters(std::ostream &) const = 0;
     std::ostream &write_qualified_name(std::ostream &) const;
