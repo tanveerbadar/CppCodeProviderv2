@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{6C2425E7-C7B8-4554-9965-5197CC6B60EC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);E:/boost/boost_1_67_0/boost_1_67/include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;E:/boost/boost_1_67_0/boost_1_67/lib</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CppCodeProvider.cpp" />
+    <ClCompile Include="features\declarations\declaration_common.cpp" />
+    <ClCompile Include="features\declarations\declarator.cpp" />
+    <ClCompile Include="features\declarations\declarator_specifier.cpp" />
+    <ClCompile Include="features\declarations\variable_declaration.cpp" />
+    <ClCompile Include="features\declarations\variable_declaration_list.cpp" />
+    <ClCompile Include="features\expressions\binary_expressions.cpp" />
+    <ClCompile Include="features\expressions\expression_common.cpp" />
+    <ClCompile Include="features\expressions\expression_type.cpp" />
+    <ClCompile Include="features\expressions\fold_expression.cpp" />
+    <ClCompile Include="features\expressions\invoke_expression.cpp" />
+    <ClCompile Include="features\expressions\lambda_expression.cpp" />
+    <ClCompile Include="features\expressions\primitive_expression.cpp" />
+    <ClCompile Include="features\expressions\ternary_expression.cpp" />
+    <ClCompile Include="features\expressions\unary_expressions.cpp" />
+    <ClCompile Include="features\functions\callable.cpp" />
+    <ClCompile Include="features\functions\function.cpp" />
+    <ClCompile Include="features\functions\member_function.cpp" />
+    <ClCompile Include="features\internals\write_backlog_entry.cpp" />
+    <ClCompile Include="features\namespaces\namespace_scope.cpp" />
+    <ClCompile Include="features\namespaces\namespace_scope_entity.cpp" />
+    <ClCompile Include="features\preprocessor\define_directive.cpp" />
+    <ClCompile Include="features\preprocessor\if_directive.cpp" />
+    <ClCompile Include="features\preprocessor\include_directive.cpp" />
+    <ClCompile Include="features\statements\block_statement.cpp" />
+    <ClCompile Include="features\statements\expression_statement.cpp" />
+    <ClCompile Include="features\statements\for_loop.cpp" />
+    <ClCompile Include="features\statements\if_statement.cpp" />
+    <ClCompile Include="features\statements\jump_statements.cpp" />
+    <ClCompile Include="features\statements\ranged_for_loop.cpp" />
+    <ClCompile Include="features\statements\statement_common.cpp" />
+    <ClCompile Include="features\statements\switch_statement.cpp" />
+    <ClCompile Include="features\statements\try_statement.cpp" />
+    <ClCompile Include="features\statements\while_loop.cpp" />
+    <ClCompile Include="features\types\base_type.cpp" />
+    <ClCompile Include="features\types\custom_type.cpp" />
+    <ClCompile Include="features\types\enumeration.cpp" />
+    <ClCompile Include="features\types\nested_type.cpp" />
+    <ClCompile Include="features\types\primitive_type.cpp" />
+    <ClCompile Include="features\types\template_parameters.cpp" />
+    <ClCompile Include="features\types\types_common.cpp" />
+    <ClCompile Include="features\types\union_type.cpp" />
+    <ClCompile Include="features\types\user_defined_type.cpp" />
+    <ClCompile Include="formatters\formatter_settings.cpp" />
+    <ClCompile Include="tests\features\expressions\expression_tests.cpp" />
+    <ClCompile Include="tests\features\functions\function_tests.cpp" />
+    <ClCompile Include="tests\features\preprocessor\preprocessor_tests.cpp" />
+    <ClCompile Include="tests\features\statements\statement_tests.cpp" />
+    <ClCompile Include="tests\features\types\type_tests.cpp" />
+    <ClCompile Include="utils\write_helpers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="exceptions.h" />
+    <ClInclude Include="features\declarations.h" />
+    <ClInclude Include="features\declarations\common.h" />
+    <ClInclude Include="features\declarations\declarator.h" />
+    <ClInclude Include="features\declarations\declarator_specifier.h" />
+    <ClInclude Include="features\declarations\variable_declaration.h" />
+    <ClInclude Include="features\declarations\variable_declaration_list.h" />
+    <ClInclude Include="features\expressions.h" />
+    <ClInclude Include="features\expressions\binary_expressions.h" />
+    <ClInclude Include="features\expressions\common.h" />
+    <ClInclude Include="features\expressions\expression_types.h" />
+    <ClInclude Include="features\expressions\fold_expression.h" />
+    <ClInclude Include="features\expressions\invoke_expression.h" />
+    <ClInclude Include="features\expressions\lambda_expression.h" />
+    <ClInclude Include="features\expressions\primitive_expression.h" />
+    <ClInclude Include="features\expressions\ternary_expression.h" />
+    <ClInclude Include="features\expressions\unary_expressions.h" />
+    <ClInclude Include="features\forward_declarations.h" />
+    <ClInclude Include="features\functions.h" />
+    <ClInclude Include="features\functions\callable.h" />
+    <ClInclude Include="features\functions\function.h" />
+    <ClInclude Include="features\functions\member_function.h" />
+    <ClInclude Include="features\internals\write_backlog_entry.h" />
+    <ClInclude Include="features\namespaces.h" />
+    <ClInclude Include="features\namespaces\namespace_scope.h" />
+    <ClInclude Include="features\namespaces\namespace_scope_entity.h" />
+    <ClInclude Include="features\preprocessor.h" />
+    <ClInclude Include="features\preprocessor\common.h" />
+    <ClInclude Include="features\preprocessor\define_directive.h" />
+    <ClInclude Include="features\preprocessor\if_directive.h" />
+    <ClInclude Include="features\preprocessor\include_directive.h" />
+    <ClInclude Include="features\statements.h" />
+    <ClInclude Include="features\statements\block_statement.h" />
+    <ClInclude Include="features\statements\common.h" />
+    <ClInclude Include="features\statements\expression_statement.h" />
+    <ClInclude Include="features\statements\for_loop.h" />
+    <ClInclude Include="features\statements\if_statement.h" />
+    <ClInclude Include="features\statements\jump_statements.h" />
+    <ClInclude Include="features\statements\ranged_for_loop.h" />
+    <ClInclude Include="features\statements\switch_statement.h" />
+    <ClInclude Include="features\statements\try_statement.h" />
+    <ClInclude Include="features\statements\while_loop.h" />
+    <ClInclude Include="features\types.h" />
+    <ClInclude Include="features\types\access_levels.h" />
+    <ClInclude Include="features\types\base_type.h" />
+    <ClInclude Include="features\types\common.h" />
+    <ClInclude Include="features\types\custom_type.h" />
+    <ClInclude Include="features\types\enumeration.h" />
+    <ClInclude Include="features\types\nested_type.h" />
+    <ClInclude Include="features\types\primitive_type.h" />
+    <ClInclude Include="features\types\template_parameters.h" />
+    <ClInclude Include="features\types\union_type.h" />
+    <ClInclude Include="features\types\user_defined_type.h" />
+    <ClInclude Include="formatters\formatter_settings.h" />
+    <ClInclude Include="utils\copyable_ptr.h" />
+    <ClInclude Include="utils\dirty_macros.h" />
+    <ClInclude Include="utils\write_helpers.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
