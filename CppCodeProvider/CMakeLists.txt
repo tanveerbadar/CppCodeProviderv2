@@ -1,10 +1,17 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(BOOST_INCLUDEDIR E:/boost/boost_1_67_0/boost_1_67/include)
-set(BOOST_LIBRARYDIR E:/boost/boost_1_67_0/boost_1_67/lib)
+if(WIN32)
+    set(BOOST_INCLUDEDIR E:/boost/boost_1_67_0/boost_1_67/include)
+    set(BOOST_LIBRARYDIR E:/boost/boost_1_67_0/boost_1_67/lib)
+endif()
+
 set(Boost_USE_STATIC_LIBS   ON)
 set(Boost_USE_MULTITHREADED ON)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
+set(DEBUG ON)
+
+enable_testing()
+add_test(NAME CppCodeProviderTests COMMAND CppCodeProviderTests)
 
 FIND_PACKAGE(Boost 1.60.0 COMPONENTS unit_test_framework REQUIRED)
 
