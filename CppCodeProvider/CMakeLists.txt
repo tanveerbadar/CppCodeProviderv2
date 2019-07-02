@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-if(WIN32)
-    set(BOOST_INCLUDEDIR E:/boost/boost_1_67_0/boost_1_67/include)
-    set(BOOST_LIBRARYDIR E:/boost/boost_1_67_0/boost_1_67/lib)
-endif()
-
+cmake_policy(SET CMP0074 NEW)
 set(Boost_USE_STATIC_LIBS   ON)
 set(Boost_USE_MULTITHREADED ON)
 set(CMAKE_CXX_STANDARD 14)
