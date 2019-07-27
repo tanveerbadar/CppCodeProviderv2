@@ -1,10 +1,10 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/output_test_stream.hpp>
-#include "../../../features/declarations.h"
-#include "../../../features/expressions.h"
-#include "../../../features/functions.h"
-#include "../../../features/statements.h"
-#include "../../../features/types.h"
+#include "../../../src/features/declarations.h"
+#include "../../../src/features/expressions.h"
+#include "../../../src/features/functions.h"
+#include "../../../src/features/statements.h"
+#include "../../../src/features/types.h"
 
 BOOST_AUTO_TEST_SUITE(function_tests)
 
