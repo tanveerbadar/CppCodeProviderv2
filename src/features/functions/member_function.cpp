@@ -185,6 +185,22 @@ ostream &member_function::write_declaration(ostream &os) const
 
 ostream &member_function::write_definition(ostream &os) const
 {
+	vector<user_defined_type*> containers;
+
+	containers.push_back(udt.get());
+	auto ptr = udt->container().get();
+	while(ptr)
+	{
+		containers.push_back(ptr);
+		ptr = ptr->container().get();
+	}
+
+	for(auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
+	{
+		(*iter)->write_template_parameters(os);
+		os << ' ';
+	}
+
 	write_template_parameters(os, impl.template_parameters);
 
 	if (impl.is_const_expr)
@@ -200,6 +216,12 @@ ostream &member_function::write_definition(ostream &os) const
 		os << "auto ";
 	else
 		os << impl.return_type->get_name() << " ";
+
+	for(auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
+	{
+		(*iter)->write_elaborated_name(os);
+		os << "::";
+	}
 
 	os << impl.name << "(";
 

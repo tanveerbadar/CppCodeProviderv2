@@ -17,7 +17,11 @@ BOOST_AUTO_TEST_SUITE(type_tests)
 
 BOOST_AUTO_TEST_CASE(user_defined_type_tests)
 {
-    auto udt = make_shared<user_defined_type>("udt");
+    auto udt = make_shared<user_defined_type>("udt"), udt2 = make_shared<user_defined_type>("udt2");
+
+    udt->container(udt2);
+
+    udt2->template_parameters().emplace_back(make_unique<template_parameter>("T5"));
 
     BOOST_TEST(udt->bases().size() == 0);
     BOOST_TEST(udt->member_fields().size() == 0);
@@ -25,24 +29,44 @@ BOOST_AUTO_TEST_CASE(user_defined_type_tests)
     BOOST_TEST(udt->template_parameters().size() == 0);
     BOOST_TEST(udt->get_name() == "udt");
 
+    udt->template_parameters().emplace_back(make_unique<template_parameter>("T1"));
+    udt->template_parameters().emplace_back(make_unique<template_parameter>("T2"));
     udt->member_functions().emplace_back(string("mf"), make_shared<primitive_type>("int"), udt);
     udt->member_fields().emplace_back(make_pair(access_levels::public_access, make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")))));
 
+    auto& mf = udt->member_functions()[0];
+
+    mf.template_parameters().emplace_back(make_unique<template_parameter>("T3"));
+    mf.template_parameters().emplace_back(make_unique<template_parameter>("T4"));
+
+    boost::test_tools::output_test_stream stream;
+
+    udt->write_declaration(stream);
+    udt->write_definition(stream);
+
+    auto output = stream.str();
+    
     auto copy(*udt);
 
     BOOST_TEST(copy.bases().size() == 0);
     BOOST_TEST(copy.member_fields().size() == 1);
     BOOST_TEST(copy.member_functions().size() == 1);
-    BOOST_TEST(copy.template_parameters().size() == 0);
+    BOOST_TEST(copy.template_parameters().size() == 2);
     BOOST_TEST(copy.get_name() == "udt");
+
+    copy.write_declaration(stream);
+    copy.write_definition(stream);
 
     copy = *udt;
 
     BOOST_TEST(copy.bases().size() == 0);
     BOOST_TEST(copy.member_fields().size() == 1);
     BOOST_TEST(copy.member_functions().size() == 1);
-    BOOST_TEST(copy.template_parameters().size() == 0);
+    BOOST_TEST(copy.template_parameters().size() == 2);
     BOOST_TEST(copy.get_name() == "udt");
+
+    copy.write_declaration(stream);
+    copy.write_definition(stream);
 }
 
 BOOST_AUTO_TEST_CASE(enumeration_tests)
