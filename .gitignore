@@ -8,3 +8,5 @@
 /CppCodeProvider/CppCodeProvider.vcxproj.filters
 /CppCodeProvider/Debug
 /CppCodeProvider/x64
+build/
+.vscode/
