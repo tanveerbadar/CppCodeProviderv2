@@ -55,6 +55,7 @@ template_parameter_list &user_defined_type::template_parameters()
 }
 
 ACCESSOR_IMPL_2(user_defined_type, is_final, bool, final)
+ACCESSOR_IMPL_2(user_defined_type, container, shared_ptr<user_defined_type>, c)
 
 ostream &user_defined_type::write_forward_declaration(ostream &os) const
 {

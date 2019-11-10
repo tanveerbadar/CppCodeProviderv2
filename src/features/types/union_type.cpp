@@ -23,11 +23,6 @@ union_type::union_type(const string &str)
 {
 }
 
-member_function_list &union_type::member_functions()
-{
-    return impl.functions;
-}
-
 const member_field_list &union_type::member_fields() const
 {
     return impl.fields;
@@ -96,13 +91,6 @@ ostream &union_type::write_declaration(ostream &os) const
     os << "{" << endl;
     ostringstream private_stream, protected_stream, public_stream;
     write_members(impl.fields, public_stream, private_stream, protected_stream, public_stream);
-
-    vector<const cpp::codeprovider::internals::write_backlog_entry *> write_backlog;
-
-    if (impl.template_params.size() > 0)
-        write_definitions(impl.functions, public_stream, private_stream, protected_stream, public_stream, write_backlog);
-    else
-        write_declarations(impl.functions, public_stream, private_stream, protected_stream, public_stream);
 
     os << "private:" << endl;
     os << private_stream.str() << endl;
