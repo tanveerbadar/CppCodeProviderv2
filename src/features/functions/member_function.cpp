@@ -28,18 +28,10 @@ member_function::member_function(const string &n, shared_ptr<type> returns, shar
 {
 }
 
-member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<union_type> t)
-	: impl(n, returns), ut(t), flags(1 << container_mask)
-{
-}
-
 member_function::member_function(const member_function &other)
-	: impl(other.impl), flags(other.flags), access(other.access), ut(0)
+	: impl(other.impl), flags(other.flags), access(other.access)
 {
-	if ((other.flags & container_mask) == container_mask)
-		ut = other.ut;
-	else
-		udt = other.udt;
+	udt = other.udt;
 }
 
 member_function &member_function::operator=(const member_function &other)
@@ -47,30 +39,11 @@ member_function &member_function::operator=(const member_function &other)
 	if (this != &other)
 	{
 		impl = other.impl;
-		if ((flags & container_mask) == container_mask)
-			ut.~shared_ptr();
-		else
-		{
-			udt.~shared_ptr();
-		}
-		if ((other.flags & container_mask) == container_mask)
-			ut = other.ut;
-		else
-			udt = other.udt;
+		udt = other.udt;
 		flags = other.flags;
 		access = other.access;
 	}
 	return *this;
-}
-
-member_function::~member_function()
-{
-	if ((flags & container_mask) == container_mask)
-		ut.~shared_ptr();
-	else
-	{
-		udt.~shared_ptr();
-	}
 }
 
 const block_statement &member_function::body() const

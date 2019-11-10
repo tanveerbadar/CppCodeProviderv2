@@ -29,19 +29,14 @@ enum class ref_qualifier : short
 class member_function : public cpp::codeprovider::internals::write_backlog_entry
 {
 	callable impl;
-	union {
-		std::shared_ptr<types::user_defined_type> udt;
-		std::shared_ptr<types::union_type> ut;
-	};
+	std::shared_ptr<types::user_defined_type> udt;
 	types::access_levels access;
 	short flags = 0;
 
 public:
 	member_function(const std::string &, std::shared_ptr<types::type>, std::shared_ptr<types::user_defined_type>);
-	member_function(const std::string &, std::shared_ptr<types::type>, std::shared_ptr<types::union_type>);
 	member_function(const member_function &);
 	member_function &operator=(const member_function &);
-	~member_function() override;
 
 	parameter_list &parameters();
 	const parameter_list &parameters() const;
