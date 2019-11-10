@@ -30,7 +30,6 @@ public:
     std::ostream &write_elaborated_name(std::ostream &) const;
     std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
 
-    internals::member_function_list &member_functions();
     internals::member_field_list &member_fields();
     const internals::member_field_list &member_fields() const;
     internals::template_parameter_list &template_parameters();

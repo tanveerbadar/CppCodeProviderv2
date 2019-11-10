@@ -73,7 +73,6 @@ BOOST_AUTO_TEST_CASE(union_tests)
     auto e = make_shared<union_type>("u");
 
     BOOST_TEST(e->member_fields().size() == 0);
-    BOOST_TEST(e->member_functions().size() == 0);
     BOOST_TEST(e->template_parameters().size() == 0);
     BOOST_TEST(e->get_name() == "u");
 
@@ -81,7 +80,6 @@ BOOST_AUTO_TEST_CASE(union_tests)
     e->member_fields().emplace_back(make_pair(access_levels::public_access, make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")))));
 
     BOOST_TEST(e->member_fields().size() == 1);
-    BOOST_TEST(e->member_functions().size() == 0);
     BOOST_TEST(e->template_parameters().size() == 1);
     BOOST_TEST(e->get_name() == "u");
 
@@ -93,7 +91,6 @@ BOOST_AUTO_TEST_CASE(union_tests)
     auto copy(*e);
 
     BOOST_TEST(copy.member_fields().size() == 1);
-    BOOST_TEST(copy.member_functions().size() == 0);
     BOOST_TEST(copy.template_parameters().size() == 1);
     BOOST_TEST(copy.get_name() == "u");
 
@@ -106,7 +103,6 @@ BOOST_AUTO_TEST_CASE(union_tests)
     copy = *e;
 
     BOOST_TEST(copy.member_fields().size() == 2);
-    BOOST_TEST(copy.member_functions().size() == 0);
     BOOST_TEST(copy.template_parameters().size() == 2);
     BOOST_TEST(copy.get_name() == "u");
 
