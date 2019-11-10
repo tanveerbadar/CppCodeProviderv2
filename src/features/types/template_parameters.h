@@ -17,7 +17,7 @@ namespace templates
 {
 class template_parameter : public type, protected namespaces::namespace_scope_entity
 {
-	bool pack;
+	bool pack = false;
 public:
 	template_parameter(const std::string &);
 
