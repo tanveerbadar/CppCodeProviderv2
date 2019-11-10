@@ -134,4 +134,85 @@ BOOST_AUTO_TEST_CASE(union_tests)
     copy.write_definition(stream);
 }
 
+BOOST_AUTO_TEST_CASE(template_parameter_tests)
+{
+    auto e = make_unique<template_parameter>("T");
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(!e->is_parameter_pack());
+
+    e->is_parameter_pack(true);
+
+    auto copy(*e);
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(e->is_parameter_pack());
+
+    copy = *e;
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(e->is_parameter_pack());
+
+    e->is_parameter_pack(false);
+
+    copy = *e;
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(!e->is_parameter_pack());
+}
+
+BOOST_AUTO_TEST_CASE(template_template_parameter_tests)
+{
+    auto e = make_unique<template_template_parameter>("T", 5);
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(!e->is_parameter_pack());
+
+    e->is_parameter_pack(true);
+
+    auto copy(*e);
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(e->is_parameter_pack());
+
+    copy = *e;
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(e->is_parameter_pack());
+
+    e->is_parameter_pack(false);
+
+    copy = *e;
+
+    BOOST_TEST(e->get_name() == "T");
+    BOOST_TEST(!e->is_parameter_pack());
+}
+
+BOOST_AUTO_TEST_CASE(non_type_template_parameter_tests)
+{
+    auto e = make_unique<non_type_template_parameter>("int", "T");
+
+    BOOST_TEST(e->get_name() == "int");
+    BOOST_TEST(!e->is_parameter_pack());
+
+    e->is_parameter_pack(true);
+
+    auto copy(*e);
+
+    BOOST_TEST(e->get_name() == "int");
+    BOOST_TEST(e->is_parameter_pack());
+
+    copy = *e;
+
+    BOOST_TEST(e->get_name() == "int");
+    BOOST_TEST(e->is_parameter_pack());
+
+    e->is_parameter_pack(false);
+
+    copy = *e;
+
+    BOOST_TEST(e->get_name() == "int");
+    BOOST_TEST(!e->is_parameter_pack());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
