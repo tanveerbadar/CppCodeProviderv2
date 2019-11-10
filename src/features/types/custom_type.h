@@ -14,8 +14,6 @@ namespace codeprovider
 {
 namespace types
 {
-class nested_type;
-
 namespace internals
 {
 enum class type_key
@@ -43,7 +41,6 @@ struct custom_type
     base_list base_types;
     template_parameter_list template_params;
     bool is_scoped_enum = false;
-    std::shared_ptr<types::nested_type> container;
     friend_functions_list friend_functions;
     friend_types_list friend_types;
 

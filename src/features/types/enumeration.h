@@ -24,7 +24,6 @@ public:
     internals::member_field_list &enumerators();
     const internals::member_field_list &enumerators() const;
     ACCESSOR_DECLARATION(enumeration, is_scoped_enum, bool)
-    ACCESSOR_DECLARATION(enumeration, container, std::shared_ptr<nested_type>)
 
     std::unique_ptr<namespaces::namespace_scope_entity> clone() const override;
     std::ostream &write_declaration(std::ostream &) const override;

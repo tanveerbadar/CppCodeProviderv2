@@ -212,13 +212,6 @@ ostream &member_function::write_declaration(ostream &os) const
 
 ostream &member_function::write_definition(ostream &os) const
 {
-	const auto &containers = ((flags & container_mask) ? (nested_type *)udt.get() : (nested_type *)ut.get())->get_containers();
-
-	for (auto ptr : containers)
-	{
-		ptr->write_template_parameters(os);
-	}
-
 	write_template_parameters(os, impl.template_parameters);
 
 	if (impl.is_const_expr)
@@ -235,7 +228,6 @@ ostream &member_function::write_definition(ostream &os) const
 	else
 		os << impl.return_type->get_name() << " ";
 
-	containers.back()->write_qualified_name(os);
 	os << impl.name << "(";
 
 	write_vector(os, impl.parameters);
