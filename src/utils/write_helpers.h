@@ -23,13 +23,12 @@ void write_vector(std::ostream &os, const std::vector<utils::copyable_ptr<T>> &p
 	if (parameters.size() > 0)
 	{
 		if (parameters.size() > 1)
-			for (auto i = 1; i < parameters.size() - 1; ++i)
+			for (auto i = 0; i < parameters.size() - 1; ++i)
 			{
 				parameters[i]->write_declaration(os);
 				os << ", ";
 			}
 		parameters[parameters.size() - 1]->write_declaration(os);
-		os << std::endl;
 	}
 }
 
@@ -39,9 +38,9 @@ void write_vector(std::ostream &os, const std::vector<T> &parameters)
 	if (parameters.size() > 0)
 	{
 		if (parameters.size() > 1)
-			for (auto i = 1; i < parameters.size() - 1; ++i)
+			for (auto i = 0; i < parameters.size() - 1; ++i)
 				os << parameters[i] << ", ";
-		os << parameters[parameters.size() - 1] << std::endl;
+		os << parameters[parameters.size() - 1];
 	}
 }
 
