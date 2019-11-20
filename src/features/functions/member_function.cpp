@@ -1,11 +1,11 @@
-#include "callable.h"
 #include "member_function.h"
+#include "../../utils/write_helpers.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../statements/try_statement.h"
-#include "../types/user_defined_type.h"
 #include "../types/template_parameters.h"
-#include "../../utils/write_helpers.h"
+#include "../types/user_defined_type.h"
+#include "callable.h"
 
 namespace
 {
@@ -183,24 +183,52 @@ ostream &member_function::write_declaration(ostream &os) const
 	return os;
 }
 
+class member_function::write_definition_helper
+{
+	const member_function *fn;
+
+public:
+	write_definition_helper(const member_function *f)
+		: fn(f)
+	{
+		fn->inline_definition = true;
+	}
+
+	~write_definition_helper()
+	{
+		fn->inline_definition = false;
+	}
+};
+
+ostream &member_function::write_inline_definition(ostream &os) const
+{
+	write_definition_helper helper(this);
+
+	write_definition(os);
+
+	return os;
+}
+
 ostream &member_function::write_definition(ostream &os) const
 {
-	vector<user_defined_type*> containers;
+	vector<user_defined_type *> containers;
 
 	containers.push_back(udt.get());
 	auto ptr = udt->container().get();
-	while(ptr)
+	while (ptr)
 	{
 		containers.push_back(ptr);
 		ptr = ptr->container().get();
 	}
 
-	for(auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
+	if (!inline_definition)
 	{
-		(*iter)->write_template_parameters(os);
-		os << ' ';
+		for (auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
+		{
+			(*iter)->write_template_parameters(os);
+			os << ' ';
+		}
 	}
-
 	write_template_parameters(os, impl.template_parameters);
 
 	if (impl.is_const_expr)
@@ -217,10 +245,13 @@ ostream &member_function::write_definition(ostream &os) const
 	else
 		os << impl.return_type->get_name() << " ";
 
-	for(auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
+	if (!inline_definition)
 	{
-		(*iter)->write_elaborated_name(os);
-		os << "::";
+		for (auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
+		{
+			(*iter)->write_elaborated_name(os);
+			os << "::";
+		}
 	}
 
 	os << impl.name << "(";
