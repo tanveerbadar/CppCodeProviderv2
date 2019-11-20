@@ -48,7 +48,7 @@ void write_members(const vector<pair<access_levels, copyable_ptr<declaration>>> 
 void write_definition_helper(const member_function &mf, ostringstream &stream, vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog)
 {
     if (!mf.is_abstract())
-        mf.write_definition(stream);
+        mf.write_inline_definition(stream);
     else
     {
         mf.write_declaration(stream);

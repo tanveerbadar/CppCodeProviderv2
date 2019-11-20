@@ -3,13 +3,13 @@
 
 #pragma once
 
+#include "../features/forward_declarations.h"
+#include "../features/internals/write_backlog_entry.h"
+#include "copyable_ptr.h"
 #include <iostream>
 #include <memory>
 #include <sstream>
 #include <vector>
-#include "copyable_ptr.h"
-#include "../features/forward_declarations.h"
-#include "../features/internals/write_backlog_entry.h"
 
 namespace cpp
 {
@@ -65,6 +65,8 @@ void write_declarations(std::ostream &os, const std::vector<T> &entities)
 		os << std::endl;
 	}
 }
+
+void write_definition_helper(const cpp::codeprovider::functions::member_function &, std::ostringstream &, std::vector<const cpp::codeprovider::internals::write_backlog_entry *> &);
 
 void write_members(const std::vector<std::pair<types::access_levels, utils::copyable_ptr<declarations::declaration>>> &, std::ostringstream &, std::ostringstream &, std::ostringstream &, std::ostringstream &);
 

@@ -32,6 +32,11 @@ class member_function : public cpp::codeprovider::internals::write_backlog_entry
 	std::shared_ptr<types::user_defined_type> udt;
 	types::access_levels access;
 	short flags = 0;
+	mutable bool inline_definition = false;
+
+	class write_definition_helper;
+
+	friend class write_definition_helper;
 
 public:
 	member_function(const std::string &, std::shared_ptr<types::type>, std::shared_ptr<types::user_defined_type>);
@@ -61,6 +66,7 @@ public:
 	const statements::block_statement &body() const;
 	std::ostream &write_declaration(std::ostream &) const;
 	std::ostream &write_definition(std::ostream &) const override;
+	std::ostream &write_inline_definition(std::ostream &) const;
 };
 } // namespace functions
 } // namespace codeprovider
