@@ -10,3 +10,4 @@ CppCodeProvider/vc140.pdb
 .vscode
 .vs
 build
+/CMakeSettings.json
