@@ -26,12 +26,12 @@ void for_loop::write(ostream &os) const
 	os << indent << "for( ";
 	if (init)
 		os << *init;
-	os << "; ";
+	os << ";";
 	if (condition_exp)
-		os << *condition_exp;
-	os << "; ";
+		os << ' ' << *condition_exp;
+	os << ";";
 	if (loop_exp)
-		os << *loop_exp;
+		os << ' ' << *loop_exp;
 	os << " )" << endl;
 	os << body;
 }

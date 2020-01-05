@@ -116,9 +116,12 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 
 	BOOST_TEST(stmt->statements().size() == 0);
 
+	auto indent = formatter_settings::settings.get_indent_string();
 	boost::test_tools::output_test_stream stream;
 
 	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "for( ;; )\n" + indent + "{\n" + indent + "}\n");
 
 	auto copy1(*stmt);
 	auto &body2 = stmt->statements();
@@ -145,8 +148,15 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 
 	auto other = stmt->clone();
 
+	stream.str("");
 	stream << *other;
+
+	BOOST_TEST(stream.str() == indent + "for( 1; 2; 3 )\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
+	stream.str("");
 	other->write(stream);
+
+	BOOST_TEST(stream.str() == indent + "for( 1; 2; 3 )\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	auto copy2(*stmt);
 	BOOST_TEST(stmt->statements().size() == 2);
@@ -162,6 +172,16 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	stmt->initializer(make_unique<primitive_expression>("4"));
 	stmt->condition(make_unique<primitive_expression>("5"));
 	stmt->loop(make_unique<primitive_expression>("6"));
+
+	stream.str("");
+	copy2.write(stream);
+
+	BOOST_TEST(stream.str() == indent + "for( 1; 2; 3 )\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
+	stream.str("");
+	stmt->write(stream);
+
+	BOOST_TEST(stream.str() == indent + "for( 4; 5; 6 )\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n");
 
 	copy2 = *stmt;
 	BOOST_TEST(stmt->statements().size() == 3);
@@ -179,7 +199,11 @@ BOOST_AUTO_TEST_CASE(for_loop_tests)
 	c_ref.initializer();
 	c_ref.loop();
 	c_ref.statements();
+
+	stream.str("");
 	c_ref.write(stream);
+
+	BOOST_TEST(stream.str() == indent + "for( ;; )\n" + indent + "{\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_CASE(while_loop_tests)
