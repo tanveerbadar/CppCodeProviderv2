@@ -55,10 +55,9 @@ ostream &block_statement::write_declaration(ostream &os) const
 	os << indent << "{" << endl;
 	++formatter_settings::settings.indent_level;
 
-	auto indent2 = formatter_settings::settings.get_indent_string();
 	for (auto &stmt : collection)
 	{
-		os << indent2 << *stmt;
+		os << *stmt;
 	}
 
 	--formatter_settings::settings.indent_level;
