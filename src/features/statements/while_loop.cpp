@@ -30,7 +30,7 @@ void while_loop::write(ostream &os) const
 		os << "do" << endl;
 	os << body;
 	if (loop_style == while_loop_style::do_while_loop)
-		os << indent << "while(" << *condition_exp << ");" << endl;
+		os << indent << "while( " << *condition_exp << " );" << endl;
 }
 
 const expression &while_loop::condition() const

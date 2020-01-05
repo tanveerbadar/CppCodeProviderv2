@@ -212,9 +212,12 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 
 	BOOST_TEST(stmt->statements().size() == 0);
 
+	auto indent = formatter_settings::settings.get_indent_string();
 	boost::test_tools::output_test_stream stream;
 
 	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "while( 1 )\n" + indent + "{\n" + indent + "}\n");
 
 	auto copy1(*stmt);
 	auto &body2 = stmt->statements();
@@ -226,6 +229,11 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->condition()).expr() == "1");
 	BOOST_TEST(stmt->style() == while_loop_style::while_loop);
 
+	stream.str("");
+	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "while( 1 )\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	stmt->condition(make_unique<primitive_expression>("2"));
 
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->condition()).expr() == "2");
@@ -236,8 +244,15 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 
 	auto other = stmt->clone();
 
+	stream.str("");
 	stream << *other;
+
+	BOOST_TEST(stream.str() == indent + "do\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "while( 2 );\n");
+
+	stream.str("");
 	other->write(stream);
+
+	BOOST_TEST(stream.str() == indent + "do\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "while( 2 );\n");
 
 	auto copy2(*stmt);
 	BOOST_TEST(stmt->statements().size() == 2);
@@ -263,7 +278,11 @@ BOOST_AUTO_TEST_CASE(while_loop_tests)
 	c_ref.condition();
 	c_ref.statements();
 	c_ref.style();
+
+	stream.str("");
 	c_ref.write(stream);
+
+	BOOST_TEST(stream.str() == indent + "while( 1 )\n" + indent + "{\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_CASE(if_statement_tests)
