@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(binary_expression_tests)
 			BOOST_TEST(stream.str() == ("1[2]"));
 		else
 		{
-			BOOST_TEST(stream.str() == ("1" + sstr.str() + "2"));
+			BOOST_TEST(stream.str() == ("1 " + sstr.str() + " 2"));
 		}
 
 		stream.str("");
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(binary_expression_tests)
 			BOOST_TEST(stream.str() == ("1[2]"));
 		else
 		{
-			BOOST_TEST(stream.str() == ("1" + sstr.str() + "2"));
+			BOOST_TEST(stream.str() == ("1 " + sstr.str() + " 2"));
 		}
 
 		auto copy(*e);

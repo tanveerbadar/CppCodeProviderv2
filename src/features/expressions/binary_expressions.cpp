@@ -36,7 +36,7 @@ void binary_expression::write(ostream &os) const
 		os << *e1 << "[" << *e2 << "]";
 		break;
 	default:
-		os << *e1 << e_type << *e2;
+		os << *e1 << ' ' << e_type << ' ' << *e2;
 		break;
 	}
 }
