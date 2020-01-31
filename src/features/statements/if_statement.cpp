@@ -48,16 +48,16 @@ if_statement &if_statement::condition(unique_ptr<expression> e)
 
 unique_ptr<statement> if_statement::clone() const
 {
-	return make_unique<if_statement>(condition_exp->clone());
+	return make_unique<if_statement>(*this);
 }
 
 void if_statement::write(ostream &os) const
 {
 	auto indent = formatter_settings::settings.get_indent_string();
-	os << indent << "if ";
+	os << indent << "if";
 	if (is_const_expr)
-		os << "constexpr ";
-	os << "( " << *condition_exp << " )" << endl;
+		os << " constexpr ";
+	os << "(" << *condition_exp << ")" << endl;
 	os << if_collection;
 	if (else_collection.statements().size() > 0)
 	{

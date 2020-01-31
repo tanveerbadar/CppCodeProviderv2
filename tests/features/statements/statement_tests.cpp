@@ -294,6 +294,13 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(stmt->else_block().size() == 0);
 	BOOST_TEST(!stmt->is_constexpr());
 
+	boost::test_tools::output_test_stream stream;
+	auto indent = formatter_settings::settings.get_indent_string();
+
+	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "if(1 != 2)\n" + indent + "{\n" + indent + "}\n");
+
 	auto &condition = stmt->condition();
 	auto &body2 = stmt->if_block();
 
@@ -311,12 +318,17 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(stmt->if_block().size() == 2);
 	BOOST_TEST(stmt->else_block().size() == 2);
 
+	stream.str("");
+	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "if(1 != 2)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "else\n" + indent + "{\n" + indent + indent + "3;\n" + indent + indent + "4;\n" + indent + "}\n");
+
 	auto other = stmt->clone();
 
-	boost::test_tools::output_test_stream stream;
-
+	stream.str("");
 	stream << *other;
-	other->write(stream);
+
+	BOOST_TEST(stream.str() == indent + "if(1 != 2)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "else\n" + indent + "{\n" + indent + indent + "3;\n" + indent + indent + "4;\n" + indent + "}\n");	other->write(stream);
 
 	stmt->is_constexpr(true);
 
@@ -329,9 +341,24 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(dynamic_cast<const binary_expression &>(copy2.condition()).right()).expr() == "2");
 	BOOST_TEST(copy2.is_constexpr());
 
+	stream.str("");
+	stream << copy2;
+
+	BOOST_TEST(stream.str() == indent + "if constexpr (1 != 2)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "else\n" + indent + "{\n" + indent + indent + "3;\n" + indent + indent + "4;\n" + indent + "}\n");	other->write(stream);
+
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("3")));
 	body4.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("3")));
 	stmt->condition(make_unique<binary_expression>(expression_type::not_equal, make_unique<primitive_expression>("1"), make_unique<primitive_expression>("3")));
+
+	stream.str("");
+	stream << copy2;
+
+	BOOST_TEST(stream.str() == indent + "if constexpr (1 != 2)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "else\n" + indent + "{\n" + indent + indent + "3;\n" + indent + indent + "4;\n" + indent + "}\n");	other->write(stream);
+	
+	stream.str("");
+	other->write(stream);
+
+	BOOST_TEST(stream.str() == indent + "if(1 != 2)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "else\n" + indent + "{\n" + indent + indent + "3;\n" + indent + indent + "4;\n" + indent + "}\n");	other->write(stream);
 
 	stmt->is_constexpr(false);
 	copy2 = *stmt;
@@ -350,6 +377,11 @@ BOOST_AUTO_TEST_CASE(if_statement_tests)
 	c_ref.if_block();
 	c_ref.write(stream);
 	c_ref.is_constexpr();
+
+	stream.str("");
+	stream << c_ref;
+
+	BOOST_TEST(stream.str() == indent + "if(1 != 3)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "3;\n" + indent + "}\n" + indent + "else\n" + indent + "{\n" + indent + indent + "3;\n" + indent + indent + "4;\n" + indent + indent + "3;\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_CASE(catch_block_tests)
