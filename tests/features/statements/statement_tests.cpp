@@ -4,6 +4,7 @@
 #include "../../../src/features/statements.h"
 #include "../../../src/features/types.h"
 #include "../../../src/formatters/formatter_settings.h"
+#include "../../../src/utils/copyable_ptr.h"
 #include <boost/test/output_test_stream.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -872,13 +873,21 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 
 BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 {
-	auto stmt = make_unique<ranged_for_loop>();
+	auto var = make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")));
+	var->var_declarator().name = "i";
+	var->var_declarator().initializer_exp = copyable_ptr<expression>(make_unique<primitive_expression>("55"));
+	auto stmt = make_unique<ranged_for_loop>(move(var));
 
 	BOOST_TEST(stmt->statements().size() == 0);
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().name == "i");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().initializer_exp).expr() == "55");
 
 	boost::test_tools::output_test_stream stream;
+	auto indent = formatter_settings::settings.get_indent_string();
 
 	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + "}\n");
 
 	auto &body2 = stmt->statements();
 
@@ -886,37 +895,54 @@ BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 
 	BOOST_TEST(stmt->statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "");
 
-	stmt->initializer(make_unique<primitive_expression>("1"));
+	stream.str("");
+	stream << *stmt;
 
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "1");
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	auto other = stmt->clone();
 
+	stream.str("");
 	stream << *other;
+
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
+	stream.str("");
 	other->write(stream);
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	auto copy2(*stmt);
-	BOOST_TEST(stmt->statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "1");
 	BOOST_TEST(copy2.statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().name == "i");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().initializer_exp).expr() == "55");
+
+	stream.str("");
+	stream << copy2;
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
-	stmt->initializer(make_unique<primitive_expression>("2"));
+
 	copy2 = *stmt;
 
+	stream.str("");
+	stream << copy2;
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n");
+
 	BOOST_TEST(stmt->statements().size() == 3);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "2");
 	BOOST_TEST(copy2.statements().size() == 3);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.initializer()).expr() == "2");
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().name == "i");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().initializer_exp).expr() == "55");
 
 	const auto &c_ref = copy2;
 	c_ref.clone();
 	c_ref.initializer();
 	c_ref.statements();
 	c_ref.write(stream);
+
+	stream.str("");
+	stream << copy2;
+	BOOST_TEST(stream.str() == indent + "for(int i : 55)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
