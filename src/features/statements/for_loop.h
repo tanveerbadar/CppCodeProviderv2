@@ -18,10 +18,11 @@ namespace statements
 class for_loop : public statement
 {
 	block_statement body;
-	utils::copyable_ptr<expressions::expression> init, loop_exp, condition_exp;
+	utils::copyable_ptr<expressions::expression> loop_exp, condition_exp;
+	utils::copyable_ptr<declarations::variable_declaration_list> init;
 
 public:
-	ACCESSOR_DECLARATION_2(for_loop, initializer, const expressions::expression &, std::unique_ptr<expressions::expression>)
+	ACCESSOR_DECLARATION_2(for_loop, initializer, const declarations::variable_declaration_list &, std::unique_ptr<declarations::variable_declaration_list>)
 	ACCESSOR_DECLARATION_2(for_loop, condition, const expressions::expression &, std::unique_ptr<expressions::expression>)
 	ACCESSOR_DECLARATION_2(for_loop, loop, const expressions::expression &, std::unique_ptr<expressions::expression>)
 	statement_list &statements();

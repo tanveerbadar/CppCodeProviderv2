@@ -31,6 +31,7 @@ namespace declarations
 {
 class declaration;
 class variable_declaration;
+class variable_declaration_list;
 } // namespace declarations
 
 namespace statements
