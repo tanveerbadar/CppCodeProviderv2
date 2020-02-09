@@ -751,9 +751,9 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 {
 	jump_statement break_stmt(jump_type::break_jump);
 	jump_statement continue_stmt(jump_type::continue_jump);
-	jump_statement goto_stmt(jump_type::goto_jump);
+	jump_statement goto_stmt(jump_type::goto_jump, make_unique<primitive_expression>("label"));
 	jump_statement return_stmt1(jump_type::return_jump);
-	jump_statement return_stmt2(jump_type::return_jump);
+	jump_statement return_stmt2(jump_type::return_jump, make_unique<primitive_expression>("5"));
 
 	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
 	BOOST_TEST(continue_stmt.type() == jump_type::continue_jump);

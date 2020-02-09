@@ -30,6 +30,7 @@ class jump_statement : public statement
 
 public:
 	jump_statement(jump_type);
+	jump_statement(jump_type, std::unique_ptr<expressions::expression>);
 
 	jump_type type() const;
 
