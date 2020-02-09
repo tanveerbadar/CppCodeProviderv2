@@ -5,6 +5,7 @@
 #include "../../../src/features/functions.h"
 #include "../../../src/features/statements/try_statement.h"
 #include "../../../src/features/types.h"
+#include "../../../src/formatters/formatter_settings.h"
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
@@ -12,8 +13,51 @@ using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
+using namespace cpp::codeprovider::formatting;
 
 BOOST_AUTO_TEST_SUITE(type_tests)
+
+BOOST_AUTO_TEST_CASE(primitive_type_tests)
+{
+    auto p = make_unique<primitive_type>("int");
+
+    boost::test_tools::output_test_stream stream;
+	auto indent = formatter_settings::settings.get_indent_string();
+
+    p->write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
+    auto other = p->clone();
+
+    stream.str("");
+    other->write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
+    auto copy(*p);
+
+    stream.str("");
+    copy.write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
+    auto q = make_unique<primitive_type>("double");
+    copy = *q;
+
+    stream.str("");
+    copy.write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "double");
+
+    const auto& c_ref = *p;
+    c_ref.get_name();
+
+    stream.str("");
+    c_ref.write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "int");
+}
 
 BOOST_AUTO_TEST_CASE(user_defined_type_tests)
 {
