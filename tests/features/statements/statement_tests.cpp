@@ -9,9 +9,10 @@
 BOOST_AUTO_TEST_SUITE(statement_tests)
 
 using namespace std;
+using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::statements;
-using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::formatting;
 
 BOOST_AUTO_TEST_CASE(expression_statement_tests)
@@ -391,9 +392,17 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	auto &var = block.variable();
 
 	boost::test_tools::output_test_stream output;
+	auto indent = formatter_settings::settings.get_indent_string();
 	output << block;
 
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + "}\n" );
+
 	auto copy1(block);
+
+	output.str("");
+	output << copy1;
+
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + "}\n" );
 
 	auto &body2 = block.statements();
 
@@ -402,7 +411,17 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 
 	BOOST_TEST(block.statements().size() == 2);
 
+	output.str("");
+	output << block;
+
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" );
+
 	auto copy2(block);
+
+	output.str("");
+	output << copy2;
+
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" );
 
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
@@ -410,16 +429,37 @@ BOOST_AUTO_TEST_CASE(catch_block_tests)
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
 	copy2 = block;
 
+	output.str("");
+	output << block;
+
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n" );
+
 	BOOST_TEST(copy2.statements().size() == 3);
 	BOOST_TEST(block.statements().size() == 3);
 
+	output.str("");
 	output << copy2;
+
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n" );
 
 	const auto &c_ref = copy1;
 	c_ref.statements();
 	c_ref.variable();
 
+	output.str("");
 	output << c_ref;
+
+	BOOST_TEST(output.str() == indent + "catch(...)\n" + indent + "{\n" + indent + "}\n" );
+
+	auto type = make_unique<primitive_type>("int");
+	auto var2 = make_unique<variable_declaration>(variable_declaration(declarator_specifier(move(type))));
+	var2->var_declarator().name = "i";
+	catch_clause catch2(move(var2));
+
+	output.str("");
+	output << catch2;
+
+	BOOST_TEST(output.str() == indent + "catch(int i)\n" + indent + "{\n" + indent + "}\n" );
 }
 
 BOOST_AUTO_TEST_CASE(try_statement_tests)

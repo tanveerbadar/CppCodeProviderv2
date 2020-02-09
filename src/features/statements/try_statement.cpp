@@ -2,11 +2,13 @@
 #include "../expressions/common.h"
 #include "../declarations/variable_declaration.h"
 #include "../types/primitive_type.h"
+#include "../../formatters/formatter_settings.h"
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
+using namespace cpp::codeprovider::formatting;
 
 namespace
 {
@@ -35,7 +37,8 @@ const statement_list &catch_clause::statements() const
 
 std::ostream &cpp::codeprovider::statements::operator<<(std::ostream &os, const catch_clause &c)
 {
-	os << "catch(";
+	auto indent = formatter_settings::settings.get_indent_string();
+	os << indent << "catch(";
 	if (c.variable().var_declarator().name.size() > 0)
 		c.variable().write_declaration(os);
 	else
