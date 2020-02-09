@@ -20,7 +20,7 @@ class ranged_for_loop : public statement
 	utils::copyable_ptr<declarations::variable_declaration> init;
 
 public:
-	ranged_for_loop() = default;
+	ranged_for_loop(std::unique_ptr<declarations::variable_declaration>);
 
 	ACCESSOR_DECLARATION_2(ranged_for_loop, initializer, const declarations::variable_declaration &, std::unique_ptr<declarations::variable_declaration>)
 	statement_list &statements();

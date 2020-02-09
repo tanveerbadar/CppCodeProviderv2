@@ -1,8 +1,8 @@
 #include "ranged_for_loop.h"
+#include "../../formatters/formatter_settings.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/primitive_expression.h"
 #include "../types/primitive_type.h"
-#include "../../formatters/formatter_settings.h"
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
@@ -10,9 +10,9 @@ using namespace cpp::codeprovider::formatting;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 
-namespace
+ranged_for_loop::ranged_for_loop(unique_ptr<variable_declaration> d)
+	: init(move(d))
 {
-variable_declaration placeholder(declarator_specifier(make_shared<primitive_type>("")));
 }
 
 unique_ptr<statement> ranged_for_loop::clone() const
@@ -34,7 +34,7 @@ void ranged_for_loop::write(ostream &os) const
 
 const variable_declaration &ranged_for_loop::initializer() const
 {
-	return init ? *init : placeholder;
+	return *init;
 }
 
 ranged_for_loop &ranged_for_loop::initializer(unique_ptr<variable_declaration> i)

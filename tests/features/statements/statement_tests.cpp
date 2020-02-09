@@ -861,9 +861,14 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 
 BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 {
-	auto stmt = make_unique<ranged_for_loop>();
+	auto var = make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")));
+	var->var_declarator().name = "i";
+	var->var_declarator().initializer_exp = copyable_ptr<expression>(make_unique<primitive_expression>("55"));
+	auto stmt = make_unique<ranged_for_loop>(move(var));
 
 	BOOST_TEST(stmt->statements().size() == 0);
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().name == "i");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().initializer_exp).expr() == "55");
 
 	boost::test_tools::output_test_stream stream;
 
@@ -875,14 +880,6 @@ BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 
 	BOOST_TEST(stmt->statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "");
-
-	auto var = make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")));
-	var->var_declarator().name = "i";
-	var->var_declarator().initializer_exp = copyable_ptr<expression>(make_unique<primitive_expression>("55"));
-	stmt->initializer(move(var));
-
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "1");
 
 	auto other = stmt->clone();
 
@@ -890,10 +887,9 @@ BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 	other->write(stream);
 
 	auto copy2(*stmt);
-	BOOST_TEST(stmt->statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().name == "i");
 	BOOST_TEST(copy2.statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().initializer_exp).expr() == "55");
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().name == "i");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().initializer_exp).expr() == "55");
 
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
 
@@ -901,6 +897,8 @@ BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 
 	BOOST_TEST(stmt->statements().size() == 3);
 	BOOST_TEST(copy2.statements().size() == 3);
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().name == "i");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(copy2.initializer()).var_declarator().initializer_exp).expr() == "55");
 
 	const auto &c_ref = copy2;
 	c_ref.clone();
