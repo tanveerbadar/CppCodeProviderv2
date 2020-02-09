@@ -17,6 +17,11 @@ jump_statement::jump_statement(jump_type t)
 {
 }
 
+jump_statement::jump_statement(jump_type t, unique_ptr<expression> e)
+	: j_type(t), e1(move(e))
+{
+}
+
 jump_type jump_statement::type() const
 {
 	return j_type;
@@ -43,7 +48,7 @@ void jump_statement::write(ostream &os) const
 		os << "break;" << endl;
 		break;
 	case jump_type::goto_jump:
-		os << "goto " << *e1 << endl;
+		os << "goto " << *e1 << ";" << endl;
 		break;
 	case jump_type::return_jump:
 		os << "return";
