@@ -3,6 +3,7 @@
 #include "../../../src/features/statements.h"
 #include "../../../src/features/types.h"
 #include "../../../src/formatters/formatter_settings.h"
+#include "../../../src/utils/copyable_ptr.h"
 #include <boost/test/output_test_stream.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -14,6 +15,7 @@ using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::formatting;
+using namespace cpp::codeprovider::utils;
 
 BOOST_AUTO_TEST_CASE(expression_statement_tests)
 {
@@ -875,7 +877,10 @@ BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 	BOOST_TEST(stmt->statements().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "");
 
-	stmt->initializer(make_unique<primitive_expression>("1"));
+	auto var = make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int")));
+	var->var_declarator().name = "i";
+	var->var_declarator().initializer_exp = copyable_ptr<expression>(make_unique<primitive_expression>("55"));
+	stmt->initializer(move(var));
 
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "1");
 
@@ -886,18 +891,16 @@ BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
 
 	auto copy2(*stmt);
 	BOOST_TEST(stmt->statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().name == "i");
 	BOOST_TEST(copy2.statements().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.initializer()).expr() == "1");
+	BOOST_TEST(dynamic_cast<const primitive_expression&>(*dynamic_cast<const variable_declaration &>(stmt->initializer()).var_declarator().initializer_exp).expr() == "55");
 
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
-	stmt->initializer(make_unique<primitive_expression>("2"));
+
 	copy2 = *stmt;
 
 	BOOST_TEST(stmt->statements().size() == 3);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->initializer()).expr() == "2");
 	BOOST_TEST(copy2.statements().size() == 3);
-	BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.initializer()).expr() == "2");
 
 	const auto &c_ref = copy2;
 	c_ref.clone();
