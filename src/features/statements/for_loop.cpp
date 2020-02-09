@@ -1,15 +1,20 @@
 #include "for_loop.h"
+#include "../declarations/variable_declaration_list.h"
 #include "../expressions/primitive_expression.h"
+#include "../types/primitive_type.h"
 #include "../../formatters/formatter_settings.h"
 
 using namespace std;
+using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::formatting;
 using namespace cpp::codeprovider::statements;
+using namespace cpp::codeprovider::types;
 
 namespace
 {
-primitive_expression placeholder("");
+primitive_expression expr_placeholder("");
+variable_declaration_list init_placeholder(declarator_specifier(make_shared<primitive_type>("")));
 }
 
 unique_ptr<statement> for_loop::clone() const
@@ -25,7 +30,7 @@ void for_loop::write(ostream &os) const
 		os << indent << "//" << comment << endl;
 	os << indent << "for( ";
 	if (init)
-		os << *init;
+		init->write_definition(os);
 	os << ";";
 	if (condition_exp)
 		os << ' ' << *condition_exp;
@@ -36,12 +41,12 @@ void for_loop::write(ostream &os) const
 	os << body;
 }
 
-const expression &for_loop::initializer() const
+const variable_declaration_list &for_loop::initializer() const
 {
-	return init ? *init : placeholder;
+	return init ? *init : init_placeholder;
 }
 
-for_loop &for_loop::initializer(unique_ptr<expression> i)
+for_loop &for_loop::initializer(unique_ptr<variable_declaration_list> i)
 {
 	init = move(i);
 	return *this;
@@ -49,7 +54,7 @@ for_loop &for_loop::initializer(unique_ptr<expression> i)
 
 const expression &for_loop::condition() const
 {
-	return condition_exp ? *condition_exp : placeholder;
+	return condition_exp ? *condition_exp : expr_placeholder;
 }
 
 for_loop &for_loop::condition(unique_ptr<expression> c)
@@ -60,7 +65,7 @@ for_loop &for_loop::condition(unique_ptr<expression> c)
 
 const expression &for_loop::loop() const
 {
-	return loop_exp ? *loop_exp : placeholder;
+	return loop_exp ? *loop_exp : expr_placeholder;
 }
 
 for_loop &for_loop::loop(unique_ptr<expression> l)
