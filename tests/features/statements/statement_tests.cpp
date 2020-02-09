@@ -669,6 +669,13 @@ BOOST_AUTO_TEST_CASE(switch_statement_tests)
 	BOOST_TEST(stmt->cases().size() == 0);
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(stmt->condition()).expr() == "5");
 
+	boost::test_tools::output_test_stream stream;
+	auto indent = formatter_settings::settings.get_indent_string();
+
+	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "}\n");
+
 	case_statement block(true);
 	auto &body3 = block.statements();
 	body3.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
@@ -678,13 +685,27 @@ BOOST_AUTO_TEST_CASE(switch_statement_tests)
 
 	BOOST_TEST(stmt->cases().size() == 1);
 
+	stream.str("");
+	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
+
 	auto other = stmt->clone();
 
-	boost::test_tools::output_test_stream stream;
-
+	stream.str("");
 	stream << *other;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
+
+	stream.str("");
 	other->write(stream);
-	stream << *stmt;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
+
+	stream.str("");
+	stream << *other;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
 
 	auto copy2(*stmt);
 
@@ -694,19 +715,36 @@ BOOST_AUTO_TEST_CASE(switch_statement_tests)
 
 	stmt->cases().push_back(block);
 
+	stream.str("");
+	stream << copy2;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
+
 	copy2 = *stmt;
+
+	stream.str("");
+	stream << copy2;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
 
 	BOOST_TEST(copy2.cases().size() == 2);
 	BOOST_TEST(stmt->cases().size() == 2);
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(copy2.condition()).expr() == "5");
 
+	stream.str("");
 	stream << copy2;
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
 
 	const auto &c_ref = copy2;
 	c_ref.cases();
 	c_ref.condition();
 	c_ref.clone();
+
+	stream.str("");
 	c_ref.write(stream);
+
+	BOOST_TEST(stream.str() == indent + "switch(5)\n" + indent + "{\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_CASE(jump_statement_tests)
