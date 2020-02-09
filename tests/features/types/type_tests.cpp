@@ -28,6 +28,11 @@ BOOST_AUTO_TEST_CASE(primitive_type_tests)
 
     BOOST_TEST(stream.str() == "int");
 
+    stream.str("");
+    p->write_definition(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
     auto other = p->clone();
 
     stream.str("");
@@ -35,10 +40,20 @@ BOOST_AUTO_TEST_CASE(primitive_type_tests)
 
     BOOST_TEST(stream.str() == "int");
 
+    stream.str("");
+    other->write_definition(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
     auto copy(*p);
 
     stream.str("");
     copy.write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
+    stream.str("");
+    copy.write_definition(stream);
 
     BOOST_TEST(stream.str() == "int");
 
@@ -50,11 +65,21 @@ BOOST_AUTO_TEST_CASE(primitive_type_tests)
 
     BOOST_TEST(stream.str() == "double");
 
+    stream.str("");
+    copy.write_definition(stream);
+
+    BOOST_TEST(stream.str() == "double");
+
     const auto& c_ref = *p;
     c_ref.get_name();
 
     stream.str("");
     c_ref.write_declaration(stream);
+
+    BOOST_TEST(stream.str() == "int");
+
+    stream.str("");
+    c_ref.write_definition(stream);
 
     BOOST_TEST(stream.str() == "int");
 }
