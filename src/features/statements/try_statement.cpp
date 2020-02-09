@@ -75,7 +75,8 @@ unique_ptr<statement> try_statement::clone() const
 
 void try_statement::write(ostream &os) const
 {
-	os << "try" << endl;
+	auto indent = formatter_settings::settings.get_indent_string();
+	os << indent << "try" << endl;
 	os << try_block;
 
 	for (auto &c : catch_blocks)

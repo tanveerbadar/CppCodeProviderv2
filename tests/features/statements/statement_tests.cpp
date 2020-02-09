@@ -469,6 +469,14 @@ BOOST_AUTO_TEST_CASE(try_statement_tests)
 	BOOST_TEST(stmt->statements().size() == 0);
 	BOOST_TEST(stmt->catch_clauses().size() == 0);
 
+	boost::test_tools::output_test_stream stream;
+	auto indent = formatter_settings::settings.get_indent_string();
+
+	stream << *stmt;
+	auto str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + "}\n");
+	
 	auto &body2 = stmt->statements();
 
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
@@ -486,14 +494,37 @@ BOOST_AUTO_TEST_CASE(try_statement_tests)
 	BOOST_TEST(stmt->statements().size() == 2);
 	BOOST_TEST(stmt->catch_clauses().size() == 1);
 
+	stream.str("");
+	stream << *stmt;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	auto other = stmt->clone();
 
-	boost::test_tools::output_test_stream stream;
-
 	stream << *other;
+
+	stream.str("");
+	stream << *other;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	other->write(stream);
 
+	stream.str("");
+	stream << *other;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	stream << *stmt;
+
+	stream.str("");
+	stream << *stmt;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	auto copy1(*stmt);
 
@@ -503,25 +534,53 @@ BOOST_AUTO_TEST_CASE(try_statement_tests)
 	BOOST_TEST(stmt->statements().size() == 2);
 	BOOST_TEST(stmt->catch_clauses().size() == 1);
 
+	stream.str("");
+	stream << copy1;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	auto copy2(*stmt);
 
 	stmt->catch_clauses().push_back(block);
 	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 
+	stream.str("");
+	stream << copy2;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	copy2 = *stmt;
+
+	stream.str("");
+	stream << copy2;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	BOOST_TEST(copy2.statements().size() == 3);
 	BOOST_TEST(stmt->statements().size() == 3);
 	BOOST_TEST(copy2.catch_clauses().size() == 2);
 	BOOST_TEST(stmt->catch_clauses().size() == 2);
 
+
+	stream.str("");
 	stream << copy2;
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	const auto &c_ref = copy1;
 	c_ref.catch_clauses();
 	c_ref.clone();
 	c_ref.statements();
+
+	stream.str("");
 	c_ref.write(stream);
+	str = stream.str();
+
+	BOOST_TEST(str == indent + "try\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_CASE(case_statement_tests)
