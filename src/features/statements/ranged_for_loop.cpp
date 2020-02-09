@@ -26,9 +26,9 @@ void ranged_for_loop::write(ostream &os) const
 
 	if (comment.size() > 0)
 		os << indent << "//" << comment << endl;
-	os << indent << "for( ";
-	os << init->specifier() << ':' << *init->var_declarator().initializer_exp;
-	os << " )" << endl;
+	os << indent << "for(";
+	os << init->specifier() << init->var_declarator().name << " : " << *init->var_declarator().initializer_exp;
+	os << ")" << endl;
 	os << body;
 }
 
