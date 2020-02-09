@@ -46,9 +46,9 @@ void jump_statement::write(ostream &os) const
 		os << "goto " << *e1 << endl;
 		break;
 	case jump_type::return_jump:
-		os << "return ";
+		os << "return";
 		if (e1)
-			os << *e1;
+			os << ' ' << *e1;
 		os << ";" << endl;
 		break;
 	}

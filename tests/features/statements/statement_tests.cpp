@@ -761,19 +761,100 @@ BOOST_AUTO_TEST_CASE(jump_statement_tests)
 	BOOST_TEST(return_stmt1.type() == jump_type::return_jump);
 
 	boost::test_tools::output_test_stream output;
+	auto indent = formatter_settings::settings.get_indent_string();
+
 	output << break_stmt;
+	BOOST_TEST(output.str() == indent + "break;\n");
+
+	output.str("");
+	output << continue_stmt;
+	BOOST_TEST(output.str() == indent + "continue;\n");
+
+	output.str("");
+	output << goto_stmt;
+	BOOST_TEST(output.str() == indent + "goto label;\n");
+
+	output.str("");
+	output << return_stmt1;
+	BOOST_TEST(output.str() == indent + "return;\n");
+
+	output.str("");
+	output << return_stmt2;
+	BOOST_TEST(output.str() == indent + "return 5;\n");
 
 	auto copy1(break_stmt);
+	auto copy2(continue_stmt);
+	auto copy3(goto_stmt);
+	auto copy4(return_stmt1);
+	auto copy5(return_stmt2);
 
 	BOOST_TEST(copy1.type() == jump_type::break_jump);
 	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
+	BOOST_TEST(copy2.type() == jump_type::continue_jump);
+	BOOST_TEST(continue_stmt.type() == jump_type::continue_jump);
+	BOOST_TEST(copy3.type() == jump_type::goto_jump);
+	BOOST_TEST(goto_stmt.type() == jump_type::goto_jump);
+	BOOST_TEST(copy4.type() == jump_type::return_jump);
+	BOOST_TEST(return_stmt1.type() == jump_type::return_jump);
+	BOOST_TEST(copy5.type() == jump_type::return_jump);
+	BOOST_TEST(return_stmt2.type() == jump_type::return_jump);
 
+	output.str("");
 	output << copy1;
+	BOOST_TEST(output.str() == indent + "break;\n");
+
+	output.str("");
+	output << copy2;
+	BOOST_TEST(output.str() == indent + "continue;\n");
+
+	output.str("");
+	output << copy3;
+	BOOST_TEST(output.str() == indent + "goto label;\n");
+
+	output.str("");
+	output << copy4;
+	BOOST_TEST(output.str() == indent + "return;\n");
+
+	output.str("");
+	output << copy5;
+	BOOST_TEST(output.str() == indent + "return 5;\n");
 
 	copy1 = continue_stmt;
+	copy2 = break_stmt;
+	copy5 = goto_stmt;
+	copy3 = return_stmt1;
+	copy4 = return_stmt2;
 
-	BOOST_TEST(copy1.type() == jump_type::continue_jump);
+	BOOST_TEST(copy2.type() == jump_type::break_jump);
 	BOOST_TEST(break_stmt.type() == jump_type::break_jump);
+	BOOST_TEST(copy1.type() == jump_type::continue_jump);
+	BOOST_TEST(continue_stmt.type() == jump_type::continue_jump);
+	BOOST_TEST(copy5.type() == jump_type::goto_jump);
+	BOOST_TEST(goto_stmt.type() == jump_type::goto_jump);
+	BOOST_TEST(copy3.type() == jump_type::return_jump);
+	BOOST_TEST(return_stmt1.type() == jump_type::return_jump);
+	BOOST_TEST(copy4.type() == jump_type::return_jump);
+	BOOST_TEST(return_stmt2.type() == jump_type::return_jump);
+
+	output.str("");
+	output << copy2;
+	BOOST_TEST(output.str() == indent + "break;\n");
+
+	output.str("");
+	output << copy1;
+	BOOST_TEST(output.str() == indent + "continue;\n");
+
+	output.str("");
+	output << copy5;
+	BOOST_TEST(output.str() == indent + "goto label;\n");
+
+	output.str("");
+	output << copy3;
+	BOOST_TEST(output.str() == indent + "return;\n");
+
+	output.str("");
+	output << copy4;
+	BOOST_TEST(output.str() == indent + "return 5;\n");
 }
 
 BOOST_AUTO_TEST_CASE(ranged_for_loop_tests)
