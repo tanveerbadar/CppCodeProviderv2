@@ -588,6 +588,13 @@ BOOST_AUTO_TEST_CASE(case_statement_tests)
 	case_statement block(false);
 	BOOST_TEST(block.statements().size() == 0);
 
+	boost::test_tools::output_test_stream output;
+	auto indent = formatter_settings::settings.get_indent_string();
+
+	output << block;
+
+	BOOST_TEST(output.str() == indent + "default:\n" + indent + "{\n" + indent + "}\n");
+
 	auto &body2 = block.statements();
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
 	body2.emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
@@ -596,31 +603,63 @@ BOOST_AUTO_TEST_CASE(case_statement_tests)
 
 	auto &var = block.label();
 
-	boost::test_tools::output_test_stream output;
+	output.str("");
 	output << block;
+
+	BOOST_TEST(output.str() == indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	auto copy2(block);
 
 	BOOST_TEST(copy2.statements().size() == 2);
 	BOOST_TEST(block.statements().size() == 2);
 
+	output.str("");
+	output << copy2;
+
+	BOOST_TEST(output.str() == indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
+
 	body2.push_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
+
+	output.str("");
+	output << copy2;
+
+	BOOST_TEST(output.str() == indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + "}\n");
 
 	copy2 = block;
 
 	BOOST_TEST(copy2.statements().size() == 3);
 	BOOST_TEST(block.statements().size() == 3);
 
+	output.str("");
 	output << copy2;
+
+	BOOST_TEST(output.str() == indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n");
 
 	case_statement block2(make_unique<primitive_expression>("5"));
 	auto &var2 = block2.label();
 	BOOST_TEST(dynamic_cast<const primitive_expression &>(var2).expr() == "5");
 
+	output.str("");
+	output << block2;
+
+	BOOST_TEST(output.str() == indent + "case 5:\n" + indent + "{\n" + indent + "}\n");
+
+	auto copy3(block2);
+
+	output.str("");
+	output << copy3;
+
+	BOOST_TEST(output.str() == indent + "case 5:\n" + indent + "{\n" + indent + "}\n");
+
 	const auto &c_ref = copy2;
 	c_ref.has_label();
 	c_ref.label();
 	c_ref.statements();
+
+	output.str("");
+	output << c_ref;
+
+	BOOST_TEST(output.str() == indent + "default:\n" + indent + "{\n" + indent + indent + "1;\n" + indent + indent + "2;\n" + indent + indent + "1;\n" + indent + "}\n");
 }
 
 BOOST_AUTO_TEST_CASE(switch_statement_tests)
