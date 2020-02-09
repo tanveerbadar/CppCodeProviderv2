@@ -29,15 +29,6 @@ int main()
 
 	cout << *s1 << endl << s2 << endl;
 
-	auto l1 = make_unique<for_loop>();
-
-	(*l1).condition(make_unique<binary_expression>(*e1)).initializer(make_unique<binary_expression>(*e1)).loop(make_unique<binary_expression>(*e1));
-	auto& body2 = l1->statements();
-	body2.emplace_back(make_unique<expression_statement>(*s1));
-	body2.emplace_back(make_unique<expression_statement>(*s1));
-
-	cout << *l1;
-
 	auto s3 = make_unique<switch_statement>(make_unique<binary_expression>(*e1));
 
 	auto c = case_statement(make_unique<primitive_expression>(*a1));
@@ -111,6 +102,15 @@ int main()
 	variables.push_back(lambda());
 	variables.push_back(lambda());
 	variables.push_back(lambda());
+
+	auto l1 = make_unique<for_loop>();
+
+	(*l1).condition(make_unique<binary_expression>(*e1)).initializer(make_unique<variable_declaration_list>(*v2)).loop(make_unique<binary_expression>(*e1));
+	auto& body2 = l1->statements();
+	body2.emplace_back(make_unique<expression_statement>(*s1));
+	body2.emplace_back(make_unique<expression_statement>(*s1));
+
+	cout << *l1;
 
 	v2->write_declaration(cout);
 	cout << endl;
