@@ -5,6 +5,7 @@
 #include "../statements/try_statement.h"
 #include "../types/template_parameters.h"
 #include "../../utils/write_helpers.h"
+#include "../../formatters/formatter_settings.h"
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
@@ -15,6 +16,7 @@ using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
 using namespace cpp::codeprovider::utils;
+using namespace cpp::codeprovider::formatting;
 
 function::function(const string &n, shared_ptr<type> returns)
 	: impl(n, returns)
@@ -96,7 +98,7 @@ ostream &function::write_declaration(ostream &os) const
 
 	write_vector(os, impl.parameters);
 
-	os << ")" << endl;
+	os << ")";
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name();
@@ -108,12 +110,7 @@ ostream &function::write_declaration(ostream &os) const
 
 ostream &function::write_definition(ostream &os) const
 {
-	if (impl.template_parameters.size() > 0)
-	{
-		os << "template<";
-		write_vector(os, impl.template_parameters);
-		os << ">";
-	}
+	write_template_parameters(os, impl.template_parameters);
 
 	if (impl.is_const_expr)
 		os << "constexpr ";
@@ -136,8 +133,10 @@ ostream &function::write_definition(ostream &os) const
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;
 
+	auto indent = formatter_settings::settings.get_indent_string();
+
 	if (impl.has_function_try_block)
-		os << "try" << endl;
+		os << indent << "try" << endl;
 
 	os << impl.statements;
 
