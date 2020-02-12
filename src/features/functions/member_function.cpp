@@ -1,6 +1,6 @@
 #include "member_function.h"
-#include "../../utils/write_helpers.h"
 #include "../../formatters/formatter_settings.h"
+#include "../../utils/write_helpers.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../statements/try_statement.h"
@@ -126,6 +126,7 @@ ACCESSOR_IMPL_2(member_function, is_constant, bool, impl.is_constant)
 ACCESSOR_IMPL_2(member_function, is_volatile, bool, impl.is_volatile)
 ACCESSOR_IMPL_2(member_function, is_override, bool, impl.is_override)
 ACCESSOR_IMPL_2(member_function, return_type, shared_ptr<type>, impl.return_type)
+ACCESSOR_IMPL_2(member_function, has_trailing_return_type, bool, impl.has_trailing_return_type)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
@@ -141,7 +142,7 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << "virtual ";
 
 	if (impl.has_trailing_return_type)
-		os << "auto ";
+		os << "auto";
 	else
 		os << impl.return_type->get_name();
 
@@ -261,10 +262,11 @@ ostream &member_function::write_definition(ostream &os) const
 		os << " volatile";
 	if (impl.is_override)
 		os << " override";
-	os << endl;
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;
+	else
+		os << endl;
 
 	auto indent = formatter_settings::settings.get_indent_string();
 

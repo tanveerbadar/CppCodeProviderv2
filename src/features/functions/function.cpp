@@ -1,11 +1,11 @@
-#include "callable.h"
 #include "function.h"
+#include "../../formatters/formatter_settings.h"
+#include "../../utils/write_helpers.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../statements/try_statement.h"
 #include "../types/template_parameters.h"
-#include "../../utils/write_helpers.h"
-#include "../../formatters/formatter_settings.h"
+#include "callable.h"
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
@@ -67,6 +67,7 @@ ACCESSOR_IMPL_2(function, has_try_block, bool, impl.has_function_try_block)
 ACCESSOR_IMPL_2(function, is_constexpr, bool, impl.is_const_expr)
 ACCESSOR_IMPL_2(function, is_static, bool, impl.is_static)
 ACCESSOR_IMPL_2(function, return_type, shared_ptr<type>, impl.return_type)
+ACCESSOR_IMPL_2(function, has_trailing_return_type, bool, impl.has_trailing_return_type)
 
 block_statement &function::body()
 {
@@ -90,7 +91,7 @@ ostream &function::write_declaration(ostream &os) const
 		os << "static ";
 
 	if (impl.has_trailing_return_type)
-		os << "auto ";
+		os << "auto";
 	else
 		os << impl.return_type->get_name();
 
@@ -120,7 +121,7 @@ ostream &function::write_definition(ostream &os) const
 		os << "static ";
 
 	if (impl.has_trailing_return_type)
-		os << "auto ";
+		os << "auto";
 	else
 		os << impl.return_type->get_name();
 
@@ -128,10 +129,12 @@ ostream &function::write_definition(ostream &os) const
 
 	write_vector(os, impl.parameters);
 
-	os << ")" << endl;
+	os << ")";
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;
+	else
+		os << endl;
 
 	auto indent = formatter_settings::settings.get_indent_string();
 

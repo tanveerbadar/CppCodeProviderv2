@@ -35,6 +35,7 @@ public:
 	ACCESSOR_DECLARATION(function, is_static, bool);
 	ACCESSOR_DECLARATION(function, is_constexpr, bool);
 	ACCESSOR_DECLARATION(function, has_try_block, bool);
+	ACCESSOR_DECLARATION(function, has_trailing_return_type, bool);
 	ACCESSOR_DECLARATION(function, return_type, std::shared_ptr<types::type>);
 	statements::block_statement &body();
 	const statements::block_statement &body() const;

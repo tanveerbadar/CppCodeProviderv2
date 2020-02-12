@@ -28,6 +28,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(!f1.is_static());
 	BOOST_TEST(!f1.is_constexpr());
 	BOOST_TEST(!f1.has_try_block());
+	BOOST_TEST(!f1.has_trailing_return_type());
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
@@ -50,6 +51,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	f1.is_static(true);
 	f1.is_constexpr(true);
 	f1.has_try_block(true);
+	f1.has_trailing_return_type(true);
 	f1.body().statements().emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("T"));
 	f1.catch_blocks().push_back(block);
@@ -57,11 +59,11 @@ BOOST_AUTO_TEST_CASE(function_tests)
 
 	stream.str("");
 	f1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static int something(int );\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int ) -> int;\n");
 
 	stream.str("");
 	f1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static int something(int )\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int ) -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	auto copy1(f1);
 
@@ -69,6 +71,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(copy1.is_static());
 	BOOST_TEST(copy1.is_constexpr());
 	BOOST_TEST(copy1.has_try_block());
+	BOOST_TEST(copy1.has_trailing_return_type());
 	BOOST_TEST(copy1.body().statements().size() == 1);
 	BOOST_TEST(copy1.parameters().size() == 1);
 	BOOST_TEST(copy1.template_parameters().size() == 1);
@@ -77,16 +80,17 @@ BOOST_AUTO_TEST_CASE(function_tests)
 
 	stream.str("");
 	copy1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static int something(int );\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int ) -> int;\n");
 
 	stream.str("");
 	copy1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static int something(int )\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int ) -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	f1.is_inline(false);
 	f1.is_static(false);
 	f1.is_constexpr(false);
 	f1.has_try_block(false);
+	f1.has_trailing_return_type(false);
 	f1.body().statements().emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("U"));
 	f1.catch_blocks().push_back(block);
@@ -128,6 +132,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	c_ref.return_type();
 	c_ref.template_parameters();
 	c_ref.is_constexpr();
+	c_ref.has_trailing_return_type();
 
 	stream.str("");
 	c_ref.write_declaration(stream);
@@ -152,6 +157,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(!f1.is_volatile());
 	BOOST_TEST(!f1.is_override());
 	BOOST_TEST(!f1.has_try_block());
+	BOOST_TEST(!f1.has_trailing_return_type());
 	BOOST_TEST(f1.body().statements().size() == 0);
 	BOOST_TEST(f1.parameters().size() == 0);
 	BOOST_TEST(f1.template_parameters().size() == 0);
@@ -178,6 +184,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	f1.is_volatile(true);
 	f1.is_override(true);
 	f1.has_try_block(true);
+	f1.has_trailing_return_type(true);
 	f1.body().statements().emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("2")));
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("T"));
 	f1.catch_blocks().push_back(block);
@@ -185,11 +192,11 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	stream.str("");
 	f1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual int something(int ) const volatile override = 0;\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto something(int ) const volatile override = 0 -> int;\n");
 
 	stream.str("");
 	f1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual int udt::something(int ) const volatile override\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto udt::something(int ) const volatile override -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	auto copy1(f1);
 
@@ -202,6 +209,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(copy1.is_volatile());
 	BOOST_TEST(copy1.is_override());
 	BOOST_TEST(copy1.has_try_block());
+	BOOST_TEST(copy1.has_trailing_return_type());
 	BOOST_TEST(copy1.body().statements().size() == 1);
 	BOOST_TEST(copy1.parameters().size() == 1);
 	BOOST_TEST(copy1.template_parameters().size() == 1);
@@ -210,11 +218,11 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 
 	stream.str("");
 	copy1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual int something(int ) const volatile override = 0;\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto something(int ) const volatile override = 0 -> int;\n");
 
 	stream.str("");
 	copy1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual int udt::something(int ) const volatile override\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto udt::something(int ) const volatile override -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	f1.is_inline(false);
 	f1.is_static(false);
@@ -225,6 +233,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	f1.is_volatile(false);
 	f1.is_override(false);
 	f1.has_try_block(false);
+	f1.has_trailing_return_type(false);
 	f1.body().statements().emplace_back(make_unique<expression_statement>(make_unique<primitive_expression>("1")));
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("U"));
 	f1.catch_blocks().push_back(block);
@@ -249,6 +258,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(!copy1.is_volatile());
 	BOOST_TEST(!copy1.is_override());
 	BOOST_TEST(!copy1.has_try_block());
+	BOOST_TEST(!copy1.has_trailing_return_type());
 	BOOST_TEST(copy1.body().statements().size() == 2);
 	BOOST_TEST(copy1.parameters().size() == 2);
 	BOOST_TEST(copy1.template_parameters().size() == 2);
@@ -278,6 +288,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	c_ref.return_type();
 	c_ref.template_parameters();
 	c_ref.catch_blocks();
+	c_ref.has_trailing_return_type();
 
 	stream.str("");
 	c_ref.write_declaration(stream);
