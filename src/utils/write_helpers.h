@@ -44,11 +44,17 @@ void write_vector(std::ostream &os, const std::vector<T> &parameters)
 	}
 }
 
-void write_definitions(std::ostream &os, const std::vector<functions::constructor> &entities);
-void write_definitions(std::ostream &os, const std::vector<functions::member_function> &entities);
+template<typename T> void write_definitions(std::ostream &os, const std::vector<T> &entities)
+{
+    for (const auto &mf : entities)
+    {
+        mf.write_definition(os);
+        os << endl;
+    }
+}
 
 template <typename T>
-void write_definitions(std::ostream &os, const std::vector<T> &entities)
+void write_definitions(std::ostream &os, const std::vector<copyable_ptr<T>> &entities)
 {
 	for (const auto &e : entities)
 	{
@@ -73,9 +79,44 @@ void write_members(const std::vector<std::pair<types::access_levels, utils::copy
 
 void write_definitions(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream, std::vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog);
 
-void write_declarations(const std::vector<functions::constructor> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream);
-
-void write_declarations(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream);
+template<typename T>
+void write_declarations(const std::vector<T> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream)
+{
+    for (const auto &mf : functions)
+    {
+        switch (mf.accessibility())
+        {
+        case access_levels::private_access:
+            if (mf.template_parameters().size())
+                mf.write_definition(private_stream);
+            else
+                mf.write_declaration(private_stream);
+            private_stream << endl;
+            break;
+        case access_levels::protected_access:
+            if (mf.template_parameters().size())
+                mf.write_definition(protected_stream);
+            else
+                mf.write_declaration(protected_stream);
+            protected_stream << endl;
+            break;
+        case access_levels::public_access:
+            if (mf.template_parameters().size())
+                mf.write_definition(public_stream);
+            else
+                mf.write_declaration(protected_stream);
+            public_stream << endl;
+            break;
+        default:
+            if (mf.template_parameters().size())
+                mf.write_definition(default_stream);
+            else
+                mf.write_declaration(protected_stream);
+            default_stream << endl;
+            break;
+        }
+    }
+}
 
 typedef std::vector<utils::copyable_ptr<types::templates::template_parameter>> template_parameter_list;
 
