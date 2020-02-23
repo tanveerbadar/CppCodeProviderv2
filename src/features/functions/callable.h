@@ -40,6 +40,8 @@ struct callable
 	bool has_function_try_block = false;
 	catch_list catch_blocks;
 	bool is_var_arg = false;
+	bool is_no_except = false;
+	utils::copyable_ptr<expressions::expression> no_except_expr;
 
 	callable() = default;
 	callable(const std::string &, std::shared_ptr<types::type>);

@@ -43,6 +43,8 @@ public:
     ACCESSOR_DECLARATION(lambda_expression, return_type, std::shared_ptr<types::type>)
     ACCESSOR_DECLARATION(lambda_expression, default_capture_mode, capture_mode)
     ACCESSOR_DECLARATION(lambda_expression, is_mutable, bool)
+	ACCESSOR_DECLARATION(lambda_expression, is_no_except, bool)
+	ACCESSOR_DECLARATION(lambda_expression, no_except_expr, utils::copyable_ptr<expressions::expression>)
 
     std::unique_ptr<expression> clone() const override;
     void write(std::ostream &) const override;

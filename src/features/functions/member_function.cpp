@@ -16,8 +16,9 @@ const short container_mask = 0x08;
 } // namespace
 
 using namespace std;
-using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::expressions;
+using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::functions::internals;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
@@ -128,6 +129,8 @@ ACCESSOR_IMPL_2(member_function, is_override, bool, impl.is_override)
 ACCESSOR_IMPL_2(member_function, return_type, shared_ptr<type>, impl.return_type)
 ACCESSOR_IMPL_2(member_function, has_trailing_return_type, bool, impl.has_trailing_return_type)
 ACCESSOR_IMPL_2(member_function, is_var_arg, bool, impl.is_var_arg)
+ACCESSOR_IMPL_2(member_function, is_no_except, bool, impl.is_no_except)
+ACCESSOR_IMPL_2(member_function, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
@@ -171,6 +174,15 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << " override";
 	if (is_final())
 		os << " final";
+    if(impl.is_no_except)
+    {
+        if(impl.no_except_expr)
+        {
+            os << " noexcept(" << *impl.no_except_expr << ")";
+        }
+        else
+            os << " noexcept";
+    }
 	if (impl.is_abstract)
 		os << " = 0";
 
@@ -283,6 +295,16 @@ ostream &member_function::write_definition(ostream &os) const
 		os << " volatile";
 	if (impl.is_override)
 		os << " override";
+
+    if(impl.is_no_except)
+    {
+        if(impl.no_except_expr)
+        {
+            os << " noexcept(" << *impl.no_except_expr << ")";
+        }
+        else
+            os << " noexcept";
+    }
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;

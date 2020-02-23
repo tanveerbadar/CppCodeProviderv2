@@ -17,6 +17,7 @@ using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::formatting;
+using namespace cpp::codeprovider::utils;
 
 BOOST_AUTO_TEST_CASE(binary_expression_tests)
 {
@@ -278,6 +279,8 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	BOOST_TEST(f1->default_capture_mode() == capture_mode::none);
 	BOOST_TEST(f1->captured_variables().size() == 0);
 	BOOST_TEST(!f1->is_mutable());
+	BOOST_TEST(!f1->is_no_except());
+	BOOST_TEST(!f1->no_except_expr().operator->());
 
 	boost::test_tools::output_test_stream stream;
 	auto indent = formatter_settings::settings.get_indent_string();
@@ -285,6 +288,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	stream << *f1;
 	BOOST_TEST(stream.str() == "[](){}");
 
+	f1->is_no_except(true);
 	f1->captured_variables().emplace_back(capture_mode::by_val, make_unique<unary_expression>(expression_type::variable_ref, make_unique<primitive_expression>("abc")));
 	f1->body().statements().emplace_back(make_unique<expression_statement>(make_unique<unary_expression>(expression_type::prefix_increment, make_unique<primitive_expression>("abc"))));
 	f1->parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int"))));
@@ -303,17 +307,17 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	stream.str("");
 	stream << *f1;
-	BOOST_TEST(stream.str() == "[abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "[abc](int ) noexcept\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	auto other = f1->clone();
 	stream.str("");
 	other->write(stream);
-	BOOST_TEST(stream.str() == "[abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "[abc](int ) noexcept\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	f1->default_capture_mode(capture_mode::by_ref);
 	stream.str("");
 	stream << *f1;
-	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "[&, abc](int ) noexcept\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	auto copy1(*f1);
 
@@ -323,6 +327,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	BOOST_TEST(copy1.default_capture_mode() == capture_mode::by_ref);
 	BOOST_TEST(copy1.captured_variables().size() == 1);
 	BOOST_TEST(!copy1.is_mutable());
+	BOOST_TEST(copy1.is_no_except());
 
 	copy1.body();
 	copy1.parameters();
@@ -332,10 +337,11 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	stream.str("");
 	stream << copy1;
-	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "[&, abc](int ) noexcept\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	auto copy2(*f1);
 
+	f1->no_except_expr(copyable_ptr<expression>(make_unique<primitive_expression>("abc")));
 	f1->default_capture_mode(capture_mode::none);
 	f1->captured_variables().emplace_back(capture_mode::by_val, make_unique<unary_expression>(expression_type::variable_ref, make_unique<primitive_expression>("def")));
 	f1->body().statements().emplace_back(make_unique<expression_statement>(make_unique<unary_expression>(expression_type::prefix_increment, make_unique<primitive_expression>("def"))));
@@ -343,7 +349,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	stream.str("");
 	stream << copy2;
-	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "[&, abc](int ) noexcept\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	copy2 = *f1;
 	copy2.is_mutable(true);
@@ -361,6 +367,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	copy2.return_type();
 	copy2.default_capture_mode();
 	copy2.captured_variables();
+	copy2.is_no_except(false);
 
 	stream.str("");
 	stream << copy2;
@@ -373,10 +380,11 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	c_ref.default_capture_mode();
 	c_ref.captured_variables();
 	c_ref.is_mutable();
+	c_ref.is_no_except();
 
 	stream.str("");
 	stream << c_ref;
-	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "[&, abc](int ) noexcept\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 }
 
 namespace
