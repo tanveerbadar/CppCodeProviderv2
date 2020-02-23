@@ -3,13 +3,13 @@
 
 #pragma once
 
+#include "../../utils/dirty_macros.h"
+#include "../internals/write_backlog_entry.h"
+#include "../types/access_levels.h"
+#include "callable.h"
 #include <memory>
 #include <string>
 #include <vector>
-#include "callable.h"
-#include "../internals/write_backlog_entry.h"
-#include "../types/access_levels.h"
-#include "../../utils/dirty_macros.h"
 
 namespace cpp
 {
@@ -66,6 +66,7 @@ public:
 	ACCESSOR_DECLARATION(member_function, is_var_arg, bool);
 	ACCESSOR_DECLARATION(member_function, is_no_except, bool);
 	ACCESSOR_DECLARATION(member_function, no_except_expr, utils::copyable_ptr<expressions::expression>);
+	ACCESSOR_DECLARATION_2(member_function, name, std::string, const std::string &);
 	statements::block_statement &body();
 	const statements::block_statement &body() const;
 	std::ostream &write_declaration(std::ostream &) const;

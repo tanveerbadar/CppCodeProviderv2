@@ -38,6 +38,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(f1.return_type()->get_name() == "int");
 	BOOST_TEST(f1.catch_blocks().size() == 0);
 	BOOST_TEST(!f1.no_except_expr().operator->());
+	BOOST_TEST(f1.name() == "something");
 
 	boost::test_tools::output_test_stream stream;
 	auto indent = formatter_settings::settings.get_indent_string();
@@ -62,14 +63,17 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("T"));
 	f1.catch_blocks().push_back(block);
 	f1.parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int"))));
+	f1.name("abcd");
+
+	BOOST_TEST(f1.name() == "abcd");
 
 	stream.str("");
 	f1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int , ...) noexcept -> int;\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto abcd(int , ...) noexcept -> int;\n");
 
 	stream.str("");
 	f1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int , ...) noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto abcd(int , ...) noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	auto copy1(f1);
 
@@ -85,14 +89,15 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(copy1.template_parameters().size() == 1);
 	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 1);
+	BOOST_TEST(copy1.name() == "abcd");
 
 	stream.str("");
 	copy1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int , ...) noexcept -> int;\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto abcd(int , ...) noexcept -> int;\n");
 
 	stream.str("");
 	copy1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto something(int , ...) noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static auto abcd(int , ...) noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	f1.is_inline(false);
 	f1.is_static(false);
@@ -105,6 +110,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("U"));
 	f1.catch_blocks().push_back(block);
 	f1.parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("T"))));
+	f1.name("something");
 
 	stream.str("");
 	f1.write_declaration(stream);
@@ -127,6 +133,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	BOOST_TEST(copy1.template_parameters().size() == 2);
 	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 2);
+	BOOST_TEST(copy1.name() == "something");
 
 	copy1.is_no_except(false);
 
@@ -149,6 +156,7 @@ BOOST_AUTO_TEST_CASE(function_tests)
 	c_ref.has_trailing_return_type();
 	c_ref.is_var_arg();
 	c_ref.is_no_except();
+	c_ref.name();
 
 	stream.str("");
 	c_ref.write_declaration(stream);
@@ -183,6 +191,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(f1.return_type()->get_name() == "int");
 	BOOST_TEST(f1.catch_blocks().size() == 0);
 	BOOST_TEST(!f1.no_except_expr().operator->());
+	BOOST_TEST(f1.name() == "something");
 
 	boost::test_tools::output_test_stream stream;
 	auto indent = formatter_settings::settings.get_indent_string();
@@ -212,14 +221,17 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("T"));
 	f1.catch_blocks().push_back(block);
 	f1.parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int"))));
+	f1.name("abcd");
+
+	BOOST_TEST(f1.name() == "abcd");
 
 	stream.str("");
 	f1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto something(int , ...) const volatile override final noexcept = 0 -> int;\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto abcd(int , ...) const volatile override final noexcept = 0 -> int;\n");
 
 	stream.str("");
 	f1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto udt::something(int , ...) const volatile override noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto udt::abcd(int , ...) const volatile override noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	auto copy1(f1);
 
@@ -241,14 +253,15 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(copy1.template_parameters().size() == 1);
 	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 1);
+	BOOST_TEST(copy1.name() == "abcd");
 
 	stream.str("");
 	copy1.write_declaration(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto something(int , ...) const volatile override final noexcept = 0 -> int;\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto abcd(int , ...) const volatile override final noexcept = 0 -> int;\n");
 
 	stream.str("");
 	copy1.write_definition(stream);
-	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto udt::something(int , ...) const volatile override noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
+	BOOST_TEST(stream.str() == "template<typename T> constexpr inline static virtual auto udt::abcd(int , ...) const volatile override noexcept -> int\n" + indent + "try\n" + indent + "{\n" + indent + indent + "2;\n" + indent + "}\n" + indent + "catch(...)\n" + indent + "{\n" + indent + "}\n");
 
 	f1.is_inline(false);
 	f1.is_static(false);
@@ -267,6 +280,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	f1.template_parameters().emplace_back(make_unique<template_parameter>("U"));
 	f1.catch_blocks().push_back(block);
 	f1.parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("T"))));
+	f1.name("something");
 
 	stream.str("");
 	f1.write_declaration(stream);
@@ -297,6 +311,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	BOOST_TEST(copy1.template_parameters().size() == 2);
 	BOOST_TEST(copy1.return_type()->get_name() == "int");
 	BOOST_TEST(copy1.catch_blocks().size() == 2);
+	BOOST_TEST(copy1.name() == "something");
 
 	copy1.is_no_except(false);
 
@@ -327,6 +342,7 @@ BOOST_AUTO_TEST_CASE(member_function_tests)
 	c_ref.has_trailing_return_type();
 	c_ref.is_var_arg();
 	c_ref.is_no_except();
+	c_ref.name();
 
 	stream.str("");
 	c_ref.write_declaration(stream);

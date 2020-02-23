@@ -131,6 +131,7 @@ ACCESSOR_IMPL_2(member_function, has_trailing_return_type, bool, impl.has_traili
 ACCESSOR_IMPL_2(member_function, is_var_arg, bool, impl.is_var_arg)
 ACCESSOR_IMPL_2(member_function, is_no_except, bool, impl.is_no_except)
 ACCESSOR_IMPL_2(member_function, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
+ACCESSOR_IMPL_3(member_function, name, string, impl.name, const string&)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
