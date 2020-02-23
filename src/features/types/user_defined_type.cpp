@@ -1,14 +1,15 @@
-#include <sstream>
-#include "template_parameters.h"
 #include "user_defined_type.h"
+#include "../../utils/write_helpers.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../functions/callable.h"
+#include "../functions/constructor.h"
 #include "../functions/function.h"
 #include "../functions/member_function.h"
-#include "../statements/try_statement.h"
-#include "../../utils/write_helpers.h"
 #include "../internals/write_backlog_entry.h"
+#include "../statements/try_statement.h"
+#include "template_parameters.h"
+#include <sstream>
 
 using namespace std;
 using namespace cpp::codeprovider::functions;
@@ -52,6 +53,11 @@ base_list &user_defined_type::bases()
 template_parameter_list &user_defined_type::template_parameters()
 {
 	return impl.template_params;
+}
+
+constructor_list &user_defined_type::constructors()
+{
+	return impl.constructors;
 }
 
 ACCESSOR_IMPL_2(user_defined_type, is_final, bool, final)
@@ -103,9 +109,15 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 	vector<const cpp::codeprovider::internals::write_backlog_entry *> write_backlog;
 
 	if (impl.template_params.size() > 0)
+	{
+		write_definitions(impl.constructors, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 		write_definitions(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream, write_backlog);
+	}
 	else
+	{
+		write_declarations(impl.constructors, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 		write_declarations(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+	}
 
 	os << "private:" << endl;
 	os << private_stream.str() << endl;
@@ -131,6 +143,7 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 
 ostream &user_defined_type::write_definition(ostream &os) const
 {
+	write_definitions(os, impl.constructors);
 	write_definitions(os, impl.functions);
 
 	return os;

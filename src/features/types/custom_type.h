@@ -32,6 +32,7 @@ typedef std::vector<utils::copyable_ptr<templates::template_parameter>> template
 typedef std::vector<functions::member_function> member_function_list;
 typedef std::vector<std::shared_ptr<type>> friend_types_list;
 typedef std::vector<std::shared_ptr<functions::function>> friend_functions_list;
+typedef std::vector<functions::constructor> constructor_list;
 
 struct custom_type
 {
@@ -43,6 +44,7 @@ struct custom_type
     bool is_scoped_enum = false;
     friend_functions_list friend_functions;
     friend_types_list friend_types;
+    constructor_list constructors;
 
     custom_type(type_key);
 

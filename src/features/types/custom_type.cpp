@@ -1,12 +1,13 @@
-#include "base_type.h"
 #include "custom_type.h"
-#include "template_parameters.h"
 #include "../declarations/common.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../functions/callable.h"
+#include "../functions/constructor.h"
 #include "../functions/member_function.h"
 #include "../statements/try_statement.h"
+#include "base_type.h"
+#include "template_parameters.h"
 
 using namespace std;
 using namespace cpp::codeprovider::types::templates;
