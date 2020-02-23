@@ -38,6 +38,8 @@ public:
 	ACCESSOR_DECLARATION(function, has_trailing_return_type, bool);
 	ACCESSOR_DECLARATION(function, return_type, std::shared_ptr<types::type>);
 	ACCESSOR_DECLARATION(function, is_var_arg, bool);
+	ACCESSOR_DECLARATION(function, is_no_except, bool);
+	ACCESSOR_DECLARATION(function, no_except_expr, utils::copyable_ptr<expressions::expression>);
 	statements::block_statement &body();
 	const statements::block_statement &body() const;
 	std::ostream &write_declaration(std::ostream &) const override;

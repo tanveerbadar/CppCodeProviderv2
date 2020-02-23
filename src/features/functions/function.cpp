@@ -9,6 +9,7 @@
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
+using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::functions::internals;
 using namespace cpp::codeprovider::namespaces;
@@ -69,6 +70,8 @@ ACCESSOR_IMPL_2(function, is_static, bool, impl.is_static)
 ACCESSOR_IMPL_2(function, return_type, shared_ptr<type>, impl.return_type)
 ACCESSOR_IMPL_2(function, has_trailing_return_type, bool, impl.has_trailing_return_type)
 ACCESSOR_IMPL_2(function, is_var_arg, bool, impl.is_var_arg)
+ACCESSOR_IMPL_2(function, is_no_except, bool, impl.is_no_except)
+ACCESSOR_IMPL_2(function, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
 
 block_statement &function::body()
 {
@@ -112,6 +115,16 @@ ostream &function::write_declaration(ostream &os) const
 
 	os << ")";
 
+    if(impl.is_no_except)
+    {
+        if(impl.no_except_expr)
+        {
+            os << " noexcept(" << *impl.no_except_expr << ")";
+        }
+        else
+            os << " noexcept";
+    }
+
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name();
 
@@ -151,6 +164,16 @@ ostream &function::write_definition(ostream &os) const
 	}
 
 	os << ")";
+
+    if(impl.is_no_except)
+    {
+        if(impl.no_except_expr)
+        {
+            os << " noexcept(" << *impl.no_except_expr << ")";
+        }
+        else
+            os << " noexcept";
+    }
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;

@@ -78,6 +78,8 @@ const block_statement &lambda_expression::body() const
 ACCESSOR_IMPL_2(lambda_expression, return_type, shared_ptr<type>, impl.return_type)
 ACCESSOR_IMPL_2(lambda_expression, default_capture_mode, capture_mode, default_capture)
 ACCESSOR_IMPL_2(lambda_expression, is_mutable, bool, impl.is_mutable)
+ACCESSOR_IMPL_2(lambda_expression, is_no_except, bool, impl.is_no_except)
+ACCESSOR_IMPL_2(lambda_expression, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
 
 unique_ptr<expression> lambda_expression::clone() const
 {
@@ -100,6 +102,16 @@ void lambda_expression::write(ostream &os) const
     write_vector(os, impl.parameters);
 
     os << ")";
+
+    if(impl.is_no_except)
+    {
+        if(impl.no_except_expr)
+        {
+            os << " noexcept(" << *impl.no_except_expr << ")";
+        }
+        else
+            os << " noexcept";
+    }
 
     if (impl.return_type)
         os << " -> " << impl.return_type->get_name();
