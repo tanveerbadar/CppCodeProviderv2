@@ -1,4 +1,5 @@
 #include "member_function.h"
+#include "../../formatters/formatter_settings.h"
 #include "../../utils/write_helpers.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
@@ -22,6 +23,7 @@ using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::types::templates;
 using namespace cpp::codeprovider::utils;
+using namespace cpp::codeprovider::formatting;
 
 member_function::member_function(const string &n, shared_ptr<type> returns, shared_ptr<user_defined_type> t)
 	: impl(n, returns), udt(t)
@@ -124,15 +126,12 @@ ACCESSOR_IMPL_2(member_function, is_constant, bool, impl.is_constant)
 ACCESSOR_IMPL_2(member_function, is_volatile, bool, impl.is_volatile)
 ACCESSOR_IMPL_2(member_function, is_override, bool, impl.is_override)
 ACCESSOR_IMPL_2(member_function, return_type, shared_ptr<type>, impl.return_type)
+ACCESSOR_IMPL_2(member_function, has_trailing_return_type, bool, impl.has_trailing_return_type)
+ACCESSOR_IMPL_2(member_function, is_var_arg, bool, impl.is_var_arg)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
-	if (impl.template_parameters.size() > 0)
-	{
-		os << "template<";
-		write_vector(os, impl.template_parameters);
-		os << ">";
-	}
+	write_template_parameters(os, impl.template_parameters);
 
 	if (impl.is_const_expr)
 		os << "constexpr ";
@@ -144,13 +143,23 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << "virtual ";
 
 	if (impl.has_trailing_return_type)
-		os << "auto ";
+		os << "auto";
 	else
 		os << impl.return_type->get_name();
 
 	os << " " << impl.name << "(";
 
 	write_vector(os, impl.parameters);
+
+	if (impl.is_var_arg)
+	{
+		if (impl.parameters.empty())
+			os << "...";
+		else
+		{
+			os << ", ...";
+		}
+	}
 
 	os << ")";
 
@@ -174,7 +183,6 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << " &&";
 		break;
 	}
-	os << endl;
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name();
@@ -226,7 +234,6 @@ ostream &member_function::write_definition(ostream &os) const
 		for (auto iter = containers.rbegin(); iter != containers.rend(); ++iter)
 		{
 			(*iter)->write_template_parameters(os);
-			os << ' ';
 		}
 	}
 	write_template_parameters(os, impl.template_parameters);
@@ -258,23 +265,34 @@ ostream &member_function::write_definition(ostream &os) const
 
 	write_vector(os, impl.parameters);
 
+	if (impl.is_var_arg)
+	{
+		if (impl.parameters.empty())
+			os << "...";
+		else
+		{
+			os << ", ...";
+		}
+	}
+
 	os << ")";
 
 	if (impl.is_constant)
 		os << " const";
 	if (impl.is_volatile)
 		os << " volatile";
-	if (impl.is_abstract)
-		os << " = 0";
 	if (impl.is_override)
 		os << " override";
-	os << endl;
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;
+	else
+		os << endl;
+
+	auto indent = formatter_settings::settings.get_indent_string();
 
 	if (impl.has_function_try_block)
-		os << "try" << endl;
+		os << indent << "try" << endl;
 
 	os << impl.statements;
 

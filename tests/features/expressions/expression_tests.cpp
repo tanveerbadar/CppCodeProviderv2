@@ -5,9 +5,9 @@
 #include "../../../src/features/functions/callable.h"
 #include "../../../src/features/statements.h"
 #include "../../../src/features/types.h"
+#include "../../../src/formatters/formatter_settings.h"
 #include <boost/test/output_test_stream.hpp>
 #include <boost/test/unit_test.hpp>
-#include <sstream>
 
 BOOST_AUTO_TEST_SUITE(expression_tests)
 
@@ -16,6 +16,7 @@ using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::expressions;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
+using namespace cpp::codeprovider::formatting;
 
 BOOST_AUTO_TEST_CASE(binary_expression_tests)
 {
@@ -271,6 +272,19 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 {
 	auto f1 = make_unique<lambda_expression>();
 
+	BOOST_TEST(f1->body().statements().size() == 0);
+	BOOST_TEST(f1->parameters().size() == 0);
+	BOOST_TEST(!f1->return_type().operator->());
+	BOOST_TEST(f1->default_capture_mode() == capture_mode::none);
+	BOOST_TEST(f1->captured_variables().size() == 0);
+	BOOST_TEST(!f1->is_mutable());
+
+	boost::test_tools::output_test_stream stream;
+	auto indent = formatter_settings::settings.get_indent_string();
+
+	stream << *f1;
+	BOOST_TEST(stream.str() == "[](){}");
+
 	f1->captured_variables().emplace_back(capture_mode::by_val, make_unique<unary_expression>(expression_type::variable_ref, make_unique<primitive_expression>("abc")));
 	f1->body().statements().emplace_back(make_unique<expression_statement>(make_unique<unary_expression>(expression_type::prefix_increment, make_unique<primitive_expression>("abc"))));
 	f1->parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int"))));
@@ -287,13 +301,19 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	f1->default_capture_mode();
 	f1->captured_variables();
 
-	boost::test_tools::output_test_stream stream;
+	stream.str("");
 	stream << *f1;
+	BOOST_TEST(stream.str() == "[abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	auto other = f1->clone();
+	stream.str("");
 	other->write(stream);
+	BOOST_TEST(stream.str() == "[abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	f1->default_capture_mode(capture_mode::by_ref);
+	stream.str("");
+	stream << *f1;
+	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	auto copy1(*f1);
 
@@ -302,6 +322,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	BOOST_TEST(!copy1.return_type().operator->());
 	BOOST_TEST(copy1.default_capture_mode() == capture_mode::by_ref);
 	BOOST_TEST(copy1.captured_variables().size() == 1);
+	BOOST_TEST(!copy1.is_mutable());
 
 	copy1.body();
 	copy1.parameters();
@@ -309,7 +330,9 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	copy1.default_capture_mode();
 	copy1.captured_variables();
 
+	stream.str("");
 	stream << copy1;
+	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 
 	auto copy2(*f1);
 
@@ -318,13 +341,20 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	f1->body().statements().emplace_back(make_unique<expression_statement>(make_unique<unary_expression>(expression_type::prefix_increment, make_unique<primitive_expression>("def"))));
 	f1->parameters().emplace_back(make_unique<variable_declaration>(declarator_specifier(make_unique<primitive_type>("int"))));
 
+	stream.str("");
+	stream << copy2;
+	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
+
 	copy2 = *f1;
+	copy2.is_mutable(true);
+	copy2.return_type(make_unique<primitive_type>("int"));
 
 	BOOST_TEST(copy2.body().statements().size() == 2);
 	BOOST_TEST(copy2.parameters().size() == 2);
-	BOOST_TEST(!copy2.return_type().operator->());
+	BOOST_TEST(dynamic_cast<const primitive_type&>(*copy2.return_type()).get_name() == "int");
 	BOOST_TEST(copy2.default_capture_mode() == capture_mode::none);
 	BOOST_TEST(copy2.captured_variables().size() == 2);
+	BOOST_TEST(copy2.is_mutable());
 
 	copy2.body();
 	copy2.parameters();
@@ -332,7 +362,9 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	copy2.default_capture_mode();
 	copy2.captured_variables();
 
+	stream.str("");
 	stream << copy2;
+	BOOST_TEST(stream.str() == "[abc, def](int , int ) -> int mutable\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + indent + "++def;\n" + indent + "}\n");
 
 	const auto &c_ref = copy1;
 	c_ref.body();
@@ -340,6 +372,11 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 	c_ref.return_type();
 	c_ref.default_capture_mode();
 	c_ref.captured_variables();
+	c_ref.is_mutable();
+
+	stream.str("");
+	stream << c_ref;
+	BOOST_TEST(stream.str() == "[&, abc](int )\n" + indent + "{\n" + indent + indent + "++abc;\n" + indent + "}\n");
 }
 
 namespace

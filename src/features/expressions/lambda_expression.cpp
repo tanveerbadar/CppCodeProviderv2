@@ -1,11 +1,11 @@
 #include "lambda_expression.h"
-#include "unary_expressions.h"
+#include "../../utils/write_helpers.h"
 #include "../declarations/variable_declaration.h"
 #include "../expressions/common.h"
 #include "../functions/callable.h"
 #include "../statements/try_statement.h"
 #include "../types/template_parameters.h"
-#include "../../utils/write_helpers.h"
+#include "unary_expressions.h"
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
@@ -16,7 +16,7 @@ using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::utils;
 
-ostream &cpp::codeprovider::expressions::operator << (ostream & os, capture_mode capture)
+ostream &cpp::codeprovider::expressions::operator<<(ostream &os, capture_mode capture)
 {
     switch (capture)
     {
@@ -38,9 +38,9 @@ void write_vector(std::ostream &os, const std::vector<std::pair<capture_mode, co
     if (parameters.size() > 0)
     {
         if (parameters.size() > 1)
-            for (auto i = 1; i < parameters.size() - 1; ++i)
-                os << parameters[i].first << *parameters[i].second << ", ";
-        os << parameters[parameters.size() - 1].first << *parameters[parameters.size() - 1].second << std::endl;
+            for (auto i = 0; i < parameters.size() - 1; ++i)
+                os << (parameters[i].first == capture_mode::by_ref ? "&" : "") << *parameters[i].second << ", ";
+        os << (parameters[parameters.size() - 1].first == capture_mode::by_ref ? "&" : "") << *parameters[parameters.size() - 1].second;
     }
 }
 } // namespace
@@ -86,22 +86,34 @@ unique_ptr<expression> lambda_expression::clone() const
 
 void lambda_expression::write(ostream &os) const
 {
-    os << "[ ";
-    os << default_capture;
-    if (captures.size() > 0)
-        os << ", ";
+    os << "[";
+
+    if (default_capture != capture_mode::none)
+    {
+        os << default_capture;
+        if (captures.size() > 0)
+            os << ", ";
+    }
     write_vector(os, captures);
-    os << "] (";
+    os << "](";
 
     write_vector(os, impl.parameters);
 
-    os << ")" << endl;
+    os << ")";
 
     if (impl.return_type)
-        os << " -> " << impl.return_type->get_name() << endl;
+        os << " -> " << impl.return_type->get_name();
 
     if (impl.is_mutable)
         os << " mutable";
 
-    os << impl.statements;
+    if (impl.statements.statements().empty())
+    {
+        if (impl.return_type || impl.is_mutable)
+            os << endl;
+        os << "{}";
+    }
+    else
+        os << endl
+           << impl.statements;
 }
