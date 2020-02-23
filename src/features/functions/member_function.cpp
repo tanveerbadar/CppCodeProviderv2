@@ -174,15 +174,15 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << " override";
 	if (is_final())
 		os << " final";
-    if(impl.is_no_except)
-    {
-        if(impl.no_except_expr)
-        {
-            os << " noexcept(" << *impl.no_except_expr << ")";
-        }
-        else
-            os << " noexcept";
-    }
+	if (impl.is_no_except)
+	{
+		if (impl.no_except_expr)
+		{
+			os << " noexcept(" << *impl.no_except_expr << ")";
+		}
+		else
+			os << " noexcept";
+	}
 	if (impl.is_abstract)
 		os << " = 0";
 
@@ -296,15 +296,15 @@ ostream &member_function::write_definition(ostream &os) const
 	if (impl.is_override)
 		os << " override";
 
-    if(impl.is_no_except)
-    {
-        if(impl.no_except_expr)
-        {
-            os << " noexcept(" << *impl.no_except_expr << ")";
-        }
-        else
-            os << " noexcept";
-    }
+	if (impl.is_no_except)
+	{
+		if (impl.no_except_expr)
+		{
+			os << " noexcept(" << *impl.no_except_expr << ")";
+		}
+		else
+			os << " noexcept";
+	}
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;

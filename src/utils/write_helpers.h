@@ -44,6 +44,7 @@ void write_vector(std::ostream &os, const std::vector<T> &parameters)
 	}
 }
 
+void write_definitions(std::ostream &os, const std::vector<functions::constructor> &entities);
 void write_definitions(std::ostream &os, const std::vector<functions::member_function> &entities);
 
 template <typename T>
@@ -71,6 +72,8 @@ void write_definition_helper(const cpp::codeprovider::functions::member_function
 void write_members(const std::vector<std::pair<types::access_levels, utils::copyable_ptr<declarations::declaration>>> &, std::ostringstream &, std::ostringstream &, std::ostringstream &, std::ostringstream &);
 
 void write_definitions(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream, std::vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog);
+
+void write_declarations(const std::vector<functions::constructor> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream);
 
 void write_declarations(const std::vector<functions::member_function> &functions, std::ostringstream &default_stream, std::ostringstream &private_stream, std::ostringstream &protected_stream, std::ostringstream &public_stream);
 

@@ -1,14 +1,15 @@
-#include <sstream>
-#include "base_type.h"
-#include "template_parameters.h"
 #include "union_type.h"
-#include "../../features/declarations/variable_declaration.h"
-#include "../../features/expressions/common.h"
-#include "../../features/statements/try_statement.h"
-#include "../../features/functions/function.h"
-#include "../../features/functions/member_function.h"
 #include "../../utils/dirty_macros.h"
 #include "../../utils/write_helpers.h"
+#include "../declarations/variable_declaration.h"
+#include "../expressions/common.h"
+#include "../functions/constructor.h"
+#include "../functions/function.h"
+#include "../functions/member_function.h"
+#include "../statements/try_statement.h"
+#include "base_type.h"
+#include "template_parameters.h"
+#include <sstream>
 
 using namespace std;
 using namespace cpp::codeprovider::declarations;
@@ -48,7 +49,7 @@ friend_types_list &union_type::friend_types()
     return impl.friend_types;
 }
 
-ACCESSOR_IMPL_2(union_type, is_final, bool, final)
+//ACCESSOR_IMPL_2(union_type, is_final, bool, final)
 
 unique_ptr<namespace_scope_entity> union_type::clone() const
 {

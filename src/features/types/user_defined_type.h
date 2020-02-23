@@ -3,12 +3,12 @@
 
 #pragma once
 
+#include "../../utils/dirty_macros.h"
+#include "../forward_declarations.h"
+#include "../namespaces/namespace_scope_entity.h"
 #include "base_type.h"
 #include "common.h"
 #include "custom_type.h"
-#include "../forward_declarations.h"
-#include "../namespaces/namespace_scope_entity.h"
-#include "../../utils/dirty_macros.h"
 
 namespace cpp
 {
@@ -38,6 +38,7 @@ public:
 	internals::template_parameter_list &template_parameters();
 	internals::friend_functions_list &friend_functions();
 	internals::friend_types_list &friend_types();
+	internals::constructor_list &constructors();
 	ACCESSOR_DECLARATION(user_defined_type, is_final, bool);
 	ACCESSOR_DECLARATION(user_defined_type, container, std::shared_ptr<user_defined_type>);
 };
