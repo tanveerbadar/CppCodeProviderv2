@@ -45,6 +45,7 @@ public:
 	ACCESSOR_DECLARATION(constructor, accessibility, types::access_levels);
 	ACCESSOR_DECLARATION(constructor, is_no_except, bool);
 	ACCESSOR_DECLARATION(constructor, no_except_expr, utils::copyable_ptr<expressions::expression>);
+	const std::string& name() const;
 
 	std::ostream &write_declaration(std::ostream &) const;
 	std::ostream &write_definition(std::ostream &) const;

@@ -367,6 +367,7 @@ BOOST_AUTO_TEST_CASE(constructor_tests)
 	BOOST_TEST(f1.template_parameters().size() == 0);
 	BOOST_TEST(f1.catch_blocks().size() == 0);
 	BOOST_TEST(!f1.no_except_expr().operator->());
+	BOOST_TEST(f1.name() == "udt");
 
 	boost::test_tools::output_test_stream stream;
 	auto indent = formatter_settings::settings.get_indent_string();
@@ -408,6 +409,7 @@ BOOST_AUTO_TEST_CASE(constructor_tests)
 	BOOST_TEST(copy1.template_parameters().size() == 1);
 	BOOST_TEST(copy1.catch_blocks().size() == 1);
 	BOOST_TEST(copy1.initializers().size() == 1);
+	BOOST_TEST(copy1.name() == "udt");
 
 	stream.str("");
 	copy1.write_declaration(stream);
@@ -467,6 +469,7 @@ BOOST_AUTO_TEST_CASE(constructor_tests)
 	c_ref.template_parameters();
 	c_ref.catch_blocks();
 	c_ref.is_no_except();
+	c_ref.name();
 
 	stream.str("");
 	c_ref.write_declaration(stream);

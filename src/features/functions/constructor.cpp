@@ -19,6 +19,7 @@ using namespace cpp::codeprovider::formatting;
 constructor::constructor(std::shared_ptr<user_defined_type> t)
 	: udt(t)
 {
+	impl.name = t->get_name();
 }
 
 const initializer_list &constructor::initializers() const
@@ -81,6 +82,11 @@ ACCESSOR_IMPL_2(constructor, has_try_block, bool, impl.has_function_try_block)
 ACCESSOR_IMPL_2(constructor, is_constexpr, bool, impl.is_const_expr)
 ACCESSOR_IMPL_2(constructor, is_no_except, bool, impl.is_no_except)
 ACCESSOR_IMPL_2(constructor, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
+
+const std::string& constructor::name() const
+{
+	return impl.name;
+}
 
 std::ostream &constructor::write_declaration(std::ostream &os) const
 {
