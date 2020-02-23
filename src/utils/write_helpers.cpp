@@ -1,5 +1,6 @@
 #include "write_helpers.h"
 #include "../features/declarations/common.h"
+#include "../features/functions/constructor.h"
 #include "../features/functions/member_function.h"
 #include "../features/types/access_levels.h"
 #include "../features/types/template_parameters.h"
@@ -58,6 +59,28 @@ void write_definition_helper(const member_function &mf, ostringstream &stream, v
     stream << endl;
 }
 
+void write_definitions(const vector<constructor> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream)
+{
+    for (const auto &mf : functions)
+    {
+        switch (mf.accessibility())
+        {
+        case access_levels::private_access:
+            mf.write_inline_definition(private_stream);
+            break;
+        case access_levels::protected_access:
+            mf.write_inline_definition(protected_stream);
+            break;
+        case access_levels::public_access:
+            mf.write_inline_definition(public_stream);
+            break;
+        default:
+            mf.write_inline_definition(default_stream);
+            break;
+        }
+    }
+}
+
 void write_definitions(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream, vector<const cpp::codeprovider::internals::write_backlog_entry *> &write_backlog)
 {
     for (const auto &mf : functions)
@@ -80,44 +103,6 @@ void write_definitions(const vector<member_function> &functions, ostringstream &
     }
 }
 
-void write_declarations(const vector<member_function> &functions, ostringstream &default_stream, ostringstream &private_stream, ostringstream &protected_stream, ostringstream &public_stream)
-{
-    for (const auto &mf : functions)
-    {
-        switch (mf.accessibility())
-        {
-        case access_levels::private_access:
-            if (mf.template_parameters().size())
-                mf.write_definition(private_stream);
-            else
-                mf.write_declaration(private_stream);
-            private_stream << endl;
-            break;
-        case access_levels::protected_access:
-            if (mf.template_parameters().size())
-                mf.write_definition(protected_stream);
-            else
-                mf.write_declaration(protected_stream);
-            protected_stream << endl;
-            break;
-        case access_levels::public_access:
-            if (mf.template_parameters().size())
-                mf.write_definition(public_stream);
-            else
-                mf.write_declaration(protected_stream);
-            public_stream << endl;
-            break;
-        default:
-            if (mf.template_parameters().size())
-                mf.write_definition(default_stream);
-            else
-                mf.write_declaration(protected_stream);
-            default_stream << endl;
-            break;
-        }
-    }
-}
-
 void write_template_parameters(ostream &os, const template_parameter_list &params)
 {
     if (params.size() > 0)
@@ -125,15 +110,6 @@ void write_template_parameters(ostream &os, const template_parameter_list &param
         os << "template<";
         write_vector(os, params);
         os << "> ";
-    }
-}
-
-void write_definitions(std::ostream &os, const std::vector<member_function> &entities)
-{
-    for (const auto &mf : entities)
-    {
-        mf.write_definition(os);
-        os << endl;
     }
 }
 

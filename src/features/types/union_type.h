@@ -35,7 +35,7 @@ public:
     internals::template_parameter_list &template_parameters();
     internals::friend_functions_list &friend_functions();
     internals::friend_types_list &friend_types();
-    ACCESSOR_DECLARATION(union_type, is_final, bool)
+//    ACCESSOR_DECLARATION(union_type, is_final, bool);
 };
 } // namespace types
 } // namespace codeprovider

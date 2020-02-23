@@ -35,4 +35,16 @@
         return field_name;                                                  \
     }
 
+#define ACCESSOR_IMPL_3(typeName, accessor_name, accessor_type, field_name, parameter_type) \
+    typeName &typeName::accessor_name(parameter_type val)                    \
+    {                                                                       \
+        field_name = val;                                                   \
+        return *this;                                                       \
+    }                                                                       \
+                                                                            \
+    accessor_type typeName::accessor_name() const                           \
+    {                                                                       \
+        return field_name;                                                  \
+    }
+
 #endif

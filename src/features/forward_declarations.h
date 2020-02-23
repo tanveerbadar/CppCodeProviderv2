@@ -45,6 +45,7 @@ namespace functions
 {
 class function;
 class member_function;
+class constructor;
 
 namespace internals
 {

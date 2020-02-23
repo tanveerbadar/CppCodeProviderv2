@@ -72,6 +72,7 @@ ACCESSOR_IMPL_2(function, has_trailing_return_type, bool, impl.has_trailing_retu
 ACCESSOR_IMPL_2(function, is_var_arg, bool, impl.is_var_arg)
 ACCESSOR_IMPL_2(function, is_no_except, bool, impl.is_no_except)
 ACCESSOR_IMPL_2(function, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
+ACCESSOR_IMPL_3(function, name, string, impl.name, const string&)
 
 block_statement &function::body()
 {

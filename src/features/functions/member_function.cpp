@@ -131,6 +131,7 @@ ACCESSOR_IMPL_2(member_function, has_trailing_return_type, bool, impl.has_traili
 ACCESSOR_IMPL_2(member_function, is_var_arg, bool, impl.is_var_arg)
 ACCESSOR_IMPL_2(member_function, is_no_except, bool, impl.is_no_except)
 ACCESSOR_IMPL_2(member_function, no_except_expr, copyable_ptr<expression>, impl.no_except_expr)
+ACCESSOR_IMPL_3(member_function, name, string, impl.name, const string&)
 
 ostream &member_function::write_declaration(ostream &os) const
 {
@@ -174,15 +175,15 @@ ostream &member_function::write_declaration(ostream &os) const
 		os << " override";
 	if (is_final())
 		os << " final";
-    if(impl.is_no_except)
-    {
-        if(impl.no_except_expr)
-        {
-            os << " noexcept(" << *impl.no_except_expr << ")";
-        }
-        else
-            os << " noexcept";
-    }
+	if (impl.is_no_except)
+	{
+		if (impl.no_except_expr)
+		{
+			os << " noexcept(" << *impl.no_except_expr << ")";
+		}
+		else
+			os << " noexcept";
+	}
 	if (impl.is_abstract)
 		os << " = 0";
 
@@ -296,15 +297,15 @@ ostream &member_function::write_definition(ostream &os) const
 	if (impl.is_override)
 		os << " override";
 
-    if(impl.is_no_except)
-    {
-        if(impl.no_except_expr)
-        {
-            os << " noexcept(" << *impl.no_except_expr << ")";
-        }
-        else
-            os << " noexcept";
-    }
+	if (impl.is_no_except)
+	{
+		if (impl.no_except_expr)
+		{
+			os << " noexcept(" << *impl.no_except_expr << ")";
+		}
+		else
+			os << " noexcept";
+	}
 
 	if (impl.has_trailing_return_type)
 		os << " -> " << impl.return_type->get_name() << endl;
