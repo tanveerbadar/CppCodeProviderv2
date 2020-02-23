@@ -2,7 +2,7 @@
 
 #include "../../../src/features/declarations.h"
 #include "../../../src/features/expressions.h"
-#include "../../../src/features/functions/callable.h"
+#include "../../../src/features/functions.h"
 #include "../../../src/features/statements.h"
 #include "../../../src/features/types.h"
 #include "../../../src/formatters/formatter_settings.h"
@@ -12,8 +12,10 @@
 BOOST_AUTO_TEST_SUITE(expression_tests)
 
 using namespace std;
+using f = cpp::codeprovider::functions::function;
 using namespace cpp::codeprovider::declarations;
 using namespace cpp::codeprovider::expressions;
+using namespace cpp::codeprovider::functions;
 using namespace cpp::codeprovider::statements;
 using namespace cpp::codeprovider::types;
 using namespace cpp::codeprovider::formatting;
@@ -357,7 +359,7 @@ BOOST_AUTO_TEST_CASE(lambda_expression_tests)
 
 	BOOST_TEST(copy2.body().statements().size() == 2);
 	BOOST_TEST(copy2.parameters().size() == 2);
-	BOOST_TEST(dynamic_cast<const primitive_type&>(*copy2.return_type()).get_name() == "int");
+	BOOST_TEST(dynamic_cast<const primitive_type &>(*copy2.return_type()).get_name() == "int");
 	BOOST_TEST(copy2.default_capture_mode() == capture_mode::none);
 	BOOST_TEST(copy2.captured_variables().size() == 2);
 	BOOST_TEST(copy2.is_mutable());
@@ -465,6 +467,23 @@ BOOST_AUTO_TEST_CASE(fold_expression_tests)
 		c_ref.fold_type();
 		c_ref.write(stream);
 	}
+}
+
+template<typename T> void run_callable_tests(shared_ptr<T> c)
+{
+	auto r = make_unique<callable_reference_expression>(c);
+}
+
+BOOST_AUTO_TEST_CASE(callable_reference_expression_tests)
+{
+	auto udt = make_shared<user_defined_type>("udt");
+	auto f1 = make_shared<f>("f1", udt);
+	auto mf = make_shared<member_function>("mf", udt, udt);
+	auto le = make_shared<lambda_expression>();
+
+	run_callable_tests(f1);
+	run_callable_tests(mf);
+	run_callable_tests(le);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

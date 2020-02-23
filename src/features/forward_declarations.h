@@ -10,6 +10,7 @@ namespace codeprovider
 namespace expressions
 {
 class expression;
+class lambda_expression;
 }
 
 namespace types

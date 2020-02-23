@@ -10,5 +10,6 @@
 #include "expressions/primitive_expression.h"
 #include "expressions/ternary_expression.h"
 #include "expressions/unary_expressions.h"
+#include "expressions/callable_reference_expression.h"
 
 #endif // ! EXPRESSION_HEADER
