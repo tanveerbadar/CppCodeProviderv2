@@ -68,6 +68,7 @@ ACCESSOR_IMPL_2(function, is_constexpr, bool, impl.is_const_expr)
 ACCESSOR_IMPL_2(function, is_static, bool, impl.is_static)
 ACCESSOR_IMPL_2(function, return_type, shared_ptr<type>, impl.return_type)
 ACCESSOR_IMPL_2(function, has_trailing_return_type, bool, impl.has_trailing_return_type)
+ACCESSOR_IMPL_2(function, is_var_arg, bool, impl.is_var_arg)
 
 block_statement &function::body()
 {
@@ -99,6 +100,16 @@ ostream &function::write_declaration(ostream &os) const
 
 	write_vector(os, impl.parameters);
 
+	if (impl.is_var_arg)
+	{
+		if (impl.parameters.empty())
+			os << "...";
+		else
+		{
+			os << ", ...";
+		}
+	}
+
 	os << ")";
 
 	if (impl.has_trailing_return_type)
@@ -128,6 +139,16 @@ ostream &function::write_definition(ostream &os) const
 	os << " " << impl.name << "(";
 
 	write_vector(os, impl.parameters);
+
+	if (impl.is_var_arg)
+	{
+		if (impl.parameters.empty())
+			os << "...";
+		else
+		{
+			os << ", ...";
+		}
+	}
 
 	os << ")";
 

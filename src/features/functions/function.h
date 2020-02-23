@@ -37,6 +37,7 @@ public:
 	ACCESSOR_DECLARATION(function, has_try_block, bool);
 	ACCESSOR_DECLARATION(function, has_trailing_return_type, bool);
 	ACCESSOR_DECLARATION(function, return_type, std::shared_ptr<types::type>);
+	ACCESSOR_DECLARATION(function, is_var_arg, bool);
 	statements::block_statement &body();
 	const statements::block_statement &body() const;
 	std::ostream &write_declaration(std::ostream &) const override;

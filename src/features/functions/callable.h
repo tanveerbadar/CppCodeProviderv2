@@ -39,6 +39,7 @@ struct callable
 	bool is_mutable = false;
 	bool has_function_try_block = false;
 	catch_list catch_blocks;
+	bool is_var_arg = false;
 
 	callable() = default;
 	callable(const std::string &, std::shared_ptr<types::type>);

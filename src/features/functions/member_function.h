@@ -63,6 +63,7 @@ public:
 	ACCESSOR_DECLARATION(member_function, return_type, std::shared_ptr<types::type>)
 	ACCESSOR_DECLARATION(member_function, is_final, bool)
 	ACCESSOR_DECLARATION(member_function, has_trailing_return_type, bool)
+	ACCESSOR_DECLARATION(member_function, is_var_arg, bool)
 	statements::block_statement &body();
 	const statements::block_statement &body() const;
 	std::ostream &write_declaration(std::ostream &) const;
