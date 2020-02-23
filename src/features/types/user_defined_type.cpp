@@ -106,14 +106,18 @@ ostream &user_defined_type::write_declaration(ostream &os) const
 	ostringstream private_stream, protected_stream, public_stream;
 	write_members(impl.fields, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 
-	write_declarations(impl.constructors, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
-
 	vector<const cpp::codeprovider::internals::write_backlog_entry *> write_backlog;
 
 	if (impl.template_params.size() > 0)
+	{
+		write_definitions(impl.constructors, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 		write_definitions(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream, write_backlog);
+	}
 	else
+	{
+		write_declarations(impl.constructors, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
 		write_declarations(impl.functions, impl.is_class() ? private_stream : public_stream, private_stream, protected_stream, public_stream);
+	}
 
 	os << "private:" << endl;
 	os << private_stream.str() << endl;

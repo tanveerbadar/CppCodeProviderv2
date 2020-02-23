@@ -125,6 +125,32 @@ void write_vector(std::ostream &os, const initializer_list &init)
 	}
 }
 
+class constructor::write_definition_helper
+{
+	const constructor *fn;
+
+public:
+	write_definition_helper(const constructor *f)
+		: fn(f)
+	{
+		fn->inline_definition = true;
+	}
+
+	~write_definition_helper()
+	{
+		fn->inline_definition = false;
+	}
+};
+
+std::ostream &constructor::write_inline_definition(std::ostream &os) const
+{
+	write_definition_helper helper(this);
+
+	write_definition(os);
+
+	return os;
+}
+
 std::ostream &constructor::write_definition(std::ostream &os) const
 {
 	std::vector<user_defined_type *> containers;

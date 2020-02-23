@@ -20,7 +20,11 @@ class constructor
 	std::shared_ptr<types::user_defined_type> udt;
 	types::access_levels access;
 	functions::initializer_list init_list;
-	bool inline_definition = false;
+	mutable bool inline_definition = false;
+
+	class write_definition_helper;
+
+	friend class write_definition_helper;
 
 public:
 	constructor(std::shared_ptr<types::user_defined_type>);
@@ -44,6 +48,7 @@ public:
 
 	std::ostream &write_declaration(std::ostream &) const;
 	std::ostream &write_definition(std::ostream &) const;
+	std::ostream &write_inline_definition(std::ostream &) const;
 };
 } // namespace functions
 } // namespace codeprovider
