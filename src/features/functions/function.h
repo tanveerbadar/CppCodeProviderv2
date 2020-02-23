@@ -40,6 +40,7 @@ public:
 	ACCESSOR_DECLARATION(function, is_var_arg, bool);
 	ACCESSOR_DECLARATION(function, is_no_except, bool);
 	ACCESSOR_DECLARATION(function, no_except_expr, utils::copyable_ptr<expressions::expression>);
+	ACCESSOR_DECLARATION_2(function, name, std::string, const std::string&);
 	statements::block_statement &body();
 	const statements::block_statement &body() const;
 	std::ostream &write_declaration(std::ostream &) const override;
